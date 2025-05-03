@@ -20,13 +20,13 @@ export const HomeHeader = () => {
 
 const styles = StyleSheet.create({
     container: {
-        height: 50,
+        height: 70,
         backgroundColor: Colors.fondo,
         paddingHorizontal: 20,
-        flexDirection: "row",         // ← fila
-        justifyContent: "space-between", // ← separación máxima
-        alignItems: "center",         // ← centrado vertical
-    },
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "flex-start",
+      },
     logo: {
         color: Colors.purpura,
         fontSize: 24,
@@ -42,6 +42,6 @@ const styles = StyleSheet.create({
         padding: 5,
     },
     filterButtonText: {
-        color: "#FFFFFF",
+        color: "#FFF",
     },
 });
