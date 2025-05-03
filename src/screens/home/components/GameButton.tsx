@@ -52,6 +52,7 @@ const styles = StyleSheet.create({
         marginVertical: 10,
     },
     playSection: {
+        // TODO: hay que hacer que se vaya hacia abajo
         alignItems: 'flex-end',
     },
     title: {

@@ -2,7 +2,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Stack } from 'expo-router';
 
 
-export const RootLayout = () => (
+const RootLayout = () => (
   <SafeAreaView style={{ flex: 1}}>
     <Stack
       screenOptions={{
@@ -11,7 +11,9 @@ export const RootLayout = () => (
         headerTitleAlign: "center",
       }}
     >
-      <Stack.Screen name="detail/[audioVisualId]" options={{ headerShown: true }} />
+      <Stack.Screen name="detail/[audioVisualId]" options={{ headerShown: false }} />
     </Stack>
   </SafeAreaView>
 );
+
+export default RootLayout;

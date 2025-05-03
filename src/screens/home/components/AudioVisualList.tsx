@@ -9,12 +9,6 @@ interface AudioVisualListProps {
     tipoId: number
 }
 
-function capitalize(texto: string): string {
-    return texto.length === 0
-        ? ""
-        : texto[0].toUpperCase() + texto.slice(1).toLowerCase();
-}
-
 export const AudioVisualList: React.FC<AudioVisualListProps> = ({ tipoId }) => {
     const tipo: ITipoContenidoAudiovisual | undefined = tiposContenidoAudiovisual.find(
         (t) => t.id === tipoId
@@ -28,7 +22,7 @@ export const AudioVisualList: React.FC<AudioVisualListProps> = ({ tipoId }) => {
     return (
         <View style={styles.container}>
             <View style={styles.headerContainer}>
-                <TextPressStart2P style={styles.header}>{capitalize(tipo.plural)}</TextPressStart2P>
+                <TextPressStart2P style={styles.header}>{tipo.plural.toUpperCase()}</TextPressStart2P>
             </View>
             <FlatList
                 data={data}
@@ -63,7 +57,7 @@ const styles = StyleSheet.create({
     },
     header: {
         fontSize: 20,
-        fontWeight: '600',
+        fontWeight: 'bold',
         color: '#FFF',
     },
     listContent: {
