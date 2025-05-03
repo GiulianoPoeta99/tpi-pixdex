@@ -47,21 +47,26 @@ const styles = StyleSheet.create({
         borderWidth: 4,
         borderColor: Colors.grisOscuro,
         padding: 20,
-        flex: 1
+        paddingTop: 40,
+        flex: 1,
     },
     headerContainer: {
-        alignSelf: 'flex-start',
+        position: 'absolute',
+        top: -19,
+        left: 20,
         backgroundColor: Colors.purpura,
         borderWidth: 2,
         borderColor: Colors.purpuraClaro,
+        zIndex: 1,
+        paddingHorizontal: 8,
+        paddingVertical: 4,
     },
     header: {
-        padding: 5,
         fontSize: 20,
         fontWeight: '600',
         color: '#FFF',
     },
     listContent: {
-        gap: 20
+        gap: 20,
     },
 });

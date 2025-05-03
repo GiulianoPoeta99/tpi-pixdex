@@ -46,6 +46,6 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         justifyContent: "space-between",
         padding: 20,
-        gap: 20
+        gap: 30
     }
 });
