@@ -1,7 +1,7 @@
 import { TextPressStart2P } from "@/src/components/TextPressStart2P"
 import { Colors } from "@/src/constants/Colors";
-import { Href, Link} from "expo-router"
-import { StyleProp, StyleSheet, ViewStyle, Text, View } from "react-native"
+import { Href, useRouter } from "expo-router"
+import { StyleProp, StyleSheet, ViewStyle, Text, View, TouchableOpacity } from "react-native"
 
 interface GameButtonProps {
     title: string;
@@ -10,19 +10,31 @@ interface GameButtonProps {
     url: Href;
 }
 
-export const GameButton: React.FC<GameButtonProps> = ({title, description, buttonColor, url}) => {
+export const GameButton: React.FC<GameButtonProps> = ({ title, description, buttonColor, url }) => {
+    const router = useRouter();
+
+    const handlePress = () => {
+        router.push(url);
+    };
+
     return (
-        <Link href={url} style={[styles.container, buttonColor]}>
+        <TouchableOpacity
+            style={[styles.container, buttonColor]}
+            activeOpacity={0.7}
+            onPress={handlePress}
+        >
             <View style={styles.section}>
-                <TextPressStart2P style={styles.title}>{ title }</TextPressStart2P>
+                <TextPressStart2P style={styles.title}>{title}</TextPressStart2P>
             </View>
-            <View style={[styles.section, { marginTop: 5}]}>
-                <Text style={styles.description}>{ description }</Text>
+
+            <View style={styles.section}>
+                <Text style={styles.description}>{description}</Text>
             </View>
+
             <View style={[styles.section, styles.playSection]}>
                 <TextPressStart2P style={styles.play}>Jugar</TextPressStart2P>
             </View>
-        </Link>
+        </TouchableOpacity>
     )
 }
 
@@ -37,6 +49,10 @@ const styles = StyleSheet.create({
     },
     section: {
         width: '100%',
+        marginVertical: 10,
+    },
+    playSection: {
+        alignItems: 'flex-end',
     },
     title: {
         color: '#FFF',
@@ -46,9 +62,6 @@ const styles = StyleSheet.create({
     description: {
         color: '#FFF',
         fontSize: 20,
-    },
-    playSection: {
-        alignItems: 'flex-end',
     },
     play: {
         color: '#FFF',

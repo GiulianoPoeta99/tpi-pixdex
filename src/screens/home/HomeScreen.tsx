@@ -1,18 +1,20 @@
 import { Colors } from "@/src/constants/Colors";
-import { StyleSheet, View } from "react-native";
+import { ScrollView, StyleSheet, View } from "react-native";
 import { HomeHeader } from "./components/HomeHeader";
 import { GameButton } from "./components/GameButton";
 import { ROUTES } from "@/src/navigation/routes";
+import { AudioVisualList } from "./components/AudioVisualList";
 
 export const HomeScreen = () => {
     return (
-        <View style={styles.screenContainer}>
+        <ScrollView style={styles.container}>
             <HomeHeader />
-            <View style={styles.buttonRow}>
+
+            <View style={styles.buttonContainer}>
                 <GameButton
                     title="Desafío del Ahorcado"
                     description="Adivina los títulos letra por letra. ¿Cuántos puedes identificar?"
-                    buttonColor={[{ backgroundColor: Colors.purpura, marginRight: 12 }]}
+                    buttonColor={{ backgroundColor: Colors.purpura }}
                     url={ROUTES.HANG_MAN}
                 />
                 <GameButton
@@ -22,16 +24,28 @@ export const HomeScreen = () => {
                     url={ROUTES.PIXEL_REVEAL}
                 />
             </View>
-        </View>
+
+            <View style={styles.scrollsContainer}>
+                <AudioVisualList tipoId={1} />
+                <AudioVisualList tipoId={2} />
+                <AudioVisualList tipoId={3} />
+            </View>
+        </ScrollView>
     );
 }
 
 const styles = StyleSheet.create({
-    screenContainer: { flex: 1, backgroundColor: Colors.fondo },
-    buttonRow: {
+    container: { flex: 1, backgroundColor: Colors.fondo },
+    buttonContainer: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        paddingHorizontal: 16,
-        marginTop: 20,
-      },
+        padding: 20,
+        gap: 20
+    },
+    scrollsContainer : {
+        flexDirection: "column",
+        justifyContent: "space-between",
+        padding: 20,
+        gap: 20
+    }
 });

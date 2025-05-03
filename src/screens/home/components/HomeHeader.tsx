@@ -10,9 +10,9 @@ export const HomeHeader = () => {
     return (
         <View style={[styles.container, { paddingTop }]}>
             <TextPressStart2P style={styles.logo}>Pixdex</TextPressStart2P>
-            <TouchableOpacity style={styles.filterButton}>
+            <TouchableOpacity style={styles.filterButton} activeOpacity={0.7}>
                 {/* Aquí tu ícono de engranaje */}
-                <TextPressStart2P style={styles.filterButtonText}>Filtrar</TextPressStart2P>
+                <TextPressStart2P style={styles.filterButtonText}>FILTRAR</TextPressStart2P>
             </TouchableOpacity>
         </View>
     );
@@ -20,7 +20,7 @@ export const HomeHeader = () => {
 
 const styles = StyleSheet.create({
     container: {
-        height: 70,
+        height: 100,
         backgroundColor: Colors.fondo,
         paddingHorizontal: 20,
         flexDirection: "row",
@@ -43,5 +43,6 @@ const styles = StyleSheet.create({
     },
     filterButtonText: {
         color: "#FFF",
+        padding: 5
     },
 });
