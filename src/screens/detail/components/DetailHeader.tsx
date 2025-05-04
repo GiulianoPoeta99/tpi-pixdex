@@ -27,7 +27,7 @@ export const DetailHeader = () => {
 
 const styles = StyleSheet.create({
     container: {
-        height: 50,
+        height: 55,
         backgroundColor: Colors.fondo,
         paddingHorizontal: 20,
         flexDirection: "row",
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     logo: {
         color: Colors.purpura,
         fontSize: 24,
-        fontWeight: "bold",
+        // fontWeight: "bold",
     },
     filterButton: {
         borderWidth: 1,

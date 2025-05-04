@@ -20,7 +20,7 @@ export const HomeHeader = () => {
 
 const styles = StyleSheet.create({
     container: {
-        height: 100,
+        height: 70,
         backgroundColor: Colors.fondo,
         paddingHorizontal: 20,
         flexDirection: "row",
@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     logo: {
         color: Colors.purpura,
         fontSize: 24,
-        fontWeight: "bold",
+        // fontWeight: "bold",
     },
     filterButton: {
         borderWidth: 1,

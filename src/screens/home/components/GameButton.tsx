@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     title: {
         color: '#FFF',
         fontSize: 36,
-        fontWeight: 'bold',
+        // fontWeight: 'bold', // esto en android no anda
     },
     description: {
         color: '#FFF',
@@ -67,6 +67,6 @@ const styles = StyleSheet.create({
     play: {
         color: '#FFF',
         fontSize: 12,
-        fontWeight: 'bold',
+        // fontWeight: 'bold',
     }
 })
