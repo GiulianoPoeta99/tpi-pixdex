@@ -24,7 +24,7 @@ export const DetailScreen: React.FC<DetailScreenProps> = ({ audioVisualId }) => 
 
     return (
         <ScrollView style={styles.container}>
-            <DetailHeader/>
+            <DetailHeader />
             <View style={styles.cardContainer}>
                 {tipo && contenidoAudioVisual && (
                     <AudioVisualCardExtended item={contenidoAudioVisual} tipo={tipo} generos={generos} />

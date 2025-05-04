@@ -3,17 +3,20 @@ import { Stack } from 'expo-router';
 
 
 const RootLayout = () => (
-  <SafeAreaView style={{ flex: 1}}>
-    <Stack
-      screenOptions={{
-        headerShown: false,
-        headerBackButtonDisplayMode: "minimal",
-        headerTitleAlign: "center",
-      }}
-    >
-      <Stack.Screen name="detail/[audioVisualId]" options={{ headerShown: false }} />
-    </Stack>
-  </SafeAreaView>
+    <SafeAreaView style={{ flex: 1 }}>
+        <Stack
+            screenOptions={{
+                headerShown: false,
+                headerBackButtonDisplayMode: "minimal",
+                headerTitleAlign: "center",
+            }}
+        >
+            <Stack.Screen name="detail/[audioVisualId]" options={{ headerShown: false }} />
+            <Stack.Screen name="hang-man" options={{ headerShown: false }} />
+            <Stack.Screen name="pixel-reveal" options={{ headerShown: false }} />
+
+        </Stack>
+    </SafeAreaView>
 );
 
 export default RootLayout;

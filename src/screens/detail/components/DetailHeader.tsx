@@ -27,7 +27,7 @@ export const DetailHeader = () => {
 
 const styles = StyleSheet.create({
     container: {
-        height: 100,
+        height: 50,
         backgroundColor: Colors.fondo,
         paddingHorizontal: 20,
         flexDirection: "row",

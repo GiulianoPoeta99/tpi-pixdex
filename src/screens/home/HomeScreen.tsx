@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
         padding: 20,
         gap: 20
     },
-    scrollsContainer : {
+    scrollsContainer: {
         flexDirection: "column",
         justifyContent: "space-between",
         padding: 20,

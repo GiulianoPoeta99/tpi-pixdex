@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "flex-start",
-      },
+    },
     logo: {
         color: Colors.purpura,
         fontSize: 24,
