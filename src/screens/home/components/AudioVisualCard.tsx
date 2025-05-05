@@ -143,6 +143,6 @@ const styles = StyleSheet.create({
     },
     generoText: {
         color: '#FFF',
-        fontSize: Platform.OS === "web" ? 18 : 10
+        fontSize: Platform.OS === "web" ? 16: 10
     },
 });

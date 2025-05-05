@@ -1,16 +1,12 @@
 import { TextPressStart2P } from "@/src/components/TextPressStart2P";
 import { Colors } from "@/src/constants/Colors";
 import { Platform, StyleSheet, TouchableOpacity, View } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { MaterialIcons } from "@expo/vector-icons";
 
 
 export const HomeHeader = () => {
-    const { top } = useSafeAreaInsets();
-    const paddingTop = Platform.OS === "ios" ? top + 20 : 20;
-
     return (
-        <View style={[styles.container, { paddingTop }]}>
+        <View style={styles.container}>
             <TextPressStart2P style={styles.logo}>Pixdex</TextPressStart2P>
             <TouchableOpacity style={styles.filterButton} activeOpacity={0.7}>
                 <TextPressStart2P style={styles.filterButtonText}>
@@ -21,9 +17,17 @@ export const HomeHeader = () => {
     );
 };
 
+let height = 70
+if (Platform.OS === "android") {
+    height = 50
+} else if (Platform.OS === "ios") {
+    height = 100
+}
+
 const styles = StyleSheet.create({
     container: {
-        height: Platform.OS === "web" ? 70 : 50,
+        paddingTop: Platform.OS === "ios" ? 45 : 20,
+        height: height,
         backgroundColor: Colors.fondo,
         paddingHorizontal: 20,
         flexDirection: "row",

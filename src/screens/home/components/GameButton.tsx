@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     },
     title: {
         color: '#FFF',
-        fontSize: Platform.OS === "web" ? 36 : 13,
+        fontSize: Platform.OS === "web" ? 36 : 12,
         // fontWeight: 'bold', // esto en android no anda
     },
     description: {
