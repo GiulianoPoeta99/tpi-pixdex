@@ -1,5 +1,5 @@
 import { Colors } from "@/src/constants/Colors";
-import { ScrollView, StyleSheet, View } from "react-native";
+import { Platform, ScrollView, StyleSheet, View } from "react-native";
 import { HomeHeader } from "./components/HomeHeader";
 import { GameButton } from "./components/GameButton";
 import { ROUTES } from "@/src/navigation/routes";
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         padding: 20,
-        gap: 20
+        gap: Platform.OS === "web" ? 20 : 14
     },
     scrollsContainer: {
         flexDirection: "column",

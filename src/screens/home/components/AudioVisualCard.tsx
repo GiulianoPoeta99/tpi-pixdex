@@ -18,8 +18,8 @@ import { ROUTES } from "@/src/navigation/routes";
 
 interface AudioVisualCardProps {
     item: ContenidoAudiovisual;
-    fixedHeight?: number;                  // altura forzada desde padre
-    onMeasure?: (height: number) => void;  // callback para medir altura
+    fixedHeight?: number;
+    onMeasure?: (height: number) => void;
 }
 
 function capitalize(texto: string): string {
@@ -53,7 +53,7 @@ export const AudioVisualCard: React.FC<AudioVisualCardProps> = ({
                 style={[
                     styles.card,
                     { width: CARD_WIDTH },
-                    fixedHeight != null ? { minHeight: fixedHeight } : undefined  // [CAMBIO] usar minHeight en vez de height
+                    fixedHeight != null ? { minHeight: fixedHeight } : undefined
                 ]}
                 onLayout={(e: LayoutChangeEvent) => {
                     const { height } = e.nativeEvent.layout;
@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
         padding: 15,
     },
     titleText: {
-        fontSize: 12,
+        fontSize: Platform.OS === "web" ? 20 : 12,
         color: '#FFF',
     },
     generosContainer: {
@@ -143,5 +143,6 @@ const styles = StyleSheet.create({
     },
     generoText: {
         color: '#FFF',
+        fontSize: Platform.OS === "web" ? 18 : 10
     },
 });

@@ -20,7 +20,7 @@ export const HomeHeader = () => {
 
 const styles = StyleSheet.create({
     container: {
-        height: 70,
+        height: Platform.OS === "web" ? 70 : 50,
         backgroundColor: Colors.fondo,
         paddingHorizontal: 20,
         flexDirection: "row",
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     },
     logo: {
         color: Colors.purpura,
-        fontSize: 24,
+        fontSize: Platform.OS === "web" ? 24 : 14,
         // fontWeight: "bold",
     },
     filterButton: {
@@ -43,6 +43,8 @@ const styles = StyleSheet.create({
     },
     filterButtonText: {
         color: "#FFF",
-        padding: 5
+        paddingHorizontal: 5,
+        paddingTop: Platform.OS === "web" ? 0 : 5,
+        fontSize: Platform.OS === "web" ? 15 : 8,
     },
 });

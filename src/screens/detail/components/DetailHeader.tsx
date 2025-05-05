@@ -27,7 +27,7 @@ export const DetailHeader = () => {
 
 const styles = StyleSheet.create({
     container: {
-        height: 55,
+        height: 56,
         backgroundColor: Colors.fondo,
         paddingHorizontal: 20,
         flexDirection: "row",
@@ -50,6 +50,7 @@ const styles = StyleSheet.create({
     },
     filterButtonText: {
         color: "#FFF",
-        padding: 5
+        paddingHorizontal: 5,
+        paddingTop: Platform.OS === "web" ? 0 : 5
     },
 });

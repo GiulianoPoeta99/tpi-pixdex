@@ -1,9 +1,9 @@
 import { TextPressStart2P } from "@/src/components/TextPressStart2P";
 import { Colors } from "@/src/constants/Colors";
 import React, { useState } from 'react';
-import { FlatList, StyleSheet, View, Text } from "react-native";
-import { ITipoContenidoAudiovisual, tiposContenidoAudiovisual } from '@/src/data/tiposContenidoAudiovisual';
-import { ContenidoAudiovisual, contenidosAudiovisuales } from '@/src/data/contenidosAudiovisuales';
+import { Platform, FlatList, StyleSheet, View } from "react-native";
+import { tiposContenidoAudiovisual } from '@/src/data/tiposContenidoAudiovisual';
+import { contenidosAudiovisuales } from '@/src/data/contenidosAudiovisuales';
 import { AudioVisualCard } from "./AudioVisualCard";
 
 interface AudioVisualListProps {
@@ -37,8 +37,8 @@ export const AudioVisualList: React.FC<AudioVisualListProps> = ({ tipoId }) => {
                 renderItem={({ item }) => (
                     <AudioVisualCard
                         item={item}
-                        onMeasure={handleMeasure}            // medir altura
-                        fixedHeight={maxCardHeight || undefined} // forzar altura
+                        onMeasure={handleMeasure}
+                        fixedHeight={maxCardHeight || undefined}
                     />
                 )}
             />
@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     },
     headerContainer: {
         position: 'absolute',
-        top: -19,
+        top: Platform.OS === "web" ? -19 : -15,
         left: 20,
         backgroundColor: Colors.purpura,
         borderWidth: 2,
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
         paddingVertical: 4,
     },
     header: {
-        fontSize: 20,
+        fontSize: Platform.OS === "web" ? 20 : 10,
         color: '#FFF',
     },
     listContent: {

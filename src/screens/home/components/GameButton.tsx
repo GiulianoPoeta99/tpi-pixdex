@@ -1,7 +1,7 @@
 import { TextPressStart2P } from "@/src/components/TextPressStart2P"
 import { Colors } from "@/src/constants/Colors";
 import { Href, useRouter } from "expo-router"
-import { StyleProp, StyleSheet, ViewStyle, Text, View, TouchableOpacity } from "react-native"
+import { Platform, StyleProp, StyleSheet, ViewStyle, Text, View, TouchableOpacity } from "react-native"
 
 interface GameButtonProps {
     title: string;
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     },
     section: {
         width: '100%',
-        marginVertical: 10,
+        marginVertical: Platform.OS === "web" ? 10 : 2,
     },
     playSection: {
         // TODO: hay que hacer que se vaya hacia abajo
@@ -57,16 +57,16 @@ const styles = StyleSheet.create({
     },
     title: {
         color: '#FFF',
-        fontSize: 36,
+        fontSize: Platform.OS === "web" ? 36 : 13,
         // fontWeight: 'bold', // esto en android no anda
     },
     description: {
         color: '#FFF',
-        fontSize: 20,
+        fontSize: Platform.OS === "web" ? 20 : 10,
     },
     play: {
         color: '#FFF',
-        fontSize: 12,
+        fontSize: Platform.OS === "web" ? 12 : 7,
         // fontWeight: 'bold',
     }
 })

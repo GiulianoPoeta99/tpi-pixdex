@@ -31,7 +31,7 @@ export const AudioVisualCardExtended: React.FC<AudioVisualCardExtendedProps> = (
     generos
 }) => {
     const { width: screenWidth } = useWindowDimensions();
-    const widthFactor = Platform.OS === 'web' ? 0.5 : 0.8;
+    const widthFactor = Platform.OS === 'web' ? 0.3 : 0.8;
     const CARD_WIDTH = screenWidth * widthFactor;
     const [imgError, setImgError] = useState(false);
 
