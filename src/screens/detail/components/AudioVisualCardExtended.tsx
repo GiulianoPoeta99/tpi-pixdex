@@ -103,13 +103,7 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
     },
-    card: {
-        borderWidth: 2,
-        borderTopColor: Colors.purpuraOscuro,
-        borderRightColor: Colors.purpuraOscuro,
-        borderBottomColor: Colors.purpuraClaro,
-        borderLeftColor: Colors.purpuraClaro,
-    },
+    card: {},
     image: {
         width: '100%',
         aspectRatio: 2 / 3,
