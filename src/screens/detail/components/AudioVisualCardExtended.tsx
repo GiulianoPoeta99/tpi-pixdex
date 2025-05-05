@@ -59,7 +59,6 @@ export const AudioVisualCardExtended: React.FC<AudioVisualCardExtendedProps> = (
                     </TextPressStart2P>
                 </View>
 
-                {/* género singular */}
                 <View style={styles.generosContainer}>
                     <View style={styles.genero}>
                         <Text style={styles.generoText} numberOfLines={1}>
@@ -78,7 +77,6 @@ export const AudioVisualCardExtended: React.FC<AudioVisualCardExtendedProps> = (
                     </TextPressStart2P>
                 </View>
 
-                {/* géneros wrap */}
                 {generos.length > 0 && (
                     <View style={styles.generosContainer}>
                         {generos.map((g, i) => (
