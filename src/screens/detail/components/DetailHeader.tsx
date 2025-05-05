@@ -1,6 +1,7 @@
 import { TextPressStart2P } from "@/src/components/TextPressStart2P";
 import { Colors } from "@/src/constants/Colors";
 import { ROUTES } from "@/src/navigation/routes";
+import { MaterialIcons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { Platform, StyleSheet, TouchableOpacity, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -17,9 +18,10 @@ export const DetailHeader = () => {
 
     return (
         <View style={[styles.container, { paddingTop }]}>
-            <TouchableOpacity onPress={handlePress} style={styles.filterButton} activeOpacity={0.7}>
-                {/* TODO: Aquí tu ícono de flecha izquierda */}
-                <TextPressStart2P style={styles.filterButtonText}>BACK</TextPressStart2P>
+            <TouchableOpacity onPress={handlePress} style={styles.backButton} activeOpacity={0.7}>
+                <TextPressStart2P style={styles.backButtonText}>
+                    <MaterialIcons name="arrow-back" color="#FFF" size={Platform.OS === "web" ? 15 : 8}/> BACK
+                </TextPressStart2P>
             </TouchableOpacity>
         </View>
     );
@@ -39,7 +41,7 @@ const styles = StyleSheet.create({
         fontSize: 24,
         // fontWeight: "bold",
     },
-    filterButton: {
+    backButton: {
         borderWidth: 1,
         backgroundColor: Colors.purpura,
         borderTopColor: Colors.purpuraClaro,
@@ -48,9 +50,10 @@ const styles = StyleSheet.create({
         borderRightColor: Colors.purpuraOscuro,
         padding: 5,
     },
-    filterButtonText: {
+    backButtonText: {
         color: "#FFF",
         paddingHorizontal: 5,
-        paddingTop: Platform.OS === "web" ? 0 : 5
+        paddingTop: Platform.OS === "web" ? 0 : 5,
+        fontSize: Platform.OS === "web" ? 15 : 8,
     },
 });

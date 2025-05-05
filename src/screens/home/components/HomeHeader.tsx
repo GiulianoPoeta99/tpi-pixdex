@@ -2,6 +2,8 @@ import { TextPressStart2P } from "@/src/components/TextPressStart2P";
 import { Colors } from "@/src/constants/Colors";
 import { Platform, StyleSheet, TouchableOpacity, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { MaterialIcons } from "@expo/vector-icons";
+
 
 export const HomeHeader = () => {
     const { top } = useSafeAreaInsets();
@@ -11,8 +13,9 @@ export const HomeHeader = () => {
         <View style={[styles.container, { paddingTop }]}>
             <TextPressStart2P style={styles.logo}>Pixdex</TextPressStart2P>
             <TouchableOpacity style={styles.filterButton} activeOpacity={0.7}>
-                {/* TODO: Aquí tu ícono de engranaje */}
-                <TextPressStart2P style={styles.filterButtonText}>FILTRAR</TextPressStart2P>
+                <TextPressStart2P style={styles.filterButtonText}>
+                    <MaterialIcons name="settings" color="#FFF" size={Platform.OS === "web" ? 15 : 8} /> FILTRAR
+                </TextPressStart2P>
             </TouchableOpacity>
         </View>
     );
