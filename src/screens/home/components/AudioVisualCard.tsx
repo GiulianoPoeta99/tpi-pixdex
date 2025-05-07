@@ -1,20 +1,21 @@
+import { Tag } from "@/src/components/Tag";
 import { TextPressStart2P } from "@/src/components/TextPressStart2P";
+import { Colors } from "@/src/constants/Colors";
+import { ContenidoAudiovisual } from '@/src/data/contenidosAudiovisuales';
+import { generosContenidoAudiovisual } from "@/src/data/generosContenidoAudiovisual";
+import { ROUTES } from "@/src/navigation/routes";
+import { Image } from 'expo-image';
+import { useRouter } from "expo-router";
 import React, { useState } from 'react';
 import {
-    View,
-    Text,
-    Image,
-    StyleSheet,
-    useWindowDimensions,
-    TouchableOpacity,
+    LayoutChangeEvent,
     Platform,
-    LayoutChangeEvent
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    useWindowDimensions,
+    View
 } from 'react-native';
-import { ContenidoAudiovisual } from '@/src/data/contenidosAudiovisuales';
-import { Colors } from "@/src/constants/Colors";
-import { generosContenidoAudiovisual } from "@/src/data/generosContenidoAudiovisual";
-import { useRouter } from "expo-router";
-import { ROUTES } from "@/src/navigation/routes";
 
 interface AudioVisualCardProps {
     item: ContenidoAudiovisual;
@@ -70,7 +71,9 @@ export const AudioVisualCard: React.FC<AudioVisualCardProps> = ({
                     <Image
                         source={{ uri: item.imageUrl }}
                         style={styles.image}
-                        resizeMode="cover"
+                        contentFit="cover"
+                        cachePolicy="disk"
+                        transition={300}
                         onError={() => setImgError(true)}
                     />
                 )}
@@ -84,11 +87,7 @@ export const AudioVisualCard: React.FC<AudioVisualCardProps> = ({
                 {generos.length > 0 && (
                     <View style={styles.generosContainer}>
                         {generos.map((g, i) => (
-                            <View key={i} style={styles.genero}>
-                                <Text style={styles.generoText} numberOfLines={1}>
-                                    {capitalize(g?.nombre ?? "—")}
-                                </Text>
-                            </View>
+                            <Tag key={i} nombre={g?.nombre ?? '-'}/>
                         ))}
                     </View>
                 )}
@@ -134,15 +133,5 @@ const styles = StyleSheet.create({
         flexWrap: 'wrap',
         paddingHorizontal: 15,
         paddingBottom: 15,
-    },
-    genero: {
-        backgroundColor: Colors.grisOscuro,
-        padding: 5,
-        marginRight: 5,
-        marginBottom: 5,
-    },
-    generoText: {
-        color: '#FFF',
-        fontSize: Platform.OS === "web" ? 16: 10
     },
 });

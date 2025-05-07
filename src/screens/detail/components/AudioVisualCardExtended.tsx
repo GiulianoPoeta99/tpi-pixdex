@@ -1,28 +1,23 @@
+import { Tag } from "@/src/components/Tag";
 import { TextPressStart2P } from "@/src/components/TextPressStart2P";
-import React, { useState } from 'react';
-import {
-    View,
-    Text,
-    Image,
-    StyleSheet,
-    useWindowDimensions,
-    Platform
-} from 'react-native';
-import { ContenidoAudiovisual } from '@/src/data/contenidosAudiovisuales';
 import { Colors } from "@/src/constants/Colors";
+import { ContenidoAudiovisual } from '@/src/data/contenidosAudiovisuales';
 import { IGeneroContenidoAudiovisual } from '@/src/data/generosContenidoAudiovisual';
 import { ITipoContenidoAudiovisual } from '@/src/data/tiposContenidoAudiovisual';
+import { Image } from 'expo-image';
+import React, { useState } from 'react';
+import {
+    Platform,
+    StyleSheet,
+    Text,
+    useWindowDimensions,
+    View
+} from 'react-native';
 
 interface AudioVisualCardExtendedProps {
     item: ContenidoAudiovisual;
     tipo: ITipoContenidoAudiovisual;
     generos: IGeneroContenidoAudiovisual[];
-}
-
-function capitalize(texto: string): string {
-    return texto.length === 0
-        ? ""
-        : texto[0].toUpperCase() + texto.slice(1).toLowerCase();
 }
 
 export const AudioVisualCardExtended: React.FC<AudioVisualCardExtendedProps> = ({
@@ -48,7 +43,9 @@ export const AudioVisualCardExtended: React.FC<AudioVisualCardExtendedProps> = (
                     <Image
                         source={{ uri: item.imageUrl }}
                         style={styles.image}
-                        resizeMode="cover"
+                        contentFit="cover"
+                        cachePolicy="disk"
+                        transition={300}
                         onError={() => setImgError(true)}
                     />
                 )}
@@ -60,11 +57,7 @@ export const AudioVisualCardExtended: React.FC<AudioVisualCardExtendedProps> = (
                 </View>
 
                 <View style={styles.generosContainer}>
-                    <View style={styles.genero}>
-                        <Text style={styles.generoText} numberOfLines={1}>
-                            {capitalize(tipo.singular)}
-                        </Text>
-                    </View>
+                    <Tag nombre={tipo.singular}/>
                 </View>
 
                 <Text style={styles.descripcion} numberOfLines={4}>
@@ -80,11 +73,7 @@ export const AudioVisualCardExtended: React.FC<AudioVisualCardExtendedProps> = (
                 {generos.length > 0 && (
                     <View style={styles.generosContainer}>
                         {generos.map((g, i) => (
-                            <View key={i} style={styles.genero}>
-                                <Text style={styles.generoText} numberOfLines={1}>
-                                    {capitalize(g.nombre)}
-                                </Text>
-                            </View>
+                            <Tag key={i} nombre={g.nombre}/>
                         ))}
                     </View>
                 )}
