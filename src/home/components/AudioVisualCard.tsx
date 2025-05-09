@@ -4,6 +4,7 @@ import { Colors } from "@/src/shared/constants/Colors";
 import { ContenidoAudiovisual } from '@/src/shared/data/contenidosAudiovisuales';
 import { generosContenidoAudiovisual } from "@/src/shared/data/generosContenidoAudiovisual";
 import { ROUTES } from "@/src/shared/navigation/routes";
+import { ContenidoAudiovisualRepository } from "@/src/shared/repositories/contenidos-audiovisuales-repository";
 import { Image } from 'expo-image';
 import { useRouter } from "expo-router";
 import React, { useState } from 'react';
@@ -23,12 +24,6 @@ interface AudioVisualCardProps {
     onMeasure?: (height: number) => void;
 }
 
-function capitalize(texto: string): string {
-    return texto.length === 0
-        ? ""
-        : texto[0].toUpperCase() + texto.slice(1).toLowerCase();
-}
-
 export const AudioVisualCard: React.FC<AudioVisualCardProps> = ({
     item,
     fixedHeight,
@@ -44,9 +39,7 @@ export const AudioVisualCard: React.FC<AudioVisualCardProps> = ({
         router.push(`${ROUTES.DETAIL}${item.id}`);
     };
 
-    const generos = item.generos.map(id =>
-        generosContenidoAudiovisual.find(g => g.id === id)
-    );
+    const generos = ContenidoAudiovisualRepository.getAllGendersForContenidoAudiovisual(item)
 
     return (
         <TouchableOpacity activeOpacity={0.7} onPress={handlePress}>
@@ -87,7 +80,7 @@ export const AudioVisualCard: React.FC<AudioVisualCardProps> = ({
                 {generos.length > 0 && (
                     <View style={styles.generosContainer}>
                         {generos.map((g, i) => (
-                            <Tag key={i} nombre={g?.nombre ?? '-'}/>
+                            <Tag key={i} nombre={g?.nombre ?? '-'} />
                         ))}
                     </View>
                 )}

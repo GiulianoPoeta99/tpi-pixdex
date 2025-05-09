@@ -12,15 +12,13 @@ function capitalize(texto: string): string {
         : texto[0].toUpperCase() + texto.slice(1).toLowerCase();
 }
 
-export const Tag: React.FC<TagProps> = ({nombre}) => {
-    return (
-        <View style={styles.genero}>
-            <Text style={styles.generoText} numberOfLines={1}>
-                {capitalize(nombre)}
-            </Text>
-        </View>
-    );
-}
+export const Tag: React.FC<TagProps> = ({ nombre }) => (
+    <View style={styles.genero}>
+        <Text style={styles.generoText} numberOfLines={1}>
+            {capitalize(nombre)}
+        </Text>
+    </View>
+);
 
 const styles = StyleSheet.create({
     genero: {
@@ -31,6 +29,6 @@ const styles = StyleSheet.create({
     },
     generoText: {
         color: '#FFF',
-        fontSize: Platform.OS === "web" ? 16: 10
+        fontSize: Platform.OS === "web" ? 16 : 10
     },
 });

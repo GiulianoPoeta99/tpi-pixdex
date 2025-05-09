@@ -1,33 +1,28 @@
-import { TextPressStart2P } from "@/src/shared/components/TextPressStart2P";
-import { Colors } from "@/src/shared/constants/Colors";
 import { Platform, StyleSheet, TouchableOpacity, View } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
+import { TextPressStart2P } from "@/src/shared/components/TextPressStart2P";
+import { Colors } from "@/src/shared/constants/Colors";
 
+const HEADER_HEIGHT = Platform.select({ ios: 100, android: 50, default: 70 });
 
-export const HomeHeader = () => {
-    return (
-        <View style={styles.container}>
-            <TextPressStart2P style={styles.logo}>Pixdex</TextPressStart2P>
-            <TouchableOpacity style={styles.filterButton} activeOpacity={0.7}>
-                <TextPressStart2P style={styles.filterButtonText}>
-                    <MaterialIcons name="settings" color="#FFF" size={Platform.OS === "web" ? 15 : 8} /> FILTRAR
-                </TextPressStart2P>
-            </TouchableOpacity>
-        </View>
-    );
-};
-
-let height = 70
-if (Platform.OS === "android") {
-    height = 50
-} else if (Platform.OS === "ios") {
-    height = 100
-}
+export const HomeHeader = () => (
+    <View style={[styles.container, { height: HEADER_HEIGHT }]}>
+        <TextPressStart2P style={styles.logo}>Pixdex</TextPressStart2P>
+        <TouchableOpacity style={styles.filterButton} activeOpacity={0.7}>
+            <TextPressStart2P style={styles.filterButtonText}>
+                <MaterialIcons
+                    name="settings"
+                    color="#FFF"
+                    size={Platform.OS === "web" ? 15 : 8}
+                /> FILTRAR
+            </TextPressStart2P>
+        </TouchableOpacity>
+    </View>
+);
 
 const styles = StyleSheet.create({
     container: {
         paddingTop: Platform.OS === "ios" ? 45 : 20,
-        height: height,
         backgroundColor: Colors.fondo,
         paddingHorizontal: 20,
         flexDirection: "row",
@@ -37,7 +32,7 @@ const styles = StyleSheet.create({
     logo: {
         color: Colors.purpura,
         fontSize: Platform.OS === "web" ? 24 : 14,
-        // fontWeight: "bold",
+        // fontWeight: "bold", // esto no funciona en android
     },
     filterButton: {
         borderWidth: 1,

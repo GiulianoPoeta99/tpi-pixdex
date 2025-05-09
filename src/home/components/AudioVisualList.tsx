@@ -2,19 +2,18 @@ import { TextPressStart2P } from "@/src/shared/components/TextPressStart2P";
 import { Colors } from "@/src/shared/constants/Colors";
 import React, { useState } from 'react';
 import { Platform, FlatList, StyleSheet, View } from "react-native";
-import { tiposContenidoAudiovisual } from '@/src/shared/data/tiposContenidoAudiovisual';
-import { contenidosAudiovisuales } from '@/src/shared/data/contenidosAudiovisuales';
 import { AudioVisualCard } from "./AudioVisualCard";
+import { ContenidoAudiovisualRepository } from "@/src/shared/repositories/contenidos-audiovisuales-repository";
+import { TiposContenidoAudiovisual } from "@/src/shared/repositories/tipos-contenido-audiovisual-repository";
 
 interface AudioVisualListProps {
     tipoId: number;
 }
 
 export const AudioVisualList: React.FC<AudioVisualListProps> = ({ tipoId }) => {
-    const tipo = tiposContenidoAudiovisual.find(t => t.id === tipoId);
-    if (!tipo) return null;
+    const tipo = TiposContenidoAudiovisual.getOneByID(tipoId)
+    const contenidosAudiovisuales = ContenidoAudiovisualRepository.getAllByTipoID(tipo.id)
 
-    const data = contenidosAudiovisuales.filter(item => item.tipoId === tipoId);
     const [maxCardHeight, setMaxCardHeight] = useState(0);
 
     const handleMeasure = (height: number) => {
@@ -29,7 +28,7 @@ export const AudioVisualList: React.FC<AudioVisualListProps> = ({ tipoId }) => {
                 </TextPressStart2P>
             </View>
             <FlatList
-                data={data}
+                data={contenidosAudiovisuales}
                 horizontal
                 keyExtractor={item => item.id.toString()}
                 showsHorizontalScrollIndicator={false}

@@ -57,7 +57,7 @@ export const AudioVisualCardExtended: React.FC<AudioVisualCardExtendedProps> = (
                 </View>
 
                 <View style={styles.generosContainer}>
-                    <Tag nombre={tipo.singular}/>
+                    <Tag nombre={tipo.singular} />
                 </View>
 
                 <Text style={styles.descripcion} numberOfLines={4}>
@@ -73,7 +73,7 @@ export const AudioVisualCardExtended: React.FC<AudioVisualCardExtendedProps> = (
                 {generos.length > 0 && (
                     <View style={styles.generosContainer}>
                         {generos.map((g, i) => (
-                            <Tag key={i} nombre={g.nombre}/>
+                            <Tag key={i} nombre={g.nombre} />
                         ))}
                     </View>
                 )}

@@ -5,6 +5,9 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { Platform, StyleSheet, TouchableOpacity, View } from "react-native";
 
+const HEADER_HEIGHT = Platform.select({ ios: 76, default: 56 });
+
+
 export const DetailHeader = () => {
     const router = useRouter();
 
@@ -13,25 +16,19 @@ export const DetailHeader = () => {
     };
 
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, { height: HEADER_HEIGHT }]}>
             <TouchableOpacity onPress={handlePress} style={styles.backButton} activeOpacity={0.7}>
                 <TextPressStart2P style={styles.backButtonText}>
-                    <MaterialIcons name="arrow-back" color="#FFF" size={Platform.OS === "web" ? 15 : 8}/> BACK
+                    <MaterialIcons name="arrow-back" color="#FFF" size={Platform.OS === "web" ? 15 : 8} /> BACK
                 </TextPressStart2P>
             </TouchableOpacity>
         </View>
     );
 };
 
-let height = 56
-if (Platform.OS === "ios") {
-    height = 76
-}
-
 const styles = StyleSheet.create({
     container: {
         paddingTop: Platform.OS === "ios" ? 45 : 20,
-        height: height,
         backgroundColor: Colors.fondo,
         paddingHorizontal: 20,
         flexDirection: "row",

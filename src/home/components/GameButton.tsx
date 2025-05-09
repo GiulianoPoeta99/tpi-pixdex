@@ -1,7 +1,7 @@
-import { TextPressStart2P } from "@/src/shared/components/TextPressStart2P"
-import { Colors } from "@/src/shared/constants/Colors";
+import { TextPressStart2P } from "@/src/shared/components/TextPressStart2P";
 import { Href, useRouter } from "expo-router"
 import { Platform, StyleProp, StyleSheet, ViewStyle, Text, View, TouchableOpacity } from "react-native"
+import { Colors } from "@/src/shared/constants/Colors";
 
 interface GameButtonProps {
     title: string;
@@ -67,6 +67,5 @@ const styles = StyleSheet.create({
     play: {
         color: '#FFF',
         fontSize: Platform.OS === "web" ? 12 : 7,
-        // fontWeight: 'bold',
     }
 })

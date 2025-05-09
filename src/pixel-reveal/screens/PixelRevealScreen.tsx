@@ -1,5 +1,5 @@
 import { Text } from "react-native"
 
-export const PixelRevealScreen = () => {
-    return <Text>Pixel Reveal</Text>
-}
+export const PixelRevealScreen = () => (
+    <Text>Pixel Reveal</Text>
+)
