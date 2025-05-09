@@ -1,9 +1,9 @@
-import { Tag } from "@/src/components/Tag";
-import { TextPressStart2P } from "@/src/components/TextPressStart2P";
-import { Colors } from "@/src/constants/Colors";
-import { ContenidoAudiovisual } from '@/src/data/contenidosAudiovisuales';
-import { generosContenidoAudiovisual } from "@/src/data/generosContenidoAudiovisual";
-import { ROUTES } from "@/src/navigation/routes";
+import { Tag } from "@/src/shared/components/Tag";
+import { TextPressStart2P } from "@/src/shared/components/TextPressStart2P";
+import { Colors } from "@/src/shared/constants/Colors";
+import { ContenidoAudiovisual } from '@/src/shared/data/contenidosAudiovisuales';
+import { generosContenidoAudiovisual } from "@/src/shared/data/generosContenidoAudiovisual";
+import { ROUTES } from "@/src/shared/navigation/routes";
 import { Image } from 'expo-image';
 import { useRouter } from "expo-router";
 import React, { useState } from 'react';

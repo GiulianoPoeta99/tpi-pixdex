@@ -1,9 +1,9 @@
-import { Tag } from "@/src/components/Tag";
-import { TextPressStart2P } from "@/src/components/TextPressStart2P";
-import { Colors } from "@/src/constants/Colors";
-import { ContenidoAudiovisual } from '@/src/data/contenidosAudiovisuales';
-import { IGeneroContenidoAudiovisual } from '@/src/data/generosContenidoAudiovisual';
-import { ITipoContenidoAudiovisual } from '@/src/data/tiposContenidoAudiovisual';
+import { Tag } from "@/src/shared/components/Tag";
+import { TextPressStart2P } from "@/src/shared/components/TextPressStart2P";
+import { Colors } from "@/src/shared/constants/Colors";
+import { ContenidoAudiovisual } from '@/src/shared/data/contenidosAudiovisuales';
+import { IGeneroContenidoAudiovisual } from '@/src/shared/data/generosContenidoAudiovisual';
+import { ITipoContenidoAudiovisual } from '@/src/shared/data/tiposContenidoAudiovisual';
 import { Image } from 'expo-image';
 import React, { useState } from 'react';
 import {

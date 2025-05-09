@@ -1,9 +1,9 @@
-import { TextPressStart2P } from "@/src/components/TextPressStart2P";
-import { Colors } from "@/src/constants/Colors";
+import { TextPressStart2P } from "@/src/shared/components/TextPressStart2P";
+import { Colors } from "@/src/shared/constants/Colors";
 import React, { useState } from 'react';
 import { Platform, FlatList, StyleSheet, View } from "react-native";
-import { tiposContenidoAudiovisual } from '@/src/data/tiposContenidoAudiovisual';
-import { contenidosAudiovisuales } from '@/src/data/contenidosAudiovisuales';
+import { tiposContenidoAudiovisual } from '@/src/shared/data/tiposContenidoAudiovisual';
+import { contenidosAudiovisuales } from '@/src/shared/data/contenidosAudiovisuales';
 import { AudioVisualCard } from "./AudioVisualCard";
 
 interface AudioVisualListProps {

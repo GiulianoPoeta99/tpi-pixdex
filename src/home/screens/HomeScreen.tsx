@@ -1,8 +1,8 @@
-import { Colors } from "@/src/constants/Colors";
+import { Colors } from "@/src/shared/constants/Colors";
 import { Platform, ScrollView, StyleSheet, View } from "react-native";
 import { HomeHeader } from "./components/HomeHeader";
 import { GameButton } from "./components/GameButton";
-import { ROUTES } from "@/src/navigation/routes";
+import { ROUTES } from "@/src/shared/navigation/routes";
 import { AudioVisualList } from "./components/AudioVisualList";
 
 export const HomeScreen = () => {

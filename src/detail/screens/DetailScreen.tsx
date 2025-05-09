@@ -1,10 +1,10 @@
-import { ContenidoAudiovisual, contenidosAudiovisuales } from "@/src/data/contenidosAudiovisuales";
-import { generosContenidoAudiovisual, IGeneroContenidoAudiovisual } from "@/src/data/generosContenidoAudiovisual";
-import { ITipoContenidoAudiovisual, tiposContenidoAudiovisual } from "@/src/data/tiposContenidoAudiovisual";
+import { ContenidoAudiovisual, contenidosAudiovisuales } from "@/src/shared/data/contenidosAudiovisuales";
+import { generosContenidoAudiovisual, IGeneroContenidoAudiovisual } from "@/src/shared/data/generosContenidoAudiovisual";
+import { ITipoContenidoAudiovisual, tiposContenidoAudiovisual } from "@/src/shared/data/tiposContenidoAudiovisual";
 import React from "react"
 import { ScrollView, StyleSheet, View } from "react-native";
 import { DetailHeader } from "./components/DetailHeader"
-import { Colors } from "@/src/constants/Colors";
+import { Colors } from "@/src/shared/constants/Colors";
 import { AudioVisualCardExtended } from "./components/AudioVisualCardExtended";
 
 interface DetailScreenProps {

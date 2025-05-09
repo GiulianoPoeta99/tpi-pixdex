@@ -1,5 +1,5 @@
-import { TextPressStart2P } from "@/src/components/TextPressStart2P";
-import { Colors } from "@/src/constants/Colors";
+import { TextPressStart2P } from "@/src/shared/components/TextPressStart2P";
+import { Colors } from "@/src/shared/constants/Colors";
 import { Platform, StyleSheet, TouchableOpacity, View } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 
