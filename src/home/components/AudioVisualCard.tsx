@@ -1,18 +1,16 @@
+import { DetailImage } from "@/src/detail/components/DetailImage";
 import { Tag } from "@/src/shared/components/Tag";
 import { TextPressStart2P } from "@/src/shared/components/TextPressStart2P";
 import { Colors } from "@/src/shared/constants/Colors";
 import { ContenidoAudiovisual } from '@/src/shared/data/contenidosAudiovisuales';
-import { generosContenidoAudiovisual } from "@/src/shared/data/generosContenidoAudiovisual";
 import { ROUTES } from "@/src/shared/navigation/routes";
 import { ContenidoAudiovisualRepository } from "@/src/shared/repositories/contenidos-audiovisuales-repository";
-import { Image } from 'expo-image';
 import { useRouter } from "expo-router";
-import React, { useState } from 'react';
+import React from 'react';
 import {
     LayoutChangeEvent,
     Platform,
     StyleSheet,
-    Text,
     TouchableOpacity,
     useWindowDimensions,
     View
@@ -33,7 +31,6 @@ export const AudioVisualCard: React.FC<AudioVisualCardProps> = ({
     const { width: screenWidth } = useWindowDimensions();
     const widthFactor = Platform.OS === 'web' ? 0.20 : 0.5;
     const CARD_WIDTH = screenWidth * widthFactor;
-    const [imgError, setImgError] = useState(false);
 
     const handlePress = () => {
         router.push(`${ROUTES.DETAIL}${item.id}`);
@@ -54,22 +51,7 @@ export const AudioVisualCard: React.FC<AudioVisualCardProps> = ({
                     if (onMeasure) onMeasure(height);
                 }}
             >
-                {imgError ? (
-                    <View style={[styles.image, styles.placeholder]}>
-                        <Text style={styles.placeholderText} numberOfLines={3}>
-                            {item.nombre}
-                        </Text>
-                    </View>
-                ) : (
-                    <Image
-                        source={{ uri: item.imageUrl }}
-                        style={styles.image}
-                        contentFit="cover"
-                        cachePolicy="disk"
-                        transition={300}
-                        onError={() => setImgError(true)}
-                    />
-                )}
+                <DetailImage uri={item.imageUrl} placeholder={item.nombre} />
 
                 <View style={styles.title}>
                     <TextPressStart2P style={styles.titleText} numberOfLines={1}>
@@ -96,22 +78,6 @@ const styles = StyleSheet.create({
         borderRightColor: Colors.purpuraOscuro,
         borderBottomColor: Colors.purpuraClaro,
         borderLeftColor: Colors.purpuraClaro,
-    },
-    image: {
-        width: '100%',
-        aspectRatio: 2 / 3,
-        backgroundColor: '#FFF',
-    },
-    placeholder: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: Colors.grisOscuro,
-        padding: 10,
-    },
-    placeholderText: {
-        color: '#FFF',
-        fontSize: 14,
-        textAlign: 'center',
     },
     title: {
         padding: 15,

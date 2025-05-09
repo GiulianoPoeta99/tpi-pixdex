@@ -4,8 +4,7 @@ import { Colors } from "@/src/shared/constants/Colors";
 import { ContenidoAudiovisual } from '@/src/shared/data/contenidosAudiovisuales';
 import { IGeneroContenidoAudiovisual } from '@/src/shared/data/generosContenidoAudiovisual';
 import { ITipoContenidoAudiovisual } from '@/src/shared/data/tiposContenidoAudiovisual';
-import { Image } from 'expo-image';
-import React, { useState } from 'react';
+import React from 'react';
 import {
     Platform,
     StyleSheet,
@@ -13,6 +12,7 @@ import {
     useWindowDimensions,
     View
 } from 'react-native';
+import { DetailImage } from "./DetailImage";
 
 interface AudioVisualCardExtendedProps {
     item: ContenidoAudiovisual;
@@ -28,27 +28,11 @@ export const AudioVisualCardExtended: React.FC<AudioVisualCardExtendedProps> = (
     const { width: screenWidth } = useWindowDimensions();
     const widthFactor = Platform.OS === 'web' ? 0.3 : 0.8;
     const CARD_WIDTH = screenWidth * widthFactor;
-    const [imgError, setImgError] = useState(false);
 
     return (
         <View style={styles.container}>
             <View style={[styles.card, { width: CARD_WIDTH }]}>
-                {imgError ? (
-                    <View style={[styles.image, styles.placeholder]}>
-                        <Text style={styles.placeholderText} numberOfLines={3}>
-                            {item.nombre}
-                        </Text>
-                    </View>
-                ) : (
-                    <Image
-                        source={{ uri: item.imageUrl }}
-                        style={styles.image}
-                        contentFit="cover"
-                        cachePolicy="disk"
-                        transition={300}
-                        onError={() => setImgError(true)}
-                    />
-                )}
+               <DetailImage uri={item.imageUrl} placeholder={item.nombre} />
 
                 <View style={styles.title}>
                     <TextPressStart2P style={styles.titleText} numberOfLines={1}>
