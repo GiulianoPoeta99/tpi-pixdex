@@ -1,7 +1,7 @@
-import { Platform, StyleSheet, TouchableOpacity, View } from "react-native";
-import { MaterialIcons } from "@expo/vector-icons";
 import { TextPressStart2P } from "@/src/shared/components/TextPressStart2P";
 import { Colors } from "@/src/shared/constants/Colors";
+import { MaterialIcons } from "@expo/vector-icons";
+import { Platform, StyleSheet, TouchableOpacity, View } from "react-native";
 
 const HEADER_HEIGHT = Platform.select({ ios: 100, android: 50, default: 70 });
 
@@ -22,7 +22,7 @@ export const HomeHeader = () => (
 
 const styles = StyleSheet.create({
     container: {
-        paddingTop: Platform.OS === "ios" ? 45 : 20,
+        paddingTop: Platform.OS === "ios" ? 50 : 20,
         backgroundColor: Colors.fondo,
         paddingHorizontal: 20,
         flexDirection: "row",

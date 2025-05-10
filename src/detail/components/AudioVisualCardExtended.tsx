@@ -35,7 +35,7 @@ export const AudioVisualCardExtended: React.FC<AudioVisualCardExtendedProps> = (
                 <DetailImage uri={item.imageUrl} placeholder={item.nombre} />
 
                 <View style={styles.title}>
-                    <TextPressStart2P style={styles.titleText} numberOfLines={1}>
+                    <TextPressStart2P style={styles.titleText} numberOfLines={4}>
                         {item.nombre}
                     </TextPressStart2P>
                 </View>

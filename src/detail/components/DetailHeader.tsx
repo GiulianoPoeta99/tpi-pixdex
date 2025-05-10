@@ -4,7 +4,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { Platform, StyleSheet, TouchableOpacity, View } from "react-native";
 
-const HEADER_HEIGHT = Platform.select({ ios: 76, default: 56 });
+const HEADER_HEIGHT = Platform.select({ ios: 86, default: 56 });
 
 
 export const DetailHeader = () => {
@@ -27,7 +27,7 @@ export const DetailHeader = () => {
 
 const styles = StyleSheet.create({
     container: {
-        paddingTop: Platform.OS === "ios" ? 45 : 20,
+        paddingTop: Platform.OS === "ios" ? 50 : 20,
         backgroundColor: Colors.fondo,
         paddingHorizontal: 20,
         flexDirection: "row",
