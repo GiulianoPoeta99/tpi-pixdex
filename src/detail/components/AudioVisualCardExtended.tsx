@@ -1,3 +1,4 @@
+import { DetailImage } from "@/src/shared/components/DetailImage";
 import { Tag } from "@/src/shared/components/Tag";
 import { TextPressStart2P } from "@/src/shared/components/TextPressStart2P";
 import { Colors } from "@/src/shared/constants/Colors";
@@ -12,7 +13,6 @@ import {
     useWindowDimensions,
     View
 } from 'react-native';
-import { DetailImage } from "./DetailImage";
 
 interface AudioVisualCardExtendedProps {
     item: ContenidoAudiovisual;
@@ -32,7 +32,7 @@ export const AudioVisualCardExtended: React.FC<AudioVisualCardExtendedProps> = (
     return (
         <View style={styles.container}>
             <View style={[styles.card, { width: CARD_WIDTH }]}>
-               <DetailImage uri={item.imageUrl} placeholder={item.nombre} />
+                <DetailImage uri={item.imageUrl} placeholder={item.nombre} />
 
                 <View style={styles.title}>
                     <TextPressStart2P style={styles.titleText} numberOfLines={1}>

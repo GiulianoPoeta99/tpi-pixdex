@@ -1,6 +1,5 @@
 import { TextPressStart2P } from "@/src/shared/components/TextPressStart2P";
 import { Colors } from "@/src/shared/constants/Colors";
-import { ROUTES } from "@/src/shared/navigation/routes";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { Platform, StyleSheet, TouchableOpacity, View } from "react-native";
@@ -12,7 +11,7 @@ export const DetailHeader = () => {
     const router = useRouter();
 
     const handlePress = () => {
-        router.push(ROUTES.HOME);
+        router.back();
     };
 
     return (

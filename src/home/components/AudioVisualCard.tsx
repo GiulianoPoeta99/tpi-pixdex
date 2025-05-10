@@ -1,4 +1,4 @@
-import { DetailImage } from "@/src/detail/components/DetailImage";
+import { DetailImage } from "@/src/shared/components/DetailImage";
 import { Tag } from "@/src/shared/components/Tag";
 import { TextPressStart2P } from "@/src/shared/components/TextPressStart2P";
 import { Colors } from "@/src/shared/constants/Colors";
