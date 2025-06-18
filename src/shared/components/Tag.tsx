@@ -1,15 +1,10 @@
 import React from "react";
 import { Platform, StyleSheet, Text, View } from "react-native";
 import { Colors } from "../constants/Colors";
+import { capitalize } from "../utils/text";
 
 interface TagProps {
     nombre: string
-}
-
-function capitalize(texto: string): string {
-    return texto.length === 0
-        ? ""
-        : texto[0].toUpperCase() + texto.slice(1).toLowerCase();
 }
 
 export const Tag: React.FC<TagProps> = ({ nombre }) => (

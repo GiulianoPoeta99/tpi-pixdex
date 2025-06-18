@@ -1,24 +1,35 @@
 import { TextPressStart2P } from "@/src/shared/components/TextPressStart2P";
 import { Colors } from "@/src/shared/constants/Colors";
-import React, { useState } from 'react';
-import { Platform, FlatList, StyleSheet, View } from "react-native";
-import { AudioVisualCard } from "./AudioVisualCard";
 import { ContenidoAudiovisualRepository } from "@/src/shared/repositories/contenidos-audiovisuales-repository";
 import { TiposContenidoAudiovisual } from "@/src/shared/repositories/tipos-contenido-audiovisual-repository";
+import React, { useState } from 'react';
+import { FlatList, Platform, StyleSheet, View } from "react-native";
+import { AudioVisualCard } from "./AudioVisualCard";
 
 interface AudioVisualListProps {
     tipoId: number;
+    genreFilters: number[];
 }
 
-export const AudioVisualList: React.FC<AudioVisualListProps> = ({ tipoId }) => {
+export const AudioVisualList: React.FC<AudioVisualListProps> = ({ tipoId, genreFilters }) => {
     const tipo = TiposContenidoAudiovisual.getOneByID(tipoId)
-    const contenidosAudiovisuales = ContenidoAudiovisualRepository.getAllByTipoID(tipo.id)
+    let contenidosAudiovisuales = ContenidoAudiovisualRepository.getAllByTipoID(tipo.id)
 
+    if (genreFilters.length > 0) {
+        contenidosAudiovisuales = contenidosAudiovisuales.filter(item =>
+            genreFilters.every(genreId => item.generos.includes(genreId))
+        );
+    }
+    
     const [maxCardHeight, setMaxCardHeight] = useState(0);
 
     const handleMeasure = (height: number) => {
         if (height > maxCardHeight) setMaxCardHeight(height);
     };
+
+    if (contenidosAudiovisuales.length === 0) {
+        return null;
+    }
 
     return (
         <View style={styles.container}>

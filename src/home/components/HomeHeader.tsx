@@ -5,11 +5,15 @@ import { Platform, StyleSheet, View } from "react-native";
 
 const HEADER_HEIGHT = Platform.select({ ios: 100, android: 50, default: 70 });
 
-export const HomeHeader = () => (
+interface HomeHeaderProps {
+    onFilterPress: () => void;
+}
+
+export const HomeHeader: React.FC<HomeHeaderProps> = ({ onFilterPress }) => (
     <View style={[styles.container, { height: HEADER_HEIGHT }]}>
         <TextPressStart2P style={styles.logo}>Pixdex</TextPressStart2P>
         <Button
-            onPress={() => {}}
+            onPress={onFilterPress}
             icon="settings"
             text="FILTRAR"
         />
