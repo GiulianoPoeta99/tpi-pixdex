@@ -1,8 +1,9 @@
 import { DetailImage } from "@/src/shared/components/DetailImage";
+import { GenerosList } from "@/src/shared/components/GenerosList";
 import { Tag } from "@/src/shared/components/Tag";
 import { TextPressStart2P } from "@/src/shared/components/TextPressStart2P";
 import { Colors } from "@/src/shared/constants/Colors";
-import { ContenidoAudiovisual } from '@/src/shared/data/contenidosAudiovisuales';
+import { IContenidoAudiovisual } from '@/src/shared/data/contenidosAudiovisuales';
 import { IGeneroContenidoAudiovisual } from '@/src/shared/data/generosContenidoAudiovisual';
 import { ITipoContenidoAudiovisual } from '@/src/shared/data/tiposContenidoAudiovisual';
 import React from 'react';
@@ -15,7 +16,7 @@ import {
 } from 'react-native';
 
 interface AudioVisualCardExtendedProps {
-    item: ContenidoAudiovisual;
+    item: IContenidoAudiovisual;
     tipo: ITipoContenidoAudiovisual;
     generos: IGeneroContenidoAudiovisual[];
 }
@@ -54,13 +55,9 @@ export const AudioVisualCardExtended: React.FC<AudioVisualCardExtendedProps> = (
                     </TextPressStart2P>
                 </View>
 
-                {generos.length > 0 && (
-                    <View style={styles.generosContainer}>
-                        {generos.map((g, i) => (
-                            <Tag key={i} nombre={g.nombre} />
-                        ))}
-                    </View>
-                )}
+                <View style={styles.generosContainer}>
+                    <GenerosList generoIds={item.generos} />
+                </View>
             </View>
         </View>
     );
@@ -72,7 +69,6 @@ const styles = StyleSheet.create({
         borderColor: Colors.grisOscuro,
         padding: 20,
         flex: 1,
-        alignItems: 'center',
     },
     card: {},
     image: {

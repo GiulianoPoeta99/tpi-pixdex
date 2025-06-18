@@ -1,10 +1,9 @@
 import { DetailImage } from "@/src/shared/components/DetailImage";
-import { Tag } from "@/src/shared/components/Tag";
+import { GenerosList } from "@/src/shared/components/GenerosList";
 import { TextPressStart2P } from "@/src/shared/components/TextPressStart2P";
 import { Colors } from "@/src/shared/constants/Colors";
-import { ContenidoAudiovisual } from '@/src/shared/data/contenidosAudiovisuales';
+import { IContenidoAudiovisual } from '@/src/shared/data/contenidosAudiovisuales';
 import { ROUTES } from "@/src/shared/navigation/routes";
-import { ContenidoAudiovisualRepository } from "@/src/shared/repositories/contenidos-audiovisuales-repository";
 import { useRouter } from "expo-router";
 import React from 'react';
 import {
@@ -17,7 +16,7 @@ import {
 } from 'react-native';
 
 interface AudioVisualCardProps {
-    item: ContenidoAudiovisual;
+    item: IContenidoAudiovisual;
     fixedHeight?: number;
     onMeasure?: (height: number) => void;
 }
@@ -33,10 +32,8 @@ export const AudioVisualCard: React.FC<AudioVisualCardProps> = ({
     const CARD_WIDTH = screenWidth * widthFactor;
 
     const handlePress = () => {
-        router.push(`${ROUTES.DETAIL}${item.id}`);
+        router.push(`${ROUTES.DETAIL}/${item.id}` as any);
     };
-
-    const generos = ContenidoAudiovisualRepository.getAllGendersForContenidoAudiovisual(item)
 
     return (
         <TouchableOpacity activeOpacity={0.7} onPress={handlePress}>
@@ -59,13 +56,9 @@ export const AudioVisualCard: React.FC<AudioVisualCardProps> = ({
                     </TextPressStart2P>
                 </View>
 
-                {generos.length > 0 && (
-                    <View style={styles.generosContainer}>
-                        {generos.map((g, i) => (
-                            <Tag key={i} nombre={g?.nombre ?? '-'} />
-                        ))}
-                    </View>
-                )}
+                <View style={styles.generosContainer}>
+                    <GenerosList generoIds={item.generos} />
+                </View>
             </View>
         </TouchableOpacity>
     );
