@@ -1,12 +1,12 @@
 import { Button } from '@/src/shared/components/Button';
 import { TextPressStart2P } from '@/src/shared/components/TextPressStart2P';
 import { Colors } from '@/src/shared/constants/Colors';
+import { ITopPlayer } from '@/src/shared/data/topPlayers';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useFocusEffect, useRouter } from 'expo-router';
 import React, { useCallback, useState } from 'react';
 import { Modal, Platform, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { ITopPlayer } from '../data/topPlayers';
 import { playerRepository } from '../repositories/PlayerRepository';
 
 export const HangmanLobbyScreen = () => {
@@ -132,9 +132,9 @@ const styles = StyleSheet.create({
     scoreboard: { borderWidth: 2, borderColor: Colors.gris, padding: 20, backgroundColor: Colors.grisOscuro, },
     scoreRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 10, },
     scoreText: { color: '#FFF', fontSize: 18, fontFamily: 'System', },
-    scoreValue: { color: Colors.verde, fontSize: 18, },
+    scoreValue: { color: Colors.verde, fontSize: 15, },
     centeredView: { flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.7)', },
-    modalView: { backgroundColor: Colors.fondo, borderRadius: 8, padding: 20, width: Platform.OS === 'web' ? 400 : '90%', borderWidth: 2, },
+    modalView: { backgroundColor: Colors.fondo, borderRadius: 0, padding: 20, width: Platform.OS === 'web' ? 400 : '90%', borderWidth: 2, },
     modalHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20, },
     modalTitle: { fontSize: 18, color: '#FFF', },
     input: { borderWidth: 2, borderColor: Colors.purpura, padding: 15, color: '#FFF', fontSize: 16, marginBottom: 10, },

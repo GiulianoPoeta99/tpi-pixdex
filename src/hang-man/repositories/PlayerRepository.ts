@@ -1,6 +1,6 @@
-import { ITopPlayer, topPlayers } from "../data/topPlayers";
+import { ITopPlayer, topPlayers } from "@/src/shared/data/topPlayers";
 
-class PlayerRepository {
+export class PlayerRepository {
     private players: ITopPlayer[];
 
     constructor() {
