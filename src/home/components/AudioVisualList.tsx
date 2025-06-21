@@ -1,8 +1,10 @@
 import { TextPressStart2P } from "@/src/shared/components/TextPressStart2P";
 import { Colors } from "@/src/shared/constants/Colors";
 import { useData } from "@/src/shared/context/DataContext";
+import { LoadingState } from "@/src/shared/components/LoadingState";
+import { ErrorState } from "@/src/shared/components/ErrorState";
 import React, { useState, useMemo } from 'react';
-import { FlatList, Platform, StyleSheet, View, ActivityIndicator, Text } from "react-native";
+import { FlatList, Platform, StyleSheet, View } from "react-native";
 import { AudioVisualCard } from "./AudioVisualCard";
 
 interface AudioVisualListProps {
@@ -36,10 +38,7 @@ export const AudioVisualList: React.FC<AudioVisualListProps> = ({ tipoId, genreF
     if (loading.contenidos || loading.tipos) {
         return (
             <View style={styles.container}>
-                <View style={styles.loadingContainer}>
-                    <ActivityIndicator size="large" color={Colors.purpura} />
-                    <Text style={styles.loadingText}>Cargando...</Text>
-                </View>
+                <LoadingState message="Cargando..." size="small" />
             </View>
         );
     }
@@ -48,11 +47,10 @@ export const AudioVisualList: React.FC<AudioVisualListProps> = ({ tipoId, genreF
     if (errors.contenidos || errors.tipos) {
         return (
             <View style={styles.container}>
-                <View style={styles.errorContainer}>
-                    <Text style={styles.errorText}>
-                        Error: {errors.contenidos || errors.tipos}
-                    </Text>
-                </View>
+                <ErrorState 
+                    message="Error:" 
+                    error={errors.contenidos || errors.tipos} 
+                />
             </View>
         );
     }
@@ -112,27 +110,5 @@ const styles = StyleSheet.create({
     },
     listContent: {
         gap: 20,
-    },
-    loadingContainer: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: 20,
-    },
-    loadingText: {
-        marginTop: 10,
-        fontSize: 16,
-        color: Colors.purpura,
-    },
-    errorContainer: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: 20,
-    },
-    errorText: {
-        fontSize: 16,
-        color: 'red',
-        textAlign: 'center',
     },
 });
