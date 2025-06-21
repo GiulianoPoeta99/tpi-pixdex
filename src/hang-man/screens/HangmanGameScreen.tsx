@@ -1,16 +1,16 @@
 import { Button } from '@/src/shared/components/Button';
 import { TextPressStart2P } from '@/src/shared/components/TextPressStart2P';
 import { Colors } from '@/src/shared/constants/Colors';
-import { IContenidoAudiovisual, contenidosAudiovisuales } from '@/src/shared/data/contenidosAudiovisuales';
+import { useData } from '@/src/shared/context/DataContext';
+import { IContenidoAudiovisual } from '@/database/contenidosAudiovisuales';
 import { normalizeString } from '@/src/shared/utils/text';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import React, { FC, useCallback, useEffect, useState } from 'react';
-import { Image, Modal, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Image, Modal, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View, ActivityIndicator } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
-const WIN_CONDITION_COUNT = Math.ceil(contenidosAudiovisuales.length / 2);
 
 interface KeyboardModalProps {
     visible: boolean;
@@ -90,6 +90,8 @@ const GuessTitleModal: FC<GuessTitleModalProps> = ({ visible, onClose, onSubmit 
                         placeholderTextColor={Colors.gris}
                         value={title}
                         onChangeText={setTitle}
+                        autoCapitalize="words"
+                        autoCorrect={false}
                     />
                     {error ? <Text style={styles.errorText}>{error}</Text> : null}
                     <View style={styles.modalFooter}>
@@ -104,19 +106,27 @@ const GuessTitleModal: FC<GuessTitleModalProps> = ({ visible, onClose, onSubmit 
 export const HangmanGameScreen = () => {
     const router = useRouter();
     const { player } = useLocalSearchParams<{ player: string }>();
+    const { contenidos, loading, errors, isInitialized } = useData();
 
     const [currentWord, setCurrentWord] = useState<IContenidoAudiovisual | null>(null);
     const [guessedLetters, setGuessedLetters] = useState<string[]>([]);
     const [guessedWords, setGuessedWords] = useState<number[]>([]);
     const [lives, setLives] = useState(5);
     const [score, setScore] = useState(0);
+    const [isLoadingNextWord, setIsLoadingNextWord] = useState(false);
 
     const [keyboardVisible, setKeyboardVisible] = useState(false);
     const [guessTitleVisible, setGuessTitleVisible] = useState(false);
 
+    const WIN_CONDITION_COUNT = Math.ceil(contenidos.length / 2);
+
     const loadNextWord = useCallback(() => {
-        const availableWords = contenidosAudiovisuales.filter(
-            content => !guessedWords.includes(content.id)
+        if (isLoadingNextWord) return; // Evitar múltiples llamadas
+        
+        setIsLoadingNextWord(true);
+        
+        const availableWords = contenidos.filter(
+            (content: IContenidoAudiovisual) => !guessedWords.includes(content.id)
         );
 
         if (availableWords.length === 0) {
@@ -127,18 +137,26 @@ export const HangmanGameScreen = () => {
         const randomContent = availableWords[Math.floor(Math.random() * availableWords.length)];
         setCurrentWord(randomContent);
         setGuessedLetters([]);
-    }, [guessedWords]);
+        
+        // Pequeño delay para evitar parpadeo
+        setTimeout(() => {
+            setIsLoadingNextWord(false);
+        }, 100);
+    }, [guessedWords, contenidos, isLoadingNextWord]);
 
     const endGame = (status: 'win' | 'lose') => {
-        router.replace({
+        router.push({
             pathname: '/hang-man/game-over',
             params: { status, score: score.toString(), player }
-        } as any);
+        });
     };
 
+    // Cargar primera palabra solo una vez
     useEffect(() => {
-        loadNextWord();
-    }, []);
+        if (isInitialized && contenidos.length > 0 && !currentWord && !isLoadingNextWord) {
+            loadNextWord();
+        }
+    }, [isInitialized, contenidos.length, currentWord, isLoadingNextWord, loadNextWord]);
 
     useEffect(() => {
         if (lives <= 0) {
@@ -149,16 +167,18 @@ export const HangmanGameScreen = () => {
     const normalizedWordToGuess = currentWord ? normalizeString(currentWord.nombre).toUpperCase() : '';
     const originalWordToGuess = currentWord?.nombre ?? '';
 
-    const isWordGuessed = normalizedWordToGuess && normalizedWordToGuess.replace(/ /g, '').split('').every(letter => guessedLetters.includes(letter));
+    // Verificar si la palabra está completamente adivinada
+    const isWordGuessed = normalizedWordToGuess && 
+        normalizedWordToGuess.replace(/[^A-Z]/g, '').split('').every(letter => guessedLetters.includes(letter));
 
     useEffect(() => {
-        if (isWordGuessed && currentWord) {
+        if (isWordGuessed && currentWord && !isLoadingNextWord) {
             handleCorrectGuess();
         }
-    }, [isWordGuessed, currentWord]);
+    }, [isWordGuessed, currentWord, isLoadingNextWord]);
 
     const handleCorrectGuess = () => {
-        if (!currentWord) return;
+        if (!currentWord || isLoadingNextWord) return;
 
         const newScore = score + 1;
         const newGuessedWords = [...guessedWords, currentWord.id];
@@ -188,14 +208,24 @@ export const HangmanGameScreen = () => {
 
     const handleGuessTitle = (title: string) => {
         setGuessTitleVisible(false);
-        if (normalizeString(title).toUpperCase() === normalizedWordToGuess) {
+        
+        // Mejorar la normalización para caracteres especiales
+        const normalizedGuess = normalizeString(title.trim()).toUpperCase();
+        const normalizedTarget = normalizedWordToGuess;
+        
+        console.log('Guess:', normalizedGuess);
+        console.log('Target:', normalizedTarget);
+        console.log('Match:', normalizedGuess === normalizedTarget);
+        
+        if (normalizedGuess === normalizedTarget) {
+            // Adivinar todas las letras para que se complete la palabra
             setGuessedLetters(ALPHABET);
         } else {
             setLives(prev => prev - 1);
         }
     };
 
-    const displayedWord = originalWordToGuess.split('').map(char => {
+    const displayedWord = originalWordToGuess.split('').map((char: string) => {
         if (char === ' ') return ' ';
         const normalizedChar = normalizeString(char).toUpperCase();
         if (!ALPHABET.includes(normalizedChar)) return char;
@@ -203,10 +233,31 @@ export const HangmanGameScreen = () => {
         return '_';
     }).join(' ');
 
+    if (!isInitialized || loading.contenidos) {
+        return (
+            <SafeAreaView style={styles.container}>
+                <View style={styles.loadingContainer}>
+                    <ActivityIndicator size="large" color={Colors.purpura} />
+                    <Text style={styles.loadingText}>Cargando juego...</Text>
+                </View>
+            </SafeAreaView>
+        );
+    }
+
+    if (errors.contenidos) {
+        return (
+            <SafeAreaView style={styles.container}>
+                <View style={styles.errorContainer}>
+                    <Text style={styles.errorText}>Error: {errors.contenidos}</Text>
+                </View>
+            </SafeAreaView>
+        );
+    }
+
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
-                <Button onPress={() => router.back()} icon="exit-to-app" text="EXIT" />
+                <Button onPress={() => router.push({ pathname: '/', params: {} })} icon="exit-to-app" text="EXIT" />
                 <View style={styles.livesContainer}>
                     {[...Array(5)].map((_, i) => (
                         <MaterialIcons key={i} name={i < lives ? "favorite" : "favorite-border"} size={25} color={Colors.purpura} />
@@ -269,5 +320,8 @@ const styles = StyleSheet.create({
     modalFooter: { flexDirection: 'row', justifyContent: 'flex-end' },
     keyboard: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', gap: 10 },
     key: { paddingVertical: 8, paddingHorizontal: 0, width: 45, alignItems: 'center' },
-    keyText: { color: '#FFF', fontSize: 18 }
+    keyText: { color: '#FFF', fontSize: 18 },
+    loadingContainer: { flex: 1, justifyContent: 'center', alignItems: 'center' },
+    loadingText: { color: Colors.purpura, fontSize: 18, marginTop: 10 },
+    errorContainer: { flex: 1, justifyContent: 'center', alignItems: 'center' }
 });

@@ -1,26 +1,19 @@
 import { Button } from '@/src/shared/components/Button';
 import { TextPressStart2P } from '@/src/shared/components/TextPressStart2P';
 import { Colors } from '@/src/shared/constants/Colors';
-import { ITopPlayer } from '@/src/shared/data/topPlayers';
+import { useData } from '@/src/shared/context/DataContext';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useFocusEffect, useRouter } from 'expo-router';
 import React, { useCallback, useState } from 'react';
-import { Modal, Platform, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Modal, Platform, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View, ActivityIndicator } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { playerRepository } from '../repositories/PlayerRepository';
 
 export const HangmanLobbyScreen = () => {
     const router = useRouter();
+    const { players, loading, errors, isInitialized, doesPlayerExist } = useData();
     const [modalVisible, setModalVisible] = useState(false);
     const [playerName, setPlayerName] = useState('');
     const [nameError, setNameError] = useState('');
-    const [scoreboard, setScoreboard] = useState<ITopPlayer[]>([]);
-
-    useFocusEffect(
-        useCallback(() => {
-            setScoreboard(playerRepository.getPlayers());
-        }, [])
-    );
 
     const handleStartGame = () => {
         const trimmedName = playerName.trim();
@@ -28,7 +21,9 @@ export const HangmanLobbyScreen = () => {
             setNameError('Player name cannot be empty.');
             return;
         }
-        if (playerRepository.doesPlayerExist(trimmedName)) {
+        
+        // Verificar si el jugador ya existe
+        if (doesPlayerExist(trimmedName)) {
             setNameError('This player name is already taken.');
             return;
         }
@@ -48,10 +43,15 @@ export const HangmanLobbyScreen = () => {
         setModalVisible(true);
     };
 
+    // Ordenar players por score
+    const sortedPlayers = React.useMemo(() => {
+        return [...players].sort((a, b) => b.score - a.score);
+    }, [players]);
+
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
-                <Button onPress={() => router.back()} icon="arrow-back" text="BACK" />
+                <Button onPress={() => router.push({ pathname: '/', params: {} })} icon="arrow-back" text="BACK" />
             </View>
             <ScrollView style={styles.scrollContainer}>
                 <View style={styles.mainContent}>
@@ -68,14 +68,25 @@ export const HangmanLobbyScreen = () => {
                         />
                         <View style={styles.scoreboardContainer}>
                             <TextPressStart2P style={styles.topPlayersTitle}>Top Players</TextPressStart2P>
-                            <View style={styles.scoreboard}>
-                                {scoreboard.slice(0, 5).map((player, index) => (
-                                    <View key={player.id} style={styles.scoreRow}>
-                                        <Text style={styles.scoreText}>{index + 1}. {player.name}</Text>
-                                        <TextPressStart2P style={styles.scoreValue}>{player.score}</TextPressStart2P>
-                                    </View>
-                                ))}
-                            </View>
+                            {loading.players ? (
+                                <View style={styles.loadingContainer}>
+                                    <ActivityIndicator size="large" color={Colors.purpura} />
+                                    <Text style={styles.loadingText}>Cargando...</Text>
+                                </View>
+                            ) : errors.players ? (
+                                <View style={styles.errorContainer}>
+                                    <Text style={styles.errorText}>Error: {errors.players}</Text>
+                                </View>
+                            ) : (
+                                <View style={styles.scoreboard}>
+                                    {sortedPlayers.slice(0, 5).map((player, index) => (
+                                        <View key={player.id} style={styles.scoreRow}>
+                                            <Text style={styles.scoreText}>{index + 1}. {player.name}</Text>
+                                            <TextPressStart2P style={styles.scoreValue}>{player.score}</TextPressStart2P>
+                                        </View>
+                                    ))}
+                                </View>
+                            )}
                         </View>
                     </View>
                 </View>
@@ -133,12 +144,39 @@ const styles = StyleSheet.create({
     scoreRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 10, },
     scoreText: { color: '#FFF', fontSize: 18, fontFamily: 'System', },
     scoreValue: { color: Colors.verde, fontSize: 15, },
+    loadingContainer: { 
+        borderWidth: 2, 
+        borderColor: Colors.gris, 
+        padding: 20, 
+        backgroundColor: Colors.grisOscuro,
+        alignItems: 'center',
+        justifyContent: 'center',
+        minHeight: 100
+    },
+    loadingText: { 
+        color: Colors.purpura, 
+        fontSize: 16, 
+        marginTop: 10 
+    },
+    errorContainer: { 
+        borderWidth: 2, 
+        borderColor: Colors.rojo, 
+        padding: 20, 
+        backgroundColor: Colors.grisOscuro,
+        alignItems: 'center',
+        justifyContent: 'center',
+        minHeight: 100
+    },
+    errorText: { 
+        color: Colors.rojo, 
+        fontSize: 16, 
+        textAlign: 'center' 
+    },
     centeredView: { flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.7)', },
     modalView: { backgroundColor: Colors.fondo, borderRadius: 0, padding: 20, width: Platform.OS === 'web' ? 400 : '90%', borderWidth: 2, },
     modalHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20, },
     modalTitle: { fontSize: 18, color: '#FFF', },
     input: { borderWidth: 2, borderColor: Colors.purpura, padding: 15, color: '#FFF', fontSize: 16, marginBottom: 10, },
     inputError: { borderColor: Colors.rojo, },
-    errorText: { color: Colors.rojo, marginBottom: 10, fontSize: 12, },
     modalFooter: { flexDirection: 'row', justifyContent: 'flex-end', },
 }); 

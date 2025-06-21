@@ -2,10 +2,10 @@ import { Button } from '@/src/shared/components/Button';
 import { Checkbox } from '@/src/shared/components/Checkbox';
 import { TextPressStart2P } from '@/src/shared/components/TextPressStart2P';
 import { Colors } from '@/src/shared/constants/Colors';
-import { IGeneroContenidoAudiovisual } from '@/src/shared/data/generosContenidoAudiovisual';
-import { ITipoContenidoAudiovisual } from '@/src/shared/data/tiposContenidoAudiovisual';
+import { IGeneroContenidoAudiovisual } from '@/database/generosContenidoAudiovisual';
+import { ITipoContenidoAudiovisual } from '@/database/tiposContenidoAudiovisual';
 import { MaterialIcons } from '@expo/vector-icons';
-import React from 'react';
+import React, { useState } from 'react';
 import { Modal, Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 interface Filters {

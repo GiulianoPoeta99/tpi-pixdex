@@ -1,14 +1,15 @@
 import { Button } from '@/src/shared/components/Button';
 import { TextPressStart2P } from '@/src/shared/components/TextPressStart2P';
 import { Colors } from '@/src/shared/constants/Colors';
+import { useData } from '@/src/shared/context/DataContext';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { playerRepository } from '../repositories/PlayerRepository';
 
 export const GameOverScreen = () => {
     const router = useRouter();
+    const { addPlayerScore } = useData();
     const { status, score, player } = useLocalSearchParams<{ status: 'win' | 'lose', score: string, player: string }>();
 
     const isWin = status === 'win';
@@ -16,9 +17,25 @@ export const GameOverScreen = () => {
 
     useEffect(() => {
         if (player && finalScore > 0) {
-            playerRepository.addPlayerScore(player, finalScore);
+            addPlayerScore(player, finalScore);
         }
-    }, [player, finalScore]);
+    }, [player, finalScore, addPlayerScore]);
+
+    const handlePlayAgain = () => {
+        // Limpiar completamente el stack y ir al lobby del hangman
+        router.push({
+            pathname: '/hang-man',
+            params: {}
+        });
+    };
+
+    const handleExit = () => {
+        // Limpiar completamente el stack y ir a la página principal
+        router.push({
+            pathname: '/',
+            params: {}
+        });
+    };
 
     return (
         <SafeAreaView style={styles.container}>
@@ -28,7 +45,10 @@ export const GameOverScreen = () => {
                     {isWin ? 'You Win!' : 'You Lose!'}
                 </TextPressStart2P>
                 <TextPressStart2P style={styles.score}>Final Score: {finalScore}</TextPressStart2P>
-                <Button onPress={() => router.replace('/hang-man')} icon="replay" text="PLAY AGAIN" />
+                <View style={styles.buttonContainer}>
+                    <Button onPress={handlePlayAgain} icon="replay" text="PLAY AGAIN" />
+                    <Button onPress={handleExit} icon="home" text="EXIT" />
+                </View>
             </View>
         </SafeAreaView>
     );
@@ -58,5 +78,9 @@ const styles = StyleSheet.create({
         fontSize: 24,
         color: '#FFF',
         marginBottom: 20,
+    },
+    buttonContainer: {
+        flexDirection: 'row',
+        gap: 20,
     },
 }); 

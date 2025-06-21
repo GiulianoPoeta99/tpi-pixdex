@@ -1,9 +1,8 @@
 import { TextPressStart2P } from "@/src/shared/components/TextPressStart2P";
 import { Colors } from "@/src/shared/constants/Colors";
-import { ContenidoAudiovisualRepository } from "@/src/shared/repositories/contenidos-audiovisuales-repository";
-import { TiposContenidoAudiovisual } from "@/src/shared/repositories/tipos-contenido-audiovisual-repository";
-import React, { useState } from 'react';
-import { FlatList, Platform, StyleSheet, View } from "react-native";
+import { useData } from "@/src/shared/context/DataContext";
+import React, { useState, useMemo } from 'react';
+import { FlatList, Platform, StyleSheet, View, ActivityIndicator, Text } from "react-native";
 import { AudioVisualCard } from "./AudioVisualCard";
 
 interface AudioVisualListProps {
@@ -12,22 +11,54 @@ interface AudioVisualListProps {
 }
 
 export const AudioVisualList: React.FC<AudioVisualListProps> = ({ tipoId, genreFilters }) => {
-    const tipo = TiposContenidoAudiovisual.getOneByID(tipoId)
-    let contenidosAudiovisuales = ContenidoAudiovisualRepository.getAllByTipoID(tipo.id)
+    const { getTipoById, getContenidosByTipoId, loading, errors } = useData();
+    const [maxCardHeight, setMaxCardHeight] = useState(0);
 
-    if (genreFilters.length > 0) {
-        contenidosAudiovisuales = contenidosAudiovisuales.filter(item =>
+    // Obtener datos del contexto
+    const tipo = getTipoById(tipoId);
+    const contenidosAudiovisuales = getContenidosByTipoId(tipoId);
+
+    // Filtrar por géneros si hay filtros aplicados
+    const filteredContenidos = useMemo(() => {
+        if (genreFilters.length === 0) {
+            return contenidosAudiovisuales;
+        }
+        return contenidosAudiovisuales.filter(item =>
             genreFilters.every(genreId => item.generos.includes(genreId))
         );
-    }
-    
-    const [maxCardHeight, setMaxCardHeight] = useState(0);
+    }, [contenidosAudiovisuales, genreFilters]);
 
     const handleMeasure = (height: number) => {
         if (height > maxCardHeight) setMaxCardHeight(height);
     };
 
-    if (contenidosAudiovisuales.length === 0) {
+    // Mostrar loading si los datos están cargando
+    if (loading.contenidos || loading.tipos) {
+        return (
+            <View style={styles.container}>
+                <View style={styles.loadingContainer}>
+                    <ActivityIndicator size="large" color={Colors.purpura} />
+                    <Text style={styles.loadingText}>Cargando...</Text>
+                </View>
+            </View>
+        );
+    }
+
+    // Mostrar error si hay problemas
+    if (errors.contenidos || errors.tipos) {
+        return (
+            <View style={styles.container}>
+                <View style={styles.errorContainer}>
+                    <Text style={styles.errorText}>
+                        Error: {errors.contenidos || errors.tipos}
+                    </Text>
+                </View>
+            </View>
+        );
+    }
+
+    // No mostrar nada si no hay datos o tipo
+    if (!tipo || filteredContenidos.length === 0) {
         return null;
     }
 
@@ -39,7 +70,7 @@ export const AudioVisualList: React.FC<AudioVisualListProps> = ({ tipoId, genreF
                 </TextPressStart2P>
             </View>
             <FlatList
-                data={contenidosAudiovisuales}
+                data={filteredContenidos}
                 horizontal
                 keyExtractor={item => item.id.toString()}
                 showsHorizontalScrollIndicator={false}
@@ -81,5 +112,27 @@ const styles = StyleSheet.create({
     },
     listContent: {
         gap: 20,
+    },
+    loadingContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 20,
+    },
+    loadingText: {
+        marginTop: 10,
+        fontSize: 16,
+        color: Colors.purpura,
+    },
+    errorContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 20,
+    },
+    errorText: {
+        fontSize: 16,
+        color: 'red',
+        textAlign: 'center',
     },
 });

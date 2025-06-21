@@ -2,7 +2,7 @@ import { DetailImage } from "@/src/shared/components/DetailImage";
 import { GenerosList } from "@/src/shared/components/GenerosList";
 import { TextPressStart2P } from "@/src/shared/components/TextPressStart2P";
 import { Colors } from "@/src/shared/constants/Colors";
-import { IContenidoAudiovisual } from '@/src/shared/data/contenidosAudiovisuales';
+import { IContenidoAudiovisual } from '@/database/contenidosAudiovisuales';
 import { ROUTES } from "@/src/shared/navigation/routes";
 import { useRouter } from "expo-router";
 import React from 'react';

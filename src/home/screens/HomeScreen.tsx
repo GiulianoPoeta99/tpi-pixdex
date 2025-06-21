@@ -1,9 +1,8 @@
 import { Colors } from "@/src/shared/constants/Colors";
-import { tiposContenidoAudiovisual } from "@/src/shared/data/tiposContenidoAudiovisual";
 import { ROUTES } from "@/src/shared/navigation/routes";
-import { GenerosContenidoAudiovisualRepository } from '@/src/shared/repositories/generos-contenido-audiovisual-repository';
-import React from 'react';
-import { Platform, ScrollView, StyleSheet, View } from "react-native";
+import { useData } from "@/src/shared/context/DataContext";
+import React, { useState } from 'react';
+import { Platform, ScrollView, StyleSheet, View, ActivityIndicator, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { AudioVisualList } from "../components/AudioVisualList";
 import { FilterModal } from '../components/FilterModal';
@@ -16,21 +15,55 @@ interface Filters {
 }
 
 export const HomeScreen = () => {
-    const [modalVisible, setModalVisible] = React.useState(false);
-    const [filters, setFilters] = React.useState<Filters>({
-        types: tiposContenidoAudiovisual.map(t => t.id),
+    const { tipos, generos, loading, errors, isInitialized } = useData();
+    const [modalVisible, setModalVisible] = useState(false);
+    const [filters, setFilters] = useState<Filters>({
+        types: [],
         genres: [],
     });
 
-    const allGenres = GenerosContenidoAudiovisualRepository.getAll();
+    // Inicializar filtros cuando los tipos estén disponibles
+    React.useEffect(() => {
+        if (tipos.length > 0 && filters.types.length === 0) {
+            setFilters(prev => ({
+                ...prev,
+                types: tipos.map(t => t.id)
+            }));
+        }
+    }, [tipos, filters.types.length]);
 
     const handleApplyFilters = (newFilters: Filters) => {
         setFilters(newFilters);
     };
 
-    const filteredContentTypes = tiposContenidoAudiovisual.filter(tipo =>
+    const filteredContentTypes = tipos.filter(tipo =>
         filters.types.includes(tipo.id)
     );
+
+    // Mostrar loading mientras se inicializa
+    if (!isInitialized || loading.tipos || loading.generos) {
+        return (
+            <SafeAreaView style={styles.container}>
+                <View style={styles.loadingContainer}>
+                    <ActivityIndicator size="large" color={Colors.purpura} />
+                    <Text style={styles.loadingText}>Cargando...</Text>
+                </View>
+            </SafeAreaView>
+        );
+    }
+
+    // Mostrar error si hay problemas
+    if (errors.tipos || errors.generos) {
+        return (
+            <SafeAreaView style={styles.container}>
+                <View style={styles.errorContainer}>
+                    <Text style={styles.errorText}>
+                        Error: {errors.tipos || errors.generos}
+                    </Text>
+                </View>
+            </SafeAreaView>
+        );
+    }
 
     return (
         <SafeAreaView style={styles.container}>
@@ -61,8 +94,8 @@ export const HomeScreen = () => {
                 visible={modalVisible}
                 onClose={() => setModalVisible(false)}
                 onApply={handleApplyFilters}
-                contentTypes={tiposContenidoAudiovisual}
-                genres={allGenres}
+                contentTypes={tipos}
+                genres={generos}
                 activeFilters={filters}
             />
         </SafeAreaView>
@@ -88,5 +121,27 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
         padding: 20,
         gap: 30
+    },
+    loadingContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 20,
+    },
+    loadingText: {
+        marginTop: 10,
+        fontSize: 16,
+        color: Colors.purpura,
+    },
+    errorContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 20,
+    },
+    errorText: {
+        fontSize: 16,
+        color: 'red',
+        textAlign: 'center',
     }
 });
