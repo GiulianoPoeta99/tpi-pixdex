@@ -5,5 +5,6 @@ export const Colors = {
     purpuraClaro: '#9B87F5',
     verde: '#5FD068',
     grisOscuro: '#403E43',
-    gris: '#4A3D70'
+    gris: '#4A3D70',
+    rojo: '#E53935',
 };

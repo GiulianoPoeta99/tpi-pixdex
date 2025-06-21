@@ -1,23 +1,32 @@
 import { TextPressStart2P } from "@/src/shared/components/TextPressStart2P";
 import { Colors } from "@/src/shared/constants/Colors";
 import { MaterialIcons } from "@expo/vector-icons";
-import { Platform, StyleSheet, TouchableOpacity } from "react-native";
+import { Platform, StyleProp, StyleSheet, TextStyle, TouchableOpacity, View, ViewStyle } from "react-native";
 
 interface ButtonProps {
     onPress: () => void;
-    icon: keyof typeof MaterialIcons.glyphMap;
+    icon?: keyof typeof MaterialIcons.glyphMap;
     text: string;
+    style?: StyleProp<ViewStyle>;
+    textStyle?: StyleProp<TextStyle>;
+    disabled?: boolean;
 }
 
-export const Button: React.FC<ButtonProps> = ({ onPress, icon, text }) => (
-    <TouchableOpacity style={styles.button} onPress={onPress} activeOpacity={0.7}>
-        <TextPressStart2P style={styles.buttonText}>
-            <MaterialIcons
-                name={icon}
-                color="#FFF"
-                size={Platform.OS === "web" ? 15 : 8}
-            /> {text}
-        </TextPressStart2P>
+export const Button: React.FC<ButtonProps> = ({ onPress, icon, text, style, textStyle, disabled }) => (
+    <TouchableOpacity style={[styles.button, style, disabled && styles.disabled]} onPress={onPress} activeOpacity={0.7} disabled={disabled}>
+        <View style={styles.content}>
+            {icon && (
+                <MaterialIcons
+                    name={icon}
+                    color="#FFF"
+                    size={Platform.OS === "web" ? 15 : 10}
+                    style={styles.icon}
+                />
+            )}
+            <TextPressStart2P style={[styles.buttonText, textStyle]}>
+                {text}
+            </TextPressStart2P>
+        </View>
     </TouchableOpacity>
 );
 
@@ -29,12 +38,27 @@ const styles = StyleSheet.create({
         borderLeftColor: Colors.purpuraClaro,
         borderBottomColor: Colors.purpuraOscuro,
         borderRightColor: Colors.purpuraOscuro,
-        padding: 5,
+        paddingVertical: 8,
+        paddingHorizontal: 10,
+        justifyContent: 'center',
+    },
+    disabled: {
+        backgroundColor: Colors.grisOscuro,
+        borderTopColor: Colors.gris,
+        borderLeftColor: Colors.gris,
+        borderBottomColor: Colors.gris,
+        borderRightColor: Colors.gris,
+    },
+    content: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    icon: {
+        marginRight: 8,
     },
     buttonText: {
         color: "#FFF",
-        paddingHorizontal: 5,
-        paddingTop: Platform.OS === "web" ? 0 : 5,
         fontSize: Platform.OS === "web" ? 15 : 8,
     },
 }); 
