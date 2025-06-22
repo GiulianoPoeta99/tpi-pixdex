@@ -94,6 +94,9 @@ export const HangmanGameScreen = () => {
     const handleCorrectGuess = () => {
         if (!currentWord || isLoadingNextWord) return;
 
+        // Verificar que no se haya adivinado ya esta palabra
+        if (guessedWords.includes(currentWord.id)) return;
+
         const newScore = score + 1;
         const newGuessedWords = [...guessedWords, currentWord.id];
 
@@ -134,6 +137,23 @@ export const HangmanGameScreen = () => {
         if (normalizedGuess === normalizedTarget) {
             // Adivinar todas las letras para que se complete la palabra
             setGuessedLetters(ALPHABET);
+            
+            // También agregar el ID a guessedWords para evitar repeticiones
+            if (currentWord && !guessedWords.includes(currentWord.id)) {
+                const newScore = score + 1;
+                const newGuessedWords = [...guessedWords, currentWord.id];
+
+                setScore(newScore);
+                setGuessedWords(newGuessedWords);
+
+                if (newGuessedWords.length >= WIN_CONDITION_COUNT) {
+                    endGame('win');
+                } else {
+                    setTimeout(() => {
+                        loadNextWord();
+                    }, 1000);
+                }
+            }
         } else {
             setLives(prev => prev - 1);
         }
