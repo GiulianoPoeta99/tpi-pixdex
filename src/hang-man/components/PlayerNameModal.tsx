@@ -51,7 +51,7 @@ export const PlayerNameModal: FC<PlayerNameModalProps> = ({ visible, onClose, on
             onRequestClose={onClose}
         >
             <View style={styles.centeredView}>
-                <View style={[styles.modalView, { borderColor: Colors.gris }]}>
+                <View style={[styles.modalView, { borderColor: Colors.grisOscuro }]}>
                     <View style={styles.modalHeader}>
                         <TextPressStart2P style={styles.modalTitle}>Enter Your Name</TextPressStart2P>
                         <TouchableOpacity onPress={onClose}>

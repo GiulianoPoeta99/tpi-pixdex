@@ -37,7 +37,7 @@ export const GuessTitleModal: FC<GuessTitleModalProps> = ({ visible, onClose, on
     return (
         <Modal visible={visible} transparent={true} onRequestClose={onClose} animationType="fade">
             <View style={styles.centeredView}>
-                <View style={[styles.modalView, { borderColor: Colors.gris }]}>
+                <View style={[styles.modalView, { borderColor: Colors.grisOscuro }]}>
                     <View style={styles.modalHeader}>
                         <TextPressStart2P style={styles.modalTitle}>Guess the Title</TextPressStart2P>
                         <TouchableOpacity onPress={onClose}><MaterialIcons name="close" size={24} color="white" /></TouchableOpacity>

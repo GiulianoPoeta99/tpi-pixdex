@@ -120,11 +120,11 @@ const styles = StyleSheet.create({
     },
     modalView: {
         backgroundColor: Colors.fondo,
-        borderRadius: 8,
+        borderRadius: 0,
         padding: 20,
         width: Platform.OS === 'web' ? 450 : '90%',
         borderWidth: 2,
-        borderColor: Colors.purpuraClaro,
+        borderColor: Colors.grisOscuro,
     },
     header: {
         flexDirection: 'row',
