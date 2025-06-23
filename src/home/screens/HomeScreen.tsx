@@ -1,4 +1,5 @@
 // import { Colors } from "@/src/shared/constants/Colors";
+import { Colors } from "@/src/shared/constants/Colors";
 import { useData } from "@/src/shared/context/DataContext";
 import { LoadingState } from "@/src/shared/components/LoadingState";
 import { ErrorState } from "@/src/shared/components/ErrorState";
@@ -79,6 +80,6 @@ export const HomeScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: Colors.fondo,
   },
 });
