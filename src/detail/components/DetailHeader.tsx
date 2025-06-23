@@ -6,30 +6,26 @@ import { Platform, StyleSheet, View } from "react-native";
 const HEADER_HEIGHT = Platform.select({ ios: 86, default: 56 });
 
 export const DetailHeader = () => {
-    const router = useRouter();
+  const router = useRouter();
 
-    const handlePress = () => {
-        router.back();
-    };
+  const handlePress = () => {
+    router.back();
+  };
 
-    return (
-        <View style={[styles.container, { height: HEADER_HEIGHT }]}>
-            <Button
-                onPress={handlePress}
-                icon="arrow-back"
-                text="BACK"
-            />
-        </View>
-    );
+  return (
+    <View style={[styles.container, { height: HEADER_HEIGHT }]}>
+      <Button onPress={handlePress} icon="arrow-back" text="BACK" />
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
-    container: {
-        paddingTop: Platform.OS === "ios" ? 50 : 20,
-        backgroundColor: Colors.fondo,
-        paddingHorizontal: 20,
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "flex-start",
-    },
+  container: {
+    paddingTop: Platform.OS === "ios" ? 50 : 20,
+    backgroundColor: Colors.fondo,
+    paddingHorizontal: 20,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "flex-start",
+  },
 });

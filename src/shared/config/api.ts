@@ -1,10 +1,10 @@
 // Configuración de la API
 export const API_CONFIG = {
-  BASE_URL: '', // URL relativa para usar con Expo Router
+  BASE_URL: "", // URL relativa para usar con Expo Router
   ENDPOINTS: {
-    CONTENIDOS: '/api/contenidos',
-    GENEROS: '/api/generos',
-    TIPOS: '/api/tipos',
-    PLAYERS: '/api/players',
-  }
-}; 
+    CONTENIDOS: "/api/contenidos",
+    GENEROS: "/api/generos",
+    TIPOS: "/api/tipos",
+    PLAYERS: "/api/players",
+  },
+};

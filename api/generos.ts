@@ -2,4 +2,4 @@ import { generosContenidoAudiovisual } from "../database/generosContenidoAudiovi
 
 export function GET() {
   return Response.json(generosContenidoAudiovisual);
-} 
+}
