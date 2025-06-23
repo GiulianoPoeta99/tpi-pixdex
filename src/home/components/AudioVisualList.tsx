@@ -7,11 +7,30 @@ import React, { useState, useMemo } from "react";
 import { FlatList, Platform, StyleSheet, View } from "react-native";
 import { AudioVisualCard } from "./AudioVisualCard";
 
+/**
+ * Propiedades para el componente AudioVisualList.
+ * @interface
+ * @property {number} tipoId - ID del tipo de contenido audiovisual a mostrar.
+ * @property {number[]} genreFilters - Lista de identificadores de géneros seleccionados para filtrar el contenido.
+ */
 interface AudioVisualListProps {
   tipoId: number;
   genreFilters: number[];
 }
 
+/**
+ * Lista horizontal de tarjetas de contenido audiovisual filtradas por tipo y géneros.
+ * Muestra un encabezado con el nombre del tipo y una lista de tarjetas.
+ *
+ * @component
+ * @param {AudioVisualListProps} props - Propiedades del componente.
+ * @param {number} props.tipoId - ID del tipo de contenido audiovisual a mostrar.
+ * @param {number[]} props.genreFilters - Filtros de género aplicados a la lista de contenido.
+ * @returns {JSX.Element|null} Lista de tarjetas de contenido audiovisual o null si no hay contenido.
+ *
+ * @example
+ * <AudioVisualList tipoId={1} genreFilters={[2, 3]} />
+ */
 export const AudioVisualList: React.FC<AudioVisualListProps> = ({
   tipoId,
   genreFilters,
@@ -83,6 +102,10 @@ export const AudioVisualList: React.FC<AudioVisualListProps> = ({
   );
 };
 
+/**
+ * Estilos para el componente AudioVisualList.
+ * @private
+ */
 const styles = StyleSheet.create({
   container: {
     borderWidth: 4,

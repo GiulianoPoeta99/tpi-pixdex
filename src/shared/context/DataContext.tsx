@@ -14,6 +14,29 @@ import { GenerosService } from "../services/generosService";
 import { TiposService } from "../services/tiposService";
 import { PlayersService } from "../services/playersService";
 
+/**
+ * Tipo de datos y métodos expuestos por el contexto de datos global.
+ * @interface
+ * @property {IContenidoAudiovisual[]} contenidos - Lista de contenidos audiovisuales.
+ * @property {IGeneroContenidoAudiovisual[]} generos - Lista de géneros audiovisuales.
+ * @property {ITipoContenidoAudiovisual[]} tipos - Lista de tipos de contenido audiovisual.
+ * @property {ITopPlayer[]} players - Lista de jugadores y sus puntajes.
+ * @property {object} loading - Estado de carga de cada recurso.
+ * @property {object} errors - Estado de error de cada recurso.
+ * @property {(id: number) => IContenidoAudiovisual | undefined} getContenidoById - Obtiene un contenido por ID.
+ * @property {(tipoId: number) => IContenidoAudiovisual[]} getContenidosByTipoId - Obtiene contenidos por tipo.
+ * @property {(id: number) => IGeneroContenidoAudiovisual | undefined} getGeneroById - Obtiene un género por ID.
+ * @property {(ids: number[]) => IGeneroContenidoAudiovisual[]} getGenerosByIds - Obtiene géneros por IDs.
+ * @property {(id: number) => ITipoContenidoAudiovisual | undefined} getTipoById - Obtiene un tipo por ID.
+ * @property {(id: number) => ITopPlayer | undefined} getPlayerById - Obtiene un jugador por ID.
+ * @property {() => Promise<void>} refreshContenidos - Refresca la lista de contenidos.
+ * @property {() => Promise<void>} refreshGeneros - Refresca la lista de géneros.
+ * @property {() => Promise<void>} refreshTipos - Refresca la lista de tipos.
+ * @property {() => Promise<void>} refreshPlayers - Refresca la lista de jugadores.
+ * @property {(name: string, score: number) => void} addPlayerScore - Agrega o actualiza el puntaje de un jugador.
+ * @property {(name: string) => boolean} doesPlayerExist - Verifica si existe un jugador por nombre.
+ * @property {boolean} isInitialized - Indica si los datos iniciales ya fueron cargados.
+ */
 interface DataContextType {
   contenidos: IContenidoAudiovisual[];
   generos: IGeneroContenidoAudiovisual[];
@@ -54,6 +77,20 @@ interface DataContextType {
 
 const DataContext = createContext<DataContextType | undefined>(undefined);
 
+/**
+ * Proveedor de contexto global de datos para la aplicación.
+ * Carga y expone los datos principales y utilidades para acceder y manipularlos.
+ *
+ * @component
+ * @param {DataProviderProps} props - Propiedades del proveedor.
+ * @param {ReactNode} props.children - Componentes hijos envueltos por el proveedor.
+ * @returns {JSX.Element} Proveedor de contexto de datos.
+ *
+ * @example
+ * <DataProvider>
+ *   <App />
+ * </DataProvider>
+ */
 interface DataProviderProps {
   children: ReactNode;
 }
@@ -270,6 +307,16 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
   return <DataContext.Provider value={value}>{children}</DataContext.Provider>;
 };
 
+/**
+ * Hook para acceder al contexto global de datos de la aplicación.
+ * Debe usarse dentro de un <DataProvider>.
+ *
+ * @returns {DataContextType} Contexto global de datos y utilidades.
+ * @throws {Error} Si se usa fuera de un DataProvider.
+ *
+ * @example
+ * const { contenidos, loading } = useData();
+ */
 export const useData = () => {
   const context = useContext(DataContext);
   if (context === undefined) {

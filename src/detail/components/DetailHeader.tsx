@@ -3,8 +3,22 @@ import { Colors } from "@/src/shared/constants/Colors";
 import { useRouter } from "expo-router";
 import { Platform, StyleSheet, View } from "react-native";
 
+/**
+ * Altura del encabezado de la pantalla de detalle, ajustada según la plataforma.
+ * @constant
+ */
 const HEADER_HEIGHT = Platform.select({ ios: 86, default: 56 });
 
+/**
+ * Encabezado para la pantalla de detalle.
+ * Incluye un botón para volver a la pantalla anterior.
+ *
+ * @component
+ * @returns {JSX.Element} Encabezado con botón de retroceso.
+ *
+ * @example
+ * <DetailHeader />
+ */
 export const DetailHeader = () => {
   const router = useRouter();
 
@@ -19,6 +33,10 @@ export const DetailHeader = () => {
   );
 };
 
+/**
+ * Estilos para el componente DetailHeader.
+ * @private
+ */
 const styles = StyleSheet.create({
   container: {
     paddingTop: Platform.OS === "ios" ? 50 : 20,

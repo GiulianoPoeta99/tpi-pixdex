@@ -4,7 +4,17 @@ import {
 } from "../../../database/generosContenidoAudiovisual";
 import { API_CONFIG } from "../config/api";
 
+/**
+ * Servicio para gestionar los géneros de contenido audiovisual.
+ * Proporciona métodos para obtener todos los géneros, uno por ID o varios por IDs, usando la API o datos locales de respaldo.
+ *
+ * @class
+ */
 export class GenerosService {
+  /**
+   * Obtiene todos los géneros desde la API o datos locales si falla.
+   * @returns {Promise<IGeneroContenidoAudiovisual[]>} Lista de géneros audiovisuales.
+   */
   static async getAll(): Promise<IGeneroContenidoAudiovisual[]> {
     try {
       const response = await fetch(
@@ -21,6 +31,12 @@ export class GenerosService {
     }
   }
 
+  /**
+   * Obtiene un género por su ID.
+   * @param {number} id - ID del género audiovisual.
+   * @returns {Promise<IGeneroContenidoAudiovisual>} Género encontrado.
+   * @throws {Error} Si no se encuentra el género o hay un error en la petición.
+   */
   static async getById(id: number): Promise<IGeneroContenidoAudiovisual> {
     try {
       const generos = await this.getAll();
@@ -37,6 +53,12 @@ export class GenerosService {
     }
   }
 
+  /**
+   * Obtiene varios géneros por sus IDs.
+   * @param {number[]} ids - IDs de los géneros audiovisuales.
+   * @returns {Promise<IGeneroContenidoAudiovisual[]>} Lista de géneros encontrados.
+   * @throws {Error} Si hay un error en la petición.
+   */
   static async getByIds(ids: number[]): Promise<IGeneroContenidoAudiovisual[]> {
     try {
       const generos = await this.getAll();

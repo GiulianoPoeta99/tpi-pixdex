@@ -15,8 +15,22 @@ import {
   ErrorState,
 } from "../components";
 
+/**
+ * Alfabeto utilizado para el juego del ahorcado.
+ * @constant
+ */
 const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 
+/**
+ * Pantalla principal del juego del ahorcado.
+ * Gestiona el estado del juego, la lógica de adivinanza, vidas, puntaje y navegación.
+ *
+ * @component
+ * @returns {JSX.Element} Pantalla del juego del ahorcado.
+ *
+ * @example
+ * <HangmanGameScreen />
+ */
 export const HangmanGameScreen = () => {
   const router = useRouter();
   const { player } = useLocalSearchParams<{ player: string }>();
@@ -241,6 +255,10 @@ export const HangmanGameScreen = () => {
   );
 };
 
+/**
+ * Estilos para la pantalla HangmanGameScreen.
+ * @private
+ */
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: Colors.fondo },
 });

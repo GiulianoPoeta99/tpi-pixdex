@@ -12,10 +12,27 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { AudioVisualCardExtended } from "../components/AudioVisualCardExtended";
 import { DetailHeader } from "../components/DetailHeader";
 
+/**
+ * Propiedades para el componente DetailScreen.
+ * @interface
+ * @property {string} audioVisualId - ID del contenido audiovisual a mostrar en detalle.
+ */
 interface DetailScreenProps {
   audioVisualId: string;
 }
 
+/**
+ * Pantalla de detalle para un contenido audiovisual.
+ * Muestra información extendida del contenido seleccionado, incluyendo imagen, título, tipo y géneros.
+ *
+ * @component
+ * @param {DetailScreenProps} props - Propiedades del componente.
+ * @param {string} props.audioVisualId - ID del contenido audiovisual a mostrar.
+ * @returns {JSX.Element} Pantalla de detalle del contenido audiovisual.
+ *
+ * @example
+ * <DetailScreen audioVisualId="1" />
+ */
 export const DetailScreen: React.FC<DetailScreenProps> = ({
   audioVisualId,
 }) => {
@@ -72,6 +89,10 @@ export const DetailScreen: React.FC<DetailScreenProps> = ({
   );
 };
 
+/**
+ * Estilos para la pantalla DetailScreen.
+ * @private
+ */
 const styles = StyleSheet.create({
   container: {
     flex: 1,

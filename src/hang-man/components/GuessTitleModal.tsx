@@ -13,12 +13,37 @@ import {
   View,
 } from "react-native";
 
+/**
+ * Propiedades para el componente GuessTitleModal.
+ * @interface
+ * @property {boolean} visible - Indica si el modal está visible.
+ * @property {() => void} onClose - Función para cerrar el modal.
+ * @property {(title: string) => void} onSubmit - Función que se ejecuta al enviar el título adivinado.
+ */
 interface GuessTitleModalProps {
   visible: boolean;
   onClose: () => void;
   onSubmit: (title: string) => void;
 }
 
+/**
+ * Modal para ingresar la respuesta completa del título en el juego del ahorcado.
+ * Valida que el campo no esté vacío antes de enviar la respuesta.
+ *
+ * @component
+ * @param {GuessTitleModalProps} props - Propiedades del componente.
+ * @param {boolean} props.visible - Indica si el modal está visible.
+ * @param {() => void} props.onClose - Función para cerrar el modal.
+ * @param {(title: string) => void} props.onSubmit - Función que se ejecuta al enviar el título adivinado.
+ * @returns {JSX.Element} Modal para ingresar el título adivinado.
+ *
+ * @example
+ * <GuessTitleModal
+ *   visible={true}
+ *   onClose={() => {}}
+ *   onSubmit={(title) => {}}
+ * />
+ */
 export const GuessTitleModal: FC<GuessTitleModalProps> = ({
   visible,
   onClose,
@@ -86,6 +111,10 @@ export const GuessTitleModal: FC<GuessTitleModalProps> = ({
   );
 };
 
+/**
+ * Estilos para el componente GuessTitleModal.
+ * @private
+ */
 const styles = StyleSheet.create({
   centeredView: {
     flex: 1,

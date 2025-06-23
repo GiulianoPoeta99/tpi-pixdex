@@ -4,6 +4,14 @@ import { IContenidoAudiovisual } from "@/database/contenidosAudiovisuales";
 import React, { FC } from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 
+/**
+ * Propiedades para el componente GameArea.
+ * @interface
+ * @property {IContenidoAudiovisual | null} currentWord - Objeto del contenido audiovisual actual o null si no hay.
+ * @property {string} displayedWord - Palabra mostrada con las letras adivinadas y ocultas.
+ * @property {() => void} onGuessLetter - Función para abrir el modal de adivinar letra.
+ * @property {() => void} onGuessTitle - Función para abrir el modal de adivinar título.
+ */
 interface GameAreaProps {
   currentWord: IContenidoAudiovisual | null;
   displayedWord: string;
@@ -11,6 +19,26 @@ interface GameAreaProps {
   onGuessTitle: () => void;
 }
 
+/**
+ * Área principal del juego del ahorcado.
+ * Muestra la imagen, el nombre, la palabra a adivinar y los botones de acción.
+ *
+ * @component
+ * @param {GameAreaProps} props - Propiedades del componente.
+ * @param {IContenidoAudiovisual | null} props.currentWord - Contenido audiovisual actual.
+ * @param {string} props.displayedWord - Palabra mostrada con letras adivinadas y ocultas.
+ * @param {() => void} props.onGuessLetter - Acción para adivinar una letra.
+ * @param {() => void} props.onGuessTitle - Acción para adivinar el título completo.
+ * @returns {JSX.Element} Área principal del juego.
+ *
+ * @example
+ * <GameArea
+ *   currentWord={contenido}
+ *   displayedWord="_ _ _ _ _"
+ *   onGuessLetter={() => {}}
+ *   onGuessTitle={() => {}}
+ * />
+ */
 export const GameArea: FC<GameAreaProps> = ({
   currentWord,
   displayedWord,
@@ -38,6 +66,10 @@ export const GameArea: FC<GameAreaProps> = ({
   </View>
 );
 
+/**
+ * Estilos para el componente GameArea.
+ * @private
+ */
 const styles = StyleSheet.create({
   gameArea: {
     flex: 1,

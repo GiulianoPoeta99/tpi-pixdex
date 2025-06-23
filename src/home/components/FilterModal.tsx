@@ -14,11 +14,27 @@ import {
   View,
 } from "react-native";
 
+/**
+ * Estructura de los filtros aplicados en el modal.
+ * @interface
+ * @property {number[]} types - IDs de los tipos de contenido seleccionados.
+ * @property {number[]} genres - IDs de los géneros seleccionados.
+ */
 interface Filters {
   types: number[];
   genres: number[];
 }
 
+/**
+ * Propiedades para el componente FilterModal.
+ * @interface
+ * @property {boolean} visible - Indica si el modal está visible.
+ * @property {() => void} onClose - Función para cerrar el modal.
+ * @property {(filters: Filters) => void} onApply - Función que se ejecuta al aplicar los filtros.
+ * @property {ITipoContenidoAudiovisual[]} contentTypes - Tipos de contenido disponibles para filtrar.
+ * @property {IGeneroContenidoAudiovisual[]} genres - Géneros disponibles para filtrar.
+ * @property {Filters} activeFilters - Filtros actualmente activos.
+ */
 interface FilterModalProps {
   visible: boolean;
   onClose: () => void;
@@ -28,6 +44,30 @@ interface FilterModalProps {
   activeFilters: Filters;
 }
 
+/**
+ * Modal para filtrar contenido por tipo y género.
+ * Permite seleccionar múltiples tipos y géneros, y aplicar o cancelar los filtros.
+ *
+ * @component
+ * @param {FilterModalProps} props - Propiedades del componente.
+ * @param {boolean} props.visible - Indica si el modal está visible.
+ * @param {() => void} props.onClose - Función para cerrar el modal.
+ * @param {(filters: Filters) => void} props.onApply - Función que se ejecuta al aplicar los filtros.
+ * @param {ITipoContenidoAudiovisual[]} props.contentTypes - Tipos de contenido disponibles.
+ * @param {IGeneroContenidoAudiovisual[]} props.genres - Géneros disponibles.
+ * @param {Filters} props.activeFilters - Filtros actualmente activos.
+ * @returns {JSX.Element} Modal de filtros de contenido.
+ *
+ * @example
+ * <FilterModal
+ *   visible={true}
+ *   onClose={() => {}}
+ *   onApply={(filters) => {}}
+ *   contentTypes={tipos}
+ *   genres={generos}
+ *   activeFilters={{ types: [1], genres: [2] }}
+ * />
+ */
 export const FilterModal: React.FC<FilterModalProps> = ({
   visible,
   onClose,
@@ -131,6 +171,10 @@ export const FilterModal: React.FC<FilterModalProps> = ({
   );
 };
 
+/**
+ * Estilos para el componente FilterModal.
+ * @private
+ */
 const styles = StyleSheet.create({
   centeredView: {
     flex: 1,

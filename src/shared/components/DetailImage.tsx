@@ -3,11 +3,30 @@ import { Image } from "expo-image";
 import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 
+/**
+ * Propiedades para el componente DetailImage.
+ * @interface
+ * @property {string} uri - URL de la imagen a mostrar.
+ * @property {string} placeholder - Texto alternativo a mostrar si la imagen falla.
+ */
 interface DetailImageProps {
   uri: string;
   placeholder: string;
 }
 
+/**
+ * Componente visual para mostrar una imagen de detalle con manejo de error.
+ * Si la imagen no carga, muestra un texto alternativo (placeholder).
+ *
+ * @component
+ * @param {DetailImageProps} props - Propiedades del componente.
+ * @param {string} props.uri - URL de la imagen a mostrar.
+ * @param {string} props.placeholder - Texto alternativo si la imagen falla.
+ * @returns {JSX.Element} Imagen o placeholder en caso de error.
+ *
+ * @example
+ * <DetailImage uri="https://ejemplo.com/imagen.jpg" placeholder="Sin imagen" />
+ */
 export const DetailImage: React.FC<DetailImageProps> = ({
   uri,
   placeholder,
@@ -32,6 +51,10 @@ export const DetailImage: React.FC<DetailImageProps> = ({
   );
 };
 
+/**
+ * Estilos para el componente DetailImage.
+ * @private
+ */
 const styles = StyleSheet.create({
   image: {
     width: "100%",

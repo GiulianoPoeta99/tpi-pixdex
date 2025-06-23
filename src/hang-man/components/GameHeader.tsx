@@ -4,6 +4,14 @@ import { MaterialIcons } from "@expo/vector-icons";
 import React, { FC } from "react";
 import { StyleSheet, Text, View } from "react-native";
 
+/**
+ * Propiedades para el componente GameHeader.
+ * @interface
+ * @property {string} player - Nombre del jugador actual.
+ * @property {number} score - Puntaje actual del jugador.
+ * @property {number} lives - Cantidad de vidas restantes.
+ * @property {() => void} onExit - Función para salir del juego.
+ */
 interface GameHeaderProps {
   player: string;
   score: number;
@@ -11,6 +19,21 @@ interface GameHeaderProps {
   onExit: () => void;
 }
 
+/**
+ * Encabezado del juego del ahorcado.
+ * Muestra el nombre del jugador, puntaje, vidas restantes y un botón para salir.
+ *
+ * @component
+ * @param {GameHeaderProps} props - Propiedades del componente.
+ * @param {string} props.player - Nombre del jugador actual.
+ * @param {number} props.score - Puntaje actual del jugador.
+ * @param {number} props.lives - Cantidad de vidas restantes.
+ * @param {() => void} props.onExit - Función para salir del juego.
+ * @returns {JSX.Element} Encabezado del juego.
+ *
+ * @example
+ * <GameHeader player="Juan" score={10} lives={3} onExit={() => {}} />
+ */
 export const GameHeader: FC<GameHeaderProps> = ({
   player,
   score,
@@ -36,6 +59,10 @@ export const GameHeader: FC<GameHeaderProps> = ({
   </View>
 );
 
+/**
+ * Estilos para el componente GameHeader.
+ * @private
+ */
 const styles = StyleSheet.create({
   header: {
     flexDirection: "row",

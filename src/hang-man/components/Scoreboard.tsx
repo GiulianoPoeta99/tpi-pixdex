@@ -4,12 +4,33 @@ import { ITopPlayer } from "@/database/topPlayers";
 import React, { FC } from "react";
 import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
 
+/**
+ * Propiedades para el componente Scoreboard.
+ * @interface
+ * @property {ITopPlayer[]} players - Lista de jugadores con sus puntajes.
+ * @property {boolean} loading - Indica si los datos están cargando.
+ * @property {string | null} error - Mensaje de error si ocurre alguno.
+ */
 interface ScoreboardProps {
   players: ITopPlayer[];
   loading: boolean;
   error: string | null;
 }
 
+/**
+ * Tabla de posiciones (scoreboard) que muestra los mejores puntajes de los jugadores.
+ * Ordena los jugadores por puntaje y muestra los cinco primeros.
+ *
+ * @component
+ * @param {ScoreboardProps} props - Propiedades del componente.
+ * @param {ITopPlayer[]} props.players - Lista de jugadores con sus puntajes.
+ * @param {boolean} props.loading - Indica si los datos están cargando.
+ * @param {string | null} props.error - Mensaje de error si ocurre alguno.
+ * @returns {JSX.Element} Scoreboard de los mejores jugadores.
+ *
+ * @example
+ * <Scoreboard players={jugadores} loading={false} error={null} />
+ */
 export const Scoreboard: FC<ScoreboardProps> = ({
   players,
   loading,
@@ -51,6 +72,10 @@ export const Scoreboard: FC<ScoreboardProps> = ({
   );
 };
 
+/**
+ * Estilos para el componente Scoreboard.
+ * @private
+ */
 const styles = StyleSheet.create({
   scoreboardContainer: { width: "100%", marginTop: 40 },
   topPlayersTitle: {

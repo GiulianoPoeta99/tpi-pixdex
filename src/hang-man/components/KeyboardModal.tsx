@@ -11,8 +11,20 @@ import {
   View,
 } from "react-native";
 
+/**
+ * Alfabeto utilizado para el teclado virtual.
+ * @constant
+ */
 const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 
+/**
+ * Propiedades para el componente KeyboardModal.
+ * @interface
+ * @property {boolean} visible - Indica si el modal está visible.
+ * @property {() => void} onClose - Función para cerrar el modal.
+ * @property {(letter: string) => void} onSelectLetter - Función que se ejecuta al seleccionar una letra.
+ * @property {string[]} guessedLetters - Letras que ya han sido adivinadas.
+ */
 interface KeyboardModalProps {
   visible: boolean;
   onClose: () => void;
@@ -20,6 +32,26 @@ interface KeyboardModalProps {
   guessedLetters: string[];
 }
 
+/**
+ * Modal que muestra un teclado virtual para seleccionar letras en el juego del ahorcado.
+ * Permite elegir letras que no hayan sido adivinadas previamente.
+ *
+ * @component
+ * @param {KeyboardModalProps} props - Propiedades del componente.
+ * @param {boolean} props.visible - Indica si el modal está visible.
+ * @param {() => void} props.onClose - Función para cerrar el modal.
+ * @param {(letter: string) => void} props.onSelectLetter - Función que se ejecuta al seleccionar una letra.
+ * @param {string[]} props.guessedLetters - Letras ya adivinadas.
+ * @returns {JSX.Element} Modal con teclado virtual.
+ *
+ * @example
+ * <KeyboardModal
+ *   visible={true}
+ *   onClose={() => {}}
+ *   onSelectLetter={(l) => {}}
+ *   guessedLetters={["A", "B"]}
+ * />
+ */
 export const KeyboardModal: FC<KeyboardModalProps> = ({
   visible,
   onClose,
@@ -62,6 +94,10 @@ export const KeyboardModal: FC<KeyboardModalProps> = ({
   </Modal>
 );
 
+/**
+ * Estilos para el componente KeyboardModal.
+ * @private
+ */
 const styles = StyleSheet.create({
   centeredView: {
     flex: 1,

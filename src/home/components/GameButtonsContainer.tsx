@@ -4,6 +4,16 @@ import { ROUTES } from "@/src/shared/navigation/routes";
 import { Colors } from "@/src/shared/constants/Colors";
 import { GameButton } from "./GameButton";
 
+/**
+ * Componente contenedor de botones de juegos para la pantalla principal.
+ * Muestra los accesos directos a los juegos disponibles.
+ *
+ * @component
+ * @returns {JSX.Element} Contenedor con los botones de juegos.
+ *
+ * @example
+ * <GameButtonsContainer />
+ */
 export const GameButtonsContainer: React.FC = () => {
   return (
     <View style={styles.container}>
@@ -23,6 +33,10 @@ export const GameButtonsContainer: React.FC = () => {
   );
 };
 
+/**
+ * Estilos para el componente GameButtonsContainer.
+ * @private
+ */
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",

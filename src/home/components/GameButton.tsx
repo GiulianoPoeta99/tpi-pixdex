@@ -11,6 +11,14 @@ import {
 } from "react-native";
 import { Colors } from "@/src/shared/constants/Colors";
 
+/**
+ * Propiedades para el componente GameButton.
+ * @interface
+ * @property {string} title - Título del juego que se muestra en el botón.
+ * @property {string} description - Descripción breve del juego.
+ * @property {StyleProp<ViewStyle>} buttonColor - Estilo de color para el botón.
+ * @property {Href} url - Ruta a la que se navega al presionar el botón.
+ */
 interface GameButtonProps {
   title: string;
   description: string;
@@ -18,6 +26,26 @@ interface GameButtonProps {
   url: Href;
 }
 
+/**
+ * Componente de botón para acceder a un juego desde la pantalla principal.
+ * Muestra el título, una descripción y un botón para jugar.
+ *
+ * @component
+ * @param {GameButtonProps} props - Propiedades del componente.
+ * @param {string} props.title - Título del juego.
+ * @param {string} props.description - Descripción del juego.
+ * @param {StyleProp<ViewStyle>} props.buttonColor - Color de fondo del botón.
+ * @param {Href} props.url - Ruta de navegación al juego.
+ * @returns {JSX.Element} Botón interactivo para acceder al juego.
+ *
+ * @example
+ * <GameButton
+ *   title="Desafío del Ahorcado"
+ *   description="Adivina los títulos letra por letra."
+ *   buttonColor={{ backgroundColor: '#123456' }}
+ *   url="/juego/ahorcado"
+ * />
+ */
 export const GameButton: React.FC<GameButtonProps> = ({
   title,
   description,
@@ -51,6 +79,10 @@ export const GameButton: React.FC<GameButtonProps> = ({
   );
 };
 
+/**
+ * Estilos para el componente GameButton.
+ * @private
+ */
 const styles = StyleSheet.create({
   container: {
     borderWidth: 4,

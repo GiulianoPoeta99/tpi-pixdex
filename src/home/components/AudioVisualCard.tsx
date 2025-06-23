@@ -15,12 +15,33 @@ import {
   View,
 } from "react-native";
 
+/**
+ * Propiedades para el componente AudioVisualCard.
+ * @interface
+ * @property {IContenidoAudiovisual} item - Objeto de contenido audiovisual a mostrar en la tarjeta.
+ * @property {number} [fixedHeight] - Altura fija opcional para la tarjeta.
+ * @property {(height: number) => void} [onMeasure] - Callback opcional para medir la altura de la tarjeta.
+ */
 interface AudioVisualCardProps {
   item: IContenidoAudiovisual;
   fixedHeight?: number;
   onMeasure?: (height: number) => void;
 }
 
+/**
+ * Tarjeta visual para mostrar información de un contenido audiovisual.
+ * Incluye imagen, título y géneros asociados. Permite navegar al detalle al hacer click.
+ *
+ * @component
+ * @param {AudioVisualCardProps} props - Propiedades del componente.
+ * @param {IContenidoAudiovisual} props.item - Contenido audiovisual a mostrar.
+ * @param {number} [props.fixedHeight] - Altura fija opcional para la tarjeta.
+ * @param {(height: number) => void} [props.onMeasure] - Callback para medir la altura de la tarjeta.
+ * @returns {JSX.Element} Tarjeta de contenido audiovisual.
+ *
+ * @example
+ * <AudioVisualCard item={contenido} fixedHeight={200} onMeasure={(h) => {}} />
+ */
 export const AudioVisualCard: React.FC<AudioVisualCardProps> = ({
   item,
   fixedHeight,
@@ -64,6 +85,10 @@ export const AudioVisualCard: React.FC<AudioVisualCardProps> = ({
   );
 };
 
+/**
+ * Estilos para el componente AudioVisualCard.
+ * @private
+ */
 const styles = StyleSheet.create({
   card: {
     borderWidth: 2,

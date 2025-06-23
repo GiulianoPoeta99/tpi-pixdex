@@ -1,4 +1,3 @@
-// import { Colors } from "@/src/shared/constants/Colors";
 import { Colors } from "@/src/shared/constants/Colors";
 import { useData } from "@/src/shared/context/DataContext";
 import { LoadingState } from "@/src/shared/components/LoadingState";
@@ -9,11 +8,27 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { FilterModal } from "../components/FilterModal";
 import { HomeContent } from "../components/HomeContent";
 
+/**
+ * Estructura de los filtros aplicados en la pantalla de inicio.
+ * @interface
+ * @property {number[]} types - IDs de los tipos de contenido seleccionados.
+ * @property {number[]} genres - IDs de los géneros seleccionados.
+ */
 interface Filters {
   types: number[];
   genres: number[];
 }
 
+/**
+ * Pantalla principal (Home) de la aplicación.
+ * Muestra el contenido audiovisual filtrable por tipo y género, y permite abrir un modal de filtros.
+ *
+ * @component
+ * @returns {JSX.Element} Pantalla principal con contenido y filtros.
+ *
+ * @example
+ * <HomeScreen />
+ */
 export const HomeScreen = () => {
   const { tipos, generos, loading, errors, isInitialized } = useData();
   const [modalVisible, setModalVisible] = useState(false);
@@ -22,7 +37,6 @@ export const HomeScreen = () => {
     genres: [],
   });
 
-  // Inicializar filtros cuando los tipos estén disponibles
   React.useEffect(() => {
     if (tipos.length > 0 && filters.types.length === 0) {
       setFilters((prev) => ({
@@ -40,7 +54,6 @@ export const HomeScreen = () => {
     filters.types.includes(tipo.id),
   );
 
-  // Mostrar loading mientras se inicializa
   if (!isInitialized || loading.tipos || loading.generos) {
     return (
       <SafeAreaView style={styles.container}>
@@ -49,7 +62,6 @@ export const HomeScreen = () => {
     );
   }
 
-  // Mostrar error si hay problemas
   if (errors.tipos || errors.generos) {
     return (
       <SafeAreaView style={styles.container}>
@@ -77,6 +89,10 @@ export const HomeScreen = () => {
   );
 };
 
+/**
+ * Estilos para la pantalla HomeScreen.
+ * @private
+ */
 const styles = StyleSheet.create({
   container: {
     flex: 1,

@@ -3,11 +3,31 @@ import { StyleSheet, View, ActivityIndicator, Text } from "react-native";
 import { useData } from "../context/DataContext";
 import { Tag } from "./Tag";
 
+/**
+ * Propiedades para el componente GenerosList.
+ * @interface
+ * @property {number[]} [generoIds] - IDs de los géneros a mostrar.
+ * @property {string[]} [generoNombres] - Nombres de los géneros a mostrar.
+ */
 interface GenerosListProps {
   generoIds?: number[];
   generoNombres?: string[];
 }
 
+/**
+ * Lista de géneros audiovisuales, renderizada como etiquetas (tags).
+ * Permite mostrar géneros por ID o por nombre, mostrando estados de carga y error.
+ *
+ * @component
+ * @param {GenerosListProps} props - Propiedades del componente.
+ * @param {number[]} [props.generoIds] - IDs de los géneros a mostrar.
+ * @param {string[]} [props.generoNombres] - Nombres de los géneros a mostrar.
+ * @returns {JSX.Element|null} Lista de géneros como etiquetas o null si no hay géneros.
+ *
+ * @example
+ * <GenerosList generoIds={[1, 2]} />
+ * <GenerosList generoNombres={["Acción", "Comedia"]} />
+ */
 export const GenerosList: React.FC<GenerosListProps> = ({
   generoIds,
   generoNombres,
@@ -55,6 +75,10 @@ export const GenerosList: React.FC<GenerosListProps> = ({
   );
 };
 
+/**
+ * Estilos para el componente GenerosList.
+ * @private
+ */
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",

@@ -4,7 +4,17 @@ import {
 } from "../../../database/tiposContenidoAudiovisual";
 import { API_CONFIG } from "../config/api";
 
+/**
+ * Servicio para gestionar los tipos de contenido audiovisual.
+ * Proporciona métodos para obtener todos los tipos o uno por ID, usando la API o datos locales de respaldo.
+ *
+ * @class
+ */
 export class TiposService {
+  /**
+   * Obtiene todos los tipos de contenido audiovisual desde la API o datos locales si falla.
+   * @returns {Promise<ITipoContenidoAudiovisual[]>} Lista de tipos de contenido audiovisual.
+   */
   static async getAll(): Promise<ITipoContenidoAudiovisual[]> {
     try {
       const response = await fetch(
@@ -21,6 +31,12 @@ export class TiposService {
     }
   }
 
+  /**
+   * Obtiene un tipo de contenido audiovisual por su ID.
+   * @param {number} id - ID del tipo de contenido audiovisual.
+   * @returns {Promise<ITipoContenidoAudiovisual>} Tipo de contenido audiovisual encontrado.
+   * @throws {Error} Si no se encuentra el tipo o hay un error en la petición.
+   */
   static async getById(id: number): Promise<ITipoContenidoAudiovisual> {
     try {
       const tipos = await this.getAll();

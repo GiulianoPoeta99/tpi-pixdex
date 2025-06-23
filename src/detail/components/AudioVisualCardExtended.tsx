@@ -14,11 +14,30 @@ import {
   View,
 } from "react-native";
 
+/**
+ * Propiedades para el componente AudioVisualCardExtended.
+ * @interface
+ * @property {IContenidoAudiovisual} item - Objeto de contenido audiovisual a mostrar en la tarjeta extendida.
+ * @property {ITipoContenidoAudiovisual} tipo - Tipo de contenido audiovisual asociado al item.
+ */
 interface AudioVisualCardExtendedProps {
   item: IContenidoAudiovisual;
   tipo: ITipoContenidoAudiovisual;
 }
 
+/**
+ * Tarjeta extendida para mostrar información detallada de un contenido audiovisual.
+ * Incluye imagen, título, tipo, descripción y géneros asociados.
+ *
+ * @component
+ * @param {AudioVisualCardExtendedProps} props - Propiedades del componente.
+ * @param {IContenidoAudiovisual} props.item - Contenido audiovisual a mostrar.
+ * @param {ITipoContenidoAudiovisual} props.tipo - Tipo de contenido audiovisual asociado.
+ * @returns {JSX.Element} Tarjeta extendida de contenido audiovisual.
+ *
+ * @example
+ * <AudioVisualCardExtended item={contenido} tipo={tipo} />
+ */
 export const AudioVisualCardExtended: React.FC<
   AudioVisualCardExtendedProps
 > = ({ item, tipo }) => {
@@ -59,6 +78,10 @@ export const AudioVisualCardExtended: React.FC<
   );
 };
 
+/**
+ * Estilos para el componente AudioVisualCardExtended.
+ * @private
+ */
 const styles = StyleSheet.create({
   container: {
     borderWidth: 4,

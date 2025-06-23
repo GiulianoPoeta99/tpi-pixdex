@@ -13,6 +13,14 @@ import {
   View,
 } from "react-native";
 
+/**
+ * Propiedades para el componente PlayerNameModal.
+ * @interface
+ * @property {boolean} visible - Indica si el modal está visible.
+ * @property {() => void} onClose - Función para cerrar el modal.
+ * @property {(playerName: string) => void} onSubmit - Función que se ejecuta al enviar el nombre del jugador.
+ * @property {(name: string) => boolean} doesPlayerExist - Función que verifica si el nombre del jugador ya existe.
+ */
 interface PlayerNameModalProps {
   visible: boolean;
   onClose: () => void;
@@ -20,6 +28,26 @@ interface PlayerNameModalProps {
   doesPlayerExist: (name: string) => boolean;
 }
 
+/**
+ * Modal para ingresar el nombre del jugador antes de iniciar el juego.
+ * Valida que el nombre no esté vacío ni repetido y permite iniciar la partida.
+ *
+ * @component
+ * @param {PlayerNameModalProps} props - Propiedades del componente.
+ * @param {boolean} props.visible - Indica si el modal está visible.
+ * @param {() => void} props.onClose - Función para cerrar el modal.
+ * @param {(playerName: string) => void} props.onSubmit - Función que se ejecuta al enviar el nombre del jugador.
+ * @param {(name: string) => boolean} props.doesPlayerExist - Verifica si el nombre ya existe.
+ * @returns {JSX.Element} Modal para ingresar el nombre del jugador.
+ *
+ * @example
+ * <PlayerNameModal
+ *   visible={true}
+ *   onClose={() => {}}
+ *   onSubmit={(name) => {}}
+ *   doesPlayerExist={(name) => false}
+ * />
+ */
 export const PlayerNameModal: FC<PlayerNameModalProps> = ({
   visible,
   onClose,
@@ -94,6 +122,10 @@ export const PlayerNameModal: FC<PlayerNameModalProps> = ({
   );
 };
 
+/**
+ * Estilos para el componente PlayerNameModal.
+ * @private
+ */
 const styles = StyleSheet.create({
   centeredView: {
     flex: 1,
