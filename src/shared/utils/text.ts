@@ -9,8 +9,8 @@ export function normalizeString(str: string): string {
 
   return str
     .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "") // Remover acentos
-    .replace(/[^\w\s]/g, "") // Remover caracteres especiales excepto espacios y letras/números
-    .replace(/\s+/g, " ") // Normalizar espacios múltiples a uno solo
-    .trim(); // Remover espacios al inicio y final
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^\w\s]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
 }
