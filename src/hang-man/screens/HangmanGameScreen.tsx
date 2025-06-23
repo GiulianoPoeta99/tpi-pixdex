@@ -48,16 +48,21 @@ export const HangmanGameScreen = () => {
 
   const loadNextWord = useCallback(() => {
     if (isLoadingNextWord) return;
+
     setIsLoadingNextWord(true);
+
     const availableWords = contenidos.filter(
       (content: IContenidoAudiovisual) => !guessedWords.includes(content.id),
     );
+
     if (availableWords.length === 0) {
       endGame("win");
       return;
     }
+
     const randomContent =
       availableWords[Math.floor(Math.random() * availableWords.length)];
+
     setCurrentWord(randomContent);
     setGuessedLetters([]);
     setTimeout(() => {
@@ -102,11 +107,15 @@ export const HangmanGameScreen = () => {
 
   const handleCorrectGuess = useCallback(() => {
     if (!currentWord || isLoadingNextWord) return;
+
     if (guessedWords.includes(currentWord.id)) return;
+
     const newScore = score + 1;
     const newGuessedWords = [...guessedWords, currentWord.id];
+
     setScore(newScore);
     setGuessedWords(newGuessedWords);
+
     if (newGuessedWords.length >= WIN_CONDITION_COUNT) {
       endGame("win");
     } else {
@@ -132,6 +141,7 @@ export const HangmanGameScreen = () => {
 
   const handleGuessLetter = (letter: string) => {
     setKeyboardVisible(false);
+
     if (!guessedLetters.includes(letter)) {
       setGuessedLetters((prev) => [...prev, letter]);
 
@@ -143,15 +153,19 @@ export const HangmanGameScreen = () => {
 
   const handleGuessTitle = (title: string) => {
     setGuessTitleVisible(false);
+
     const normalizedGuess = normalizeString(title.trim()).toUpperCase();
     const normalizedTarget = normalizedWordToGuess;
+
     if (normalizedGuess === normalizedTarget) {
       setGuessedLetters(ALPHABET);
       if (currentWord && !guessedWords.includes(currentWord.id)) {
         const newScore = score + 1;
         const newGuessedWords = [...guessedWords, currentWord.id];
+
         setScore(newScore);
         setGuessedWords(newGuessedWords);
+
         if (newGuessedWords.length >= WIN_CONDITION_COUNT) {
           endGame("win");
         } else {
@@ -169,9 +183,13 @@ export const HangmanGameScreen = () => {
     .split("")
     .map((char: string) => {
       if (char === " ") return " ";
+
       const normalizedChar = normalizeString(char).toUpperCase();
+
       if (!ALPHABET.includes(normalizedChar)) return char;
+
       if (guessedLetters.includes(normalizedChar)) return char;
+      
       return "_";
     })
     .join(" ");

@@ -31,14 +31,17 @@ export const PlayerNameModal: FC<PlayerNameModalProps> = ({
 
   const handleStartGame = () => {
     const trimmedName = playerName.trim();
+
     if (!trimmedName) {
       setNameError("Player name cannot be empty.");
       return;
     }
+
     if (doesPlayerExist(trimmedName)) {
       setNameError("This player name is already taken.");
       return;
     }
+    
     setNameError("");
     onSubmit(trimmedName);
     setPlayerName("");

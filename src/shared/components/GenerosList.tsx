@@ -14,7 +14,6 @@ export const GenerosList: React.FC<GenerosListProps> = ({
 }) => {
   const { generos, getGenerosByIds, loading, errors } = useData();
 
-  // Obtener géneros basados en los props
   const generosToShow = React.useMemo(() => {
     if (!generos.length) return [];
 
@@ -27,7 +26,6 @@ export const GenerosList: React.FC<GenerosListProps> = ({
     return [];
   }, [generos, generoIds, generoNombres, getGenerosByIds]);
 
-  // Mostrar loading si los datos están cargando
   if (loading.generos) {
     return (
       <View style={styles.container}>
@@ -36,7 +34,6 @@ export const GenerosList: React.FC<GenerosListProps> = ({
     );
   }
 
-  // Mostrar error si hay problemas
   if (errors.generos) {
     return (
       <View style={styles.container}>
@@ -45,7 +42,6 @@ export const GenerosList: React.FC<GenerosListProps> = ({
     );
   }
 
-  // No mostrar nada si no hay géneros
   if (generosToShow.length === 0) {
     return null;
   }
