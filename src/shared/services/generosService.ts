@@ -1,6 +1,6 @@
 import {
-  IGeneroContenidoAudiovisual,
-  generosContenidoAudiovisual,
+    IGeneroContenidoAudiovisual,
+    generosContenidoAudiovisual,
 } from "../../../database/generosContenidoAudiovisual";
 import { API_CONFIG } from "../config/api";
 
@@ -16,6 +16,7 @@ export class GenerosService {
    * @returns {Promise<IGeneroContenidoAudiovisual[]>} Lista de géneros audiovisuales.
    */
   static async getAll(): Promise<IGeneroContenidoAudiovisual[]> {
+    await new Promise((r) => setTimeout(r, 1000));
     try {
       const response = await fetch(
         `${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.GENEROS}`,
@@ -38,6 +39,7 @@ export class GenerosService {
    * @throws {Error} Si no se encuentra el género o hay un error en la petición.
    */
   static async getById(id: number): Promise<IGeneroContenidoAudiovisual> {
+    await new Promise((r) => setTimeout(r, 1000));
     try {
       const generos = await this.getAll();
       const genero = generos.find((item) => item.id === id);
@@ -60,6 +62,7 @@ export class GenerosService {
    * @throws {Error} Si hay un error en la petición.
    */
   static async getByIds(ids: number[]): Promise<IGeneroContenidoAudiovisual[]> {
+    await new Promise((r) => setTimeout(r, 1000));
     try {
       const generos = await this.getAll();
       return generos.filter((item) => ids.includes(item.id));

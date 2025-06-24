@@ -1,6 +1,6 @@
 import {
-  ITipoContenidoAudiovisual,
-  tiposContenidoAudiovisual,
+    ITipoContenidoAudiovisual,
+    tiposContenidoAudiovisual,
 } from "../../../database/tiposContenidoAudiovisual";
 import { API_CONFIG } from "../config/api";
 
@@ -16,6 +16,7 @@ export class TiposService {
    * @returns {Promise<ITipoContenidoAudiovisual[]>} Lista de tipos de contenido audiovisual.
    */
   static async getAll(): Promise<ITipoContenidoAudiovisual[]> {
+    await new Promise((r) => setTimeout(r, 1000));
     try {
       const response = await fetch(
         `${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.TIPOS}`,
@@ -38,6 +39,7 @@ export class TiposService {
    * @throws {Error} Si no se encuentra el tipo o hay un error en la petición.
    */
   static async getById(id: number): Promise<ITipoContenidoAudiovisual> {
+    await new Promise((r) => setTimeout(r, 1000));
     try {
       const tipos = await this.getAll();
       const tipo = tipos.find((item) => item.id === id);

@@ -1,6 +1,6 @@
 import {
-  IContenidoAudiovisual,
-  contenidosAudiovisuales,
+    IContenidoAudiovisual,
+    contenidosAudiovisuales,
 } from "../../../database/contenidosAudiovisuales";
 import { API_CONFIG } from "../config/api";
 
@@ -16,6 +16,7 @@ export class ContenidosService {
    * @returns {Promise<IContenidoAudiovisual[]>} Lista de contenidos audiovisuales.
    */
   static async getAll(): Promise<IContenidoAudiovisual[]> {
+    await new Promise((r) => setTimeout(r, 1000));
     try {
       const response = await fetch(
         `${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.CONTENIDOS}`,
@@ -38,6 +39,7 @@ export class ContenidosService {
    * @throws {Error} Si no se encuentra el contenido o hay un error en la petición.
    */
   static async getById(id: number): Promise<IContenidoAudiovisual> {
+    await new Promise((r) => setTimeout(r, 1000));
     try {
       const contenidos = await this.getAll();
       const contenido = contenidos.find((item) => item.id === id);
@@ -60,6 +62,7 @@ export class ContenidosService {
    * @throws {Error} Si hay un error en la petición.
    */
   static async getByTipoId(tipoId: number): Promise<IContenidoAudiovisual[]> {
+    await new Promise((r) => setTimeout(r, 1000));
     try {
       const contenidos = await this.getAll();
       return contenidos.filter((item) => item.tipoId === tipoId);
