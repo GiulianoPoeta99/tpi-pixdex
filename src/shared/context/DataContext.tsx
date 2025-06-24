@@ -1,18 +1,19 @@
-import React, {
-  createContext,
-  useContext,
-  useState,
-  useEffect,
-  ReactNode,
-} from "react";
 import { IContenidoAudiovisual } from "@/database/contenidosAudiovisuales";
 import { IGeneroContenidoAudiovisual } from "@/database/generosContenidoAudiovisual";
 import { ITipoContenidoAudiovisual } from "@/database/tiposContenidoAudiovisual";
-import { ITopPlayer } from "@/database/topPlayers";
+import { ITopPlayer } from "@/src/shared/config/supabase";
+import React, {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { ContenidosService } from "../services/contenidosService";
 import { GenerosService } from "../services/generosService";
-import { TiposService } from "../services/tiposService";
 import { PlayersService } from "../services/playersService";
+import { TiposService } from "../services/tiposService";
+import { useAuth } from "./AuthContext";
 
 /**
  * Tipo de datos y métodos expuestos por el contexto de datos global.
@@ -33,7 +34,7 @@ import { PlayersService } from "../services/playersService";
  * @property {() => Promise<void>} refreshGeneros - Refresca la lista de géneros.
  * @property {() => Promise<void>} refreshTipos - Refresca la lista de tipos.
  * @property {() => Promise<void>} refreshPlayers - Refresca la lista de jugadores.
- * @property {(name: string, score: number) => void} addPlayerScore - Agrega o actualiza el puntaje de un jugador.
+ * @property {(name: string, score: number) => Promise<void>} addPlayerScore - Agrega o actualiza el puntaje de un jugador.
  * @property {(name: string) => boolean} doesPlayerExist - Verifica si existe un jugador por nombre.
  * @property {boolean} isInitialized - Indica si los datos iniciales ya fueron cargados.
  */
@@ -69,7 +70,7 @@ interface DataContextType {
   refreshTipos: () => Promise<void>;
   refreshPlayers: () => Promise<void>;
 
-  addPlayerScore: (name: string, score: number) => void;
+  addPlayerScore: (name: string, score: number) => Promise<void>;
   doesPlayerExist: (name: string) => boolean;
 
   isInitialized: boolean;
@@ -80,6 +81,7 @@ const DataContext = createContext<DataContextType | undefined>(undefined);
 /**
  * Proveedor de contexto global de datos para la aplicación.
  * Carga y expone los datos principales y utilidades para acceder y manipularlos.
+ * Incluye funcionalidades de tiempo real para el scoreboard de jugadores.
  *
  * @component
  * @param {DataProviderProps} props - Propiedades del proveedor.
@@ -96,6 +98,7 @@ interface DataProviderProps {
 }
 
 export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
+  const { user } = useAuth();
   const [contenidos, setContenidos] = useState<IContenidoAudiovisual[]>([]);
   const [generos, setGeneros] = useState<IGeneroContenidoAudiovisual[]>([]);
   const [tipos, setTipos] = useState<ITipoContenidoAudiovisual[]>([]);
@@ -214,6 +217,19 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
     initializeData();
   }, []);
 
+  // Suscribirse a cambios en tiempo real del scoreboard
+  useEffect(() => {
+    const unsubscribe = PlayersService.subscribeToChanges((payload) => {
+      console.log('Players changed:', payload);
+      // Recargar la lista de jugadores cuando hay cambios
+      loadPlayers();
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+
   const getContenidoById = (id: number) => {
     return contenidos.find((item) => item.id === id);
   };
@@ -254,27 +270,20 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
     await loadPlayers();
   };
 
-  const addPlayerScore = (name: string, score: number) => {
+  const addPlayerScore = async (name: string, score: number) => {
     if (score === 0) return;
 
-    const existingPlayerIndex = players.findIndex(
-      (p) => p.name.toLowerCase() === name.toLowerCase(),
-    );
-
-    if (existingPlayerIndex !== -1) {
-      if (score > players[existingPlayerIndex].score) {
-        const updatedPlayers = [...players];
-
-        updatedPlayers[existingPlayerIndex].score = score;
-        setPlayers(updatedPlayers);
-      }
-    } else {
-      const newPlayer: ITopPlayer = {
-        id: players.length + 1,
-        name,
-        score,
-      };
-      setPlayers((prev) => [...prev, newPlayer]);
+    try {
+      // Usar el ID del usuario autenticado si está disponible
+      const userId = user?.id;
+      await PlayersService.upsertPlayer(name, score, userId);
+      
+      // Recargar la lista de jugadores para reflejar los cambios
+      await loadPlayers();
+    } catch (error) {
+      console.error('Error adding player score:', error);
+      const errorMessage = error instanceof Error ? error.message : 'Error desconocido';
+      setErrors((prev) => ({ ...prev, players: errorMessage }));
     }
   };
 

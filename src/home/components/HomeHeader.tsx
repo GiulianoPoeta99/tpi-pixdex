@@ -1,6 +1,7 @@
 import { Button } from "@/src/shared/components/Button";
 import { TextPressStart2P } from "@/src/shared/components/TextPressStart2P";
 import { Colors } from "@/src/shared/constants/Colors";
+import { useAuth } from "@/src/shared/context/AuthContext";
 import { Platform, StyleSheet, View } from "react-native";
 
 /**
@@ -20,7 +21,7 @@ interface HomeHeaderProps {
 
 /**
  * Componente de encabezado para la pantalla principal (Home).
- * Muestra el logo y un botón para filtrar resultados.
+ * Muestra el logo, un botón para filtrar resultados y un botón de cuenta para gestionar la sesión.
  *
  * @component
  * @param {HomeHeaderProps} props - Propiedades del componente.
@@ -30,12 +31,37 @@ interface HomeHeaderProps {
  * @example
  * <HomeHeader onFilterPress={() => console.log('Filtrar presionado')} />
  */
-export const HomeHeader: React.FC<HomeHeaderProps> = ({ onFilterPress }) => (
-  <View style={[styles.container, { height: HEADER_HEIGHT }]}>
-    <TextPressStart2P style={styles.logo}>Pixdex</TextPressStart2P>
-    <Button onPress={onFilterPress} icon="settings" text="FILTRAR" />
-  </View>
-);
+export const HomeHeader: React.FC<HomeHeaderProps> = ({ onFilterPress }) => {
+  const { signOut, user } = useAuth();
+
+  /**
+   * Maneja el logout del usuario.
+   */
+  const handleLogout = async () => {
+    try {
+      await signOut();
+    } catch (error) {
+      console.error('Error al cerrar sesión:', error);
+    }
+  };
+
+  return (
+    <View style={[styles.container, { height: HEADER_HEIGHT }]}>
+      <TextPressStart2P style={styles.logo}>Pixdex</TextPressStart2P>
+      <View style={styles.buttonContainer}>
+        <Button onPress={onFilterPress} icon="settings" text="FILTRAR" />
+        {user && (
+          <Button 
+            onPress={handleLogout} 
+            icon="logout" 
+            text="CUENTA" 
+            style={styles.accountButton}
+          />
+        )}
+      </View>
+    </View>
+  );
+};
 
 /**
  * Estilos para el componente HomeHeader.
@@ -53,5 +79,16 @@ const styles = StyleSheet.create({
   logo: {
     color: Colors.purpura,
     fontSize: Platform.OS === "web" ? 24 : 14,
+  },
+  buttonContainer: {
+    flexDirection: "row",
+    gap: 10,
+  },
+  accountButton: {
+    backgroundColor: Colors.rojo,
+    borderTopColor: Colors.rojo + '80',
+    borderLeftColor: Colors.rojo + '80',
+    borderBottomColor: Colors.rojo + '40',
+    borderRightColor: Colors.rojo + '40',
   },
 });

@@ -1,6 +1,6 @@
 import { TextPressStart2P } from "@/src/shared/components/TextPressStart2P";
+import { ITopPlayer } from "@/src/shared/config/supabase";
 import { Colors } from "@/src/shared/constants/Colors";
-import { ITopPlayer } from "@/database/topPlayers";
 import React, { FC } from "react";
 import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
 
@@ -20,6 +20,7 @@ interface ScoreboardProps {
 /**
  * Tabla de posiciones (scoreboard) que muestra los mejores puntajes de los jugadores.
  * Ordena los jugadores por puntaje y muestra los cinco primeros.
+ * Actualizado para usar Supabase con funcionalidades de tiempo real.
  *
  * @component
  * @param {ScoreboardProps} props - Propiedades del componente.
@@ -66,6 +67,12 @@ export const Scoreboard: FC<ScoreboardProps> = ({
               </TextPressStart2P>
             </View>
           ))}
+          {sortedPlayers.length === 0 && (
+            <View style={styles.emptyContainer}>
+              <Text style={styles.emptyText}>No hay jugadores aún</Text>
+              <Text style={styles.emptySubtext}>¡Sé el primero en jugar!</Text>
+            </View>
+          )}
         </View>
       )}
     </View>
@@ -124,6 +131,22 @@ const styles = StyleSheet.create({
   errorText: {
     color: Colors.rojo,
     fontSize: 16,
+    textAlign: "center",
+  },
+  emptyContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 20,
+  },
+  emptyText: {
+    color: Colors.gris,
+    fontSize: 16,
+    textAlign: "center",
+    marginBottom: 5,
+  },
+  emptySubtext: {
+    color: Colors.gris + '80',
+    fontSize: 14,
     textAlign: "center",
   },
 });
