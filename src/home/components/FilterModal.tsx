@@ -1,9 +1,9 @@
+import { IGeneroContenidoAudiovisual } from "@/database/generosContenidoAudiovisual";
+import { ITipoContenidoAudiovisual } from "@/database/tiposContenidoAudiovisual";
 import { Button } from "@/src/shared/components/Button";
 import { Checkbox } from "@/src/shared/components/Checkbox";
 import { TextPressStart2P } from "@/src/shared/components/TextPressStart2P";
 import { Colors } from "@/src/shared/constants/Colors";
-import { IGeneroContenidoAudiovisual } from "@/database/generosContenidoAudiovisual";
-import { ITipoContenidoAudiovisual } from "@/database/tiposContenidoAudiovisual";
 import { MaterialIcons } from "@expo/vector-icons";
 import React from "react";
 import {
@@ -46,7 +46,7 @@ interface FilterModalProps {
 
 /**
  * Modal para filtrar contenido por tipo y género.
- * Permite seleccionar múltiples tipos y géneros, y aplicar o cancelar los filtros.
+ * Permite seleccionar múltiples tipos y géneros, y aplicar, cancelar o resetear los filtros.
  *
  * @component
  * @param {FilterModalProps} props - Propiedades del componente.
@@ -93,6 +93,11 @@ export const FilterModal: React.FC<FilterModalProps> = ({
   const handleApply = () => {
     onApply({ types: selectedTypes, genres: selectedGenres });
     onClose();
+  };
+
+  const handleReset = () => {
+    setSelectedTypes([]);
+    setSelectedGenres([]);
   };
 
   const toggleType = (id: number) => {
@@ -158,11 +163,13 @@ export const FilterModal: React.FC<FilterModalProps> = ({
           </View>
 
           <View style={styles.footer}>
-            <Button onPress={onClose} text="CANCEL" icon="cancel" />
+            <Button onPress={handleReset} text="RESET" icon="refresh" style={styles.resetButton} />
+            <Button onPress={onClose} text="CANCEL" icon="cancel" style={styles.cancelButton} />
             <Button
               onPress={handleApply}
-              text="APPLY FILTERS"
+              text="APPLY"
               icon="check-circle"
+              style={styles.applyButton}
             />
           </View>
         </View>
@@ -218,5 +225,26 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     marginTop: 20,
     gap: 10,
+  },
+  resetButton: {
+    backgroundColor: Colors.grisOscuro,
+    flexShrink: 1,
+    alignSelf: "flex-end",
+  },
+  cancelButton: {
+    borderWidth: 1,
+    backgroundColor: Colors.purpura,
+    borderTopColor: Colors.rojoClaro,
+    borderLeftColor: Colors.rojoClaro,
+    borderBottomColor: Colors.rojoOscuro,
+    borderRightColor: Colors.rojoOscuro,
+  },
+  applyButton: {
+    borderWidth: 1,
+    backgroundColor: Colors.purpura,
+    borderTopColor: Colors.verdeClaro,
+    borderLeftColor: Colors.verdeClaro,
+    borderBottomColor: Colors.verdeOscuro,
+    borderRightColor: Colors.verdeOscuro,
   },
 });

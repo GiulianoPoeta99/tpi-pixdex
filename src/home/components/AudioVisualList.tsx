@@ -1,9 +1,9 @@
+import { ErrorState } from "@/src/shared/components/ErrorState";
+import { LoadingState } from "@/src/shared/components/LoadingState";
 import { TextPressStart2P } from "@/src/shared/components/TextPressStart2P";
 import { Colors } from "@/src/shared/constants/Colors";
 import { useData } from "@/src/shared/context/DataContext";
-import { LoadingState } from "@/src/shared/components/LoadingState";
-import { ErrorState } from "@/src/shared/components/ErrorState";
-import React, { useState, useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { FlatList, Platform, StyleSheet, View } from "react-native";
 import { AudioVisualCard } from "./AudioVisualCard";
 
@@ -73,7 +73,7 @@ export const AudioVisualList: React.FC<AudioVisualListProps> = ({
     );
   }
 
-  if (!tipo || filteredContenidos.length === 0) {
+  if (!tipo) {
     return null;
   }
 
@@ -84,20 +84,28 @@ export const AudioVisualList: React.FC<AudioVisualListProps> = ({
           {tipo.plural.toUpperCase()}
         </TextPressStart2P>
       </View>
-      <FlatList
-        data={filteredContenidos}
-        horizontal
-        keyExtractor={(item) => item.id.toString()}
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={styles.listContent}
-        renderItem={({ item }) => (
-          <AudioVisualCard
-            item={item}
-            onMeasure={handleMeasure}
-            fixedHeight={maxCardHeight || undefined}
-          />
-        )}
-      />
+      {filteredContenidos.length === 0 ? (
+        <View style={{ padding: 20 }}>
+          <TextPressStart2P style={{ color: Colors.grisOscuro, fontSize: Platform.OS === "web" ? 16 : 10 }}>
+            Sin resultados para los filtros elegidos
+          </TextPressStart2P>
+        </View>
+      ) : (
+        <FlatList
+          data={filteredContenidos}
+          horizontal
+          keyExtractor={(item) => item.id.toString()}
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.listContent}
+          renderItem={({ item }) => (
+            <AudioVisualCard
+              item={item}
+              onMeasure={handleMeasure}
+              fixedHeight={maxCardHeight || undefined}
+            />
+          )}
+        />
+      )}
     </View>
   );
 };
