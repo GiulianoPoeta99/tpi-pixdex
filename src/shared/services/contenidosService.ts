@@ -2,7 +2,8 @@ import {
   IContenidoAudiovisual,
   contenidosAudiovisuales,
 } from '../../../database/contenidosAudiovisuales';
-import { API_CONFIG } from '../config/api';
+import { API_URLS } from '../constants/Api';
+import { HttpService } from './httpService';
 
 /**
  * Servicio para gestionar los contenidos audiovisuales.
@@ -17,19 +18,18 @@ export class ContenidosService {
    */
   static async getAll(): Promise<IContenidoAudiovisual[]> {
     await new Promise(r => setTimeout(r, 1000));
-    try {
-      const response = await fetch(
-        `${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.CONTENIDOS}`
-      );
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
+    const response = await HttpService.get<IContenidoAudiovisual[]>(
+      API_URLS.CONTENIDOS
+    );
 
-      return await response.json();
-    } catch {
-      return contenidosAudiovisuales;
+    if (response.ok) {
+      return response.data;
     }
+
+    // Fallback a datos locales si la API falla
+    console.warn('API falló, usando datos locales:', response.error);
+    return contenidosAudiovisuales;
   }
 
   /**

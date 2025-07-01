@@ -10,7 +10,19 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
    npm install
    ```
 
-2. Start the app
+2. Configure environment variables
+
+   ```bash
+   # Copy the example environment file
+   cp .env.sample .env
+
+   # Edit .env and add your configuration values
+   # - EXPO_PUBLIC_SUPABASE_URL: Your Supabase project URL
+   # - EXPO_PUBLIC_SUPABASE_ANON_KEY: Your Supabase anonymous key
+   # - EXPO_PUBLIC_API_URL: Your API base URL (default: http://localhost:8081)
+   ```
+
+3. Start the app
 
    ```bash
    npx expo start
@@ -24,6 +36,26 @@ In the output, you'll find options to open the app in a
 - [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
 
 You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+
+## Environment Configuration
+
+The application uses environment variables for configuration. The following variables are available:
+
+- `EXPO_PUBLIC_SUPABASE_URL`: URL of your Supabase project
+- `EXPO_PUBLIC_SUPABASE_ANON_KEY`: Anonymous key for Supabase authentication
+- `EXPO_PUBLIC_API_URL`: Base URL for API calls (defaults to `http://localhost:8081`)
+
+These variables are automatically loaded from the `.env` file and are accessible throughout the application.
+
+## API Integration
+
+The application includes a modular HTTP service for API calls:
+
+- **HttpService**: Centralized HTTP client with error handling and type safety
+- **API Constants**: Centralized API URLs and endpoints configuration
+- **Service Classes**: Modular services for different data types (ContenidosService, GenerosService, etc.)
+
+All API calls include fallback to local data if the API is unavailable.
 
 ## Get a fresh project
 

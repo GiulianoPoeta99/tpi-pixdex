@@ -1,3 +1,5 @@
+import { API_URL, API_ENDPOINTS } from '../constants/Api';
+
 /**
  * Configuración global para las rutas de la API de la aplicación.
  * @constant
@@ -9,11 +11,6 @@
  * @property {string} ENDPOINTS.PLAYERS - Endpoint para jugadores y puntajes.
  */
 export const API_CONFIG = {
-  BASE_URL: '',
-  ENDPOINTS: {
-    CONTENIDOS: '/api/contenidos',
-    GENEROS: '/api/generos',
-    TIPOS: '/api/tipos',
-    PLAYERS: '/api/players',
-  },
+  BASE_URL: API_URL,
+  ENDPOINTS: API_ENDPOINTS,
 };
