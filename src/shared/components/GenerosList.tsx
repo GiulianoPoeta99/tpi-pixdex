@@ -1,7 +1,7 @@
-import React from "react";
-import { StyleSheet, View, ActivityIndicator, Text } from "react-native";
-import { useData } from "../context/DataContext";
-import { Tag } from "./Tag";
+import React from 'react';
+import { StyleSheet, View, ActivityIndicator, Text } from 'react-native';
+import { useData } from '../context/DataContext';
+import { Tag } from './Tag';
 
 /**
  * Propiedades para el componente GenerosList.
@@ -40,7 +40,7 @@ export const GenerosList: React.FC<GenerosListProps> = ({
     if (generoIds) {
       return getGenerosByIds(generoIds);
     } else if (generoNombres) {
-      return generos.filter((g) => generoNombres.includes(g.nombre));
+      return generos.filter(g => generoNombres.includes(g.nombre));
     }
 
     return [];
@@ -49,7 +49,7 @@ export const GenerosList: React.FC<GenerosListProps> = ({
   if (loading.generos) {
     return (
       <View style={styles.container}>
-        <ActivityIndicator size="small" color="#666" />
+        <ActivityIndicator size='small' color='#666' />
       </View>
     );
   }
@@ -81,11 +81,11 @@ export const GenerosList: React.FC<GenerosListProps> = ({
  */
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "row",
-    flexWrap: "wrap",
+    flexDirection: 'row',
+    flexWrap: 'wrap',
   },
   errorText: {
     fontSize: 12,
-    color: "red",
+    color: 'red',
   },
 });

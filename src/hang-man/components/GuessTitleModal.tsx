@@ -1,8 +1,8 @@
-import { Button } from "@/src/shared/components/Button";
-import { TextPressStart2P } from "@/src/shared/components/TextPressStart2P";
-import { Colors } from "@/src/shared/constants/Colors";
-import { MaterialIcons } from "@expo/vector-icons";
-import React, { FC, useEffect, useState } from "react";
+import { Button } from '@/src/shared/components/Button';
+import { TextPressStart2P } from '@/src/shared/components/TextPressStart2P';
+import { Colors } from '@/src/shared/constants/Colors';
+import { MaterialIcons } from '@expo/vector-icons';
+import React, { FC, useEffect, useState } from 'react';
 import {
   Modal,
   Platform,
@@ -11,7 +11,7 @@ import {
   TextInput,
   TouchableOpacity,
   View,
-} from "react-native";
+} from 'react-native';
 
 /**
  * Propiedades para el componente GuessTitleModal.
@@ -49,22 +49,22 @@ export const GuessTitleModal: FC<GuessTitleModalProps> = ({
   onClose,
   onSubmit,
 }) => {
-  const [title, setTitle] = useState("");
-  const [error, setError] = useState("");
+  const [title, setTitle] = useState('');
+  const [error, setError] = useState('');
 
   const handleSubmit = () => {
     if (!title.trim()) {
-      setError("Please enter a title.");
+      setError('Please enter a title.');
       return;
     }
-    setError("");
+    setError('');
     onSubmit(title);
-    setTitle("");
+    setTitle('');
   };
 
   const openModal = () => {
-    setTitle("");
-    setError("");
+    setTitle('');
+    setError('');
   };
 
   useEffect(() => {
@@ -76,7 +76,7 @@ export const GuessTitleModal: FC<GuessTitleModalProps> = ({
       visible={visible}
       transparent={true}
       onRequestClose={onClose}
-      animationType="fade"
+      animationType='fade'
     >
       <View style={styles.centeredView}>
         <View style={[styles.modalView, { borderColor: Colors.grisOscuro }]}>
@@ -85,24 +85,24 @@ export const GuessTitleModal: FC<GuessTitleModalProps> = ({
               Guess the Title
             </TextPressStart2P>
             <TouchableOpacity onPress={onClose}>
-              <MaterialIcons name="close" size={24} color="white" />
+              <MaterialIcons name='close' size={24} color='white' />
             </TouchableOpacity>
           </View>
           <TextInput
             style={[styles.input, error ? styles.inputError : null]}
-            placeholder="Enter complete title"
+            placeholder='Enter complete title'
             placeholderTextColor={Colors.gris}
             value={title}
             onChangeText={setTitle}
-            autoCapitalize="words"
+            autoCapitalize='words'
             autoCorrect={false}
           />
           {error ? <Text style={styles.errorText}>{error}</Text> : null}
           <View style={styles.modalFooter}>
             <Button
               onPress={handleSubmit}
-              text="SUBMIT GUESS"
-              icon="check-circle"
+              text='SUBMIT GUESS'
+              icon='check-circle'
             />
           </View>
         </View>
@@ -118,33 +118,33 @@ export const GuessTitleModal: FC<GuessTitleModalProps> = ({
 const styles = StyleSheet.create({
   centeredView: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "rgba(0,0,0,0.7)",
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0,0,0,0.7)',
   },
   modalView: {
     backgroundColor: Colors.fondo,
     borderRadius: 0,
     padding: 20,
-    width: Platform.OS === "web" ? "auto" : "90%",
+    width: Platform.OS === 'web' ? 'auto' : '90%',
     borderWidth: 2,
   },
   modalHeader: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     marginBottom: 20,
   },
-  modalTitle: { fontSize: 18, color: "#FFF" },
+  modalTitle: { fontSize: 18, color: '#FFF' },
   input: {
     borderWidth: 2,
     borderColor: Colors.purpura,
     padding: 15,
-    color: "#FFF",
+    color: '#FFF',
     fontSize: 16,
     marginBottom: 10,
   },
   inputError: { borderColor: Colors.rojo },
   errorText: { color: Colors.rojo, marginBottom: 10, fontSize: 12 },
-  modalFooter: { flexDirection: "row", justifyContent: "flex-end" },
+  modalFooter: { flexDirection: 'row', justifyContent: 'flex-end' },
 });

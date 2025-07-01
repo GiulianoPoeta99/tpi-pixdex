@@ -5,13 +5,13 @@ import { useAuth } from '@/src/shared/context/AuthContext';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import {
-    Alert,
-    Platform,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TextInput,
-    View,
+  Alert,
+  Platform,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -87,13 +87,14 @@ export const ResetPasswordScreen = () => {
               </Text>
               <Text style={styles.emailText}>{email}</Text>
               <Text style={styles.messageText}>
-                Por favor, revisa tu bandeja de entrada y sigue las instrucciones del email.
+                Por favor, revisa tu bandeja de entrada y sigue las
+                instrucciones del email.
               </Text>
             </View>
 
             <Button
               onPress={handleBackToLogin}
-              text="VOLVER AL LOGIN"
+              text='VOLVER AL LOGIN'
               textStyle={{ fontSize: Platform.OS === 'web' ? 16 : 12 }}
             />
           </View>
@@ -117,10 +118,10 @@ export const ResetPasswordScreen = () => {
                 style={styles.input}
                 value={email}
                 onChangeText={setEmail}
-                placeholder="tu@email.com"
+                placeholder='tu@email.com'
                 placeholderTextColor={Colors.gris}
-                keyboardType="email-address"
-                autoCapitalize="none"
+                keyboardType='email-address'
+                autoCapitalize='none'
                 autoCorrect={false}
               />
             </View>
@@ -133,15 +134,13 @@ export const ResetPasswordScreen = () => {
 
             <Button
               onPress={handleSubmit}
-              text="ENVIAR EMAIL"
+              text='ENVIAR EMAIL'
               disabled={loading}
               textStyle={{ fontSize: Platform.OS === 'web' ? 16 : 12 }}
             />
 
             <View style={styles.switchContainer}>
-              <Text style={styles.switchText}>
-                ¿Recordaste tu contraseña?
-              </Text>
+              <Text style={styles.switchText}>¿Recordaste tu contraseña?</Text>
               <Text style={styles.switchLink} onPress={handleBackToLogin}>
                 Volver al login
               </Text>
@@ -255,4 +254,4 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     textDecorationLine: 'underline',
   },
-}); 
+});

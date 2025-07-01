@@ -72,10 +72,9 @@ CREATE POLICY "Eliminación solo por dueño" ON players
 #### 4.1 Proveedores OAuth
 
 1. En **Authentication > Providers**, habilita los que necesites:
-
-   * Google (Client ID y Secret)
-   * GitHub (Client ID y Secret)
-   * Discord (Client ID y Secret)
+   - Google (Client ID y Secret)
+   - GitHub (Client ID y Secret)
+   - Discord (Client ID y Secret)
 
 #### 4.2 URLs de redirección
 
@@ -103,10 +102,14 @@ const supabase = createClient(
 // Suscripción al canal Realtime
 const channel = supabase
   .channel('players-realtime')
-  .on('postgres_changes', { event: '*', schema: 'public', table: 'players' }, payload => {
-    console.log('Cambio:', payload);
-    // Actualizá estado en tu app
-  })
+  .on(
+    'postgres_changes',
+    { event: '*', schema: 'public', table: 'players' },
+    payload => {
+      console.log('Cambio:', payload);
+      // Actualizá estado en tu app
+    }
+  )
   .subscribe();
 
 // Al desmontar componente:
@@ -129,35 +132,35 @@ También podés crear un hook para manejar estado y eventos de forma ordenada.
 
 ### 7. Solución de problemas
 
-* **Conexión**: revisá URL y anon key en `.env`.
-* **Autenticación OAuth**: validá Client ID/Secret y URLs de redirección.
-* **Permisos DB**: asegúrate de que RLS y políticas estén activas.
-* **Realtime**: comprueba que esté habilitado en la pestaña Realtime de `players`.
+- **Conexión**: revisá URL y anon key en `.env`.
+- **Autenticación OAuth**: validá Client ID/Secret y URLs de redirección.
+- **Permisos DB**: asegúrate de que RLS y políticas estén activas.
+- **Realtime**: comprueba que esté habilitado en la pestaña Realtime de `players`.
 
 ---
 
 ### 8. Estructura resumida de `players`
 
-| Columna     | Tipo                                   | Descripción                   |
-| ----------- | -------------------------------------- | ----------------------------- |
-| id          | SERIAL PRIMARY KEY                     | Identificador único           |
-| name        | VARCHAR(255) UNIQUE                    | Nombre de jugador             |
-| score       | INTEGER DEFAULT 0                      | Puntaje                       |
-| user\_id    | UUID REFERENCES auth.users(id)         | Relación con usuario          |
-| created\_at | TIMESTAMP WITH TIME ZONE DEFAULT NOW() | Fecha de creación             |
-| updated\_at | TIMESTAMP WITH TIME ZONE DEFAULT NOW() | Fecha de última actualización |
+| Columna    | Tipo                                   | Descripción                   |
+| ---------- | -------------------------------------- | ----------------------------- |
+| id         | SERIAL PRIMARY KEY                     | Identificador único           |
+| name       | VARCHAR(255) UNIQUE                    | Nombre de jugador             |
+| score      | INTEGER DEFAULT 0                      | Puntaje                       |
+| user_id    | UUID REFERENCES auth.users(id)         | Relación con usuario          |
+| created_at | TIMESTAMP WITH TIME ZONE DEFAULT NOW() | Fecha de creación             |
+| updated_at | TIMESTAMP WITH TIME ZONE DEFAULT NOW() | Fecha de última actualización |
 
 ---
 
 ### 9. Funcionalidades implementadas
 
-* ✅ Registro y login email/contraseña
-* ✅ Autenticación OAuth (Google, GitHub, Discord)
-* ✅ Streams Realtime de cambios en `players`
-* ✅ Scoreboard que se actualiza al instante
-* ✅ Protección de rutas con RLS
-* ✅ Botón de logout en Home
-* ✅ Integración con el juego Hangman
+- ✅ Registro y login email/contraseña
+- ✅ Autenticación OAuth (Google, GitHub, Discord)
+- ✅ Streams Realtime de cambios en `players`
+- ✅ Scoreboard que se actualiza al instante
+- ✅ Protección de rutas con RLS
+- ✅ Botón de logout en Home
+- ✅ Integración con el juego Hangman
 
 ---
 

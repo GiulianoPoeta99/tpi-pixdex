@@ -1,4 +1,4 @@
-import { HangmanGameScreen } from "@/src/hang-man/screens/HangmanGameScreen";
+import { HangmanGameScreen } from '@/src/hang-man/screens/HangmanGameScreen';
 
 /**
  * Página principal del juego del ahorcado.

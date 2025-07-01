@@ -1,5 +1,5 @@
-import { TextProps, Text } from "react-native";
-import { useFonts } from "expo-font";
+import { TextProps, Text } from 'react-native';
+import { useFonts } from 'expo-font';
 
 /**
  * Componente de texto que utiliza la fuente PressStart2P.
@@ -14,7 +14,7 @@ import { useFonts } from "expo-font";
  */
 export function TextPressStart2P({ style, ...props }: TextProps) {
   const [loaded, error] = useFonts({
-    "PressStart2P-Regular": require("@/assets/fonts/PressStart2P-Regular.ttf"),
+    'PressStart2P-Regular': require('@/assets/fonts/PressStart2P-Regular.ttf'),
   });
 
   if (!loaded && !error) {
@@ -26,7 +26,7 @@ export function TextPressStart2P({ style, ...props }: TextProps) {
   }
 
   return (
-    <Text style={[style, { fontFamily: "PressStart2P-Regular" }]} {...props}>
+    <Text style={[style, { fontFamily: 'PressStart2P-Regular' }]} {...props}>
       {props.children}
     </Text>
   );

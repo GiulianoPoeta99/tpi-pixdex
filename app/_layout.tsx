@@ -1,8 +1,8 @@
-import { AuthProvider, useAuth } from "@/src/shared/context/AuthContext";
-import { DataProvider } from "@/src/shared/context/DataContext";
-import { Stack, useRouter } from "expo-router";
-import { useEffect } from "react";
-import { View } from "react-native";
+import { AuthProvider, useAuth } from '@/src/shared/context/AuthContext';
+import { DataProvider } from '@/src/shared/context/DataContext';
+import { Stack, useRouter } from 'expo-router';
+import { useEffect } from 'react';
+import { View } from 'react-native';
 
 /**
  * Componente que maneja la navegación basada en el estado de autenticación.
@@ -25,15 +25,15 @@ const ProtectedNavigation = () => {
       // Usuario no autenticado, redirigir a login
       router.replace('/auth/login' as any);
     }
-  }, [user, loading]);
+  }, [user, loading, router]);
 
   return (
     <View style={{ flex: 1 }}>
       <Stack
         screenOptions={{
           headerShown: false,
-          headerBackButtonDisplayMode: "minimal",
-          headerTitleAlign: "center",
+          headerBackButtonDisplayMode: 'minimal',
+          headerTitleAlign: 'center',
         }}
       />
     </View>

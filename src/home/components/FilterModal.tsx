@@ -1,18 +1,18 @@
-import { IGeneroContenidoAudiovisual } from "@/database/generosContenidoAudiovisual";
-import { ITipoContenidoAudiovisual } from "@/database/tiposContenidoAudiovisual";
-import { Button, ButtonVariant } from "@/src/shared/components/Button";
-import { Checkbox } from "@/src/shared/components/Checkbox";
-import { TextPressStart2P } from "@/src/shared/components/TextPressStart2P";
-import { Colors } from "@/src/shared/constants/Colors";
-import { MaterialIcons } from "@expo/vector-icons";
-import React from "react";
+import { IGeneroContenidoAudiovisual } from '@/database/generosContenidoAudiovisual';
+import { ITipoContenidoAudiovisual } from '@/database/tiposContenidoAudiovisual';
+import { Button, ButtonVariant } from '@/src/shared/components/Button';
+import { Checkbox } from '@/src/shared/components/Checkbox';
+import { TextPressStart2P } from '@/src/shared/components/TextPressStart2P';
+import { Colors } from '@/src/shared/constants/Colors';
+import { MaterialIcons } from '@expo/vector-icons';
+import React from 'react';
 import {
-    Modal,
-    Platform,
-    StyleSheet,
-    TouchableOpacity,
-    View,
-} from "react-native";
+  Modal,
+  Platform,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 
 /**
  * Estructura de los filtros aplicados en el modal.
@@ -77,10 +77,10 @@ export const FilterModal: React.FC<FilterModalProps> = ({
   activeFilters,
 }) => {
   const [selectedTypes, setSelectedTypes] = React.useState<number[]>(
-    activeFilters.types,
+    activeFilters.types
   );
   const [selectedGenres, setSelectedGenres] = React.useState<number[]>(
-    activeFilters.genres,
+    activeFilters.genres
   );
 
   React.useEffect(() => {
@@ -101,20 +101,20 @@ export const FilterModal: React.FC<FilterModalProps> = ({
   };
 
   const toggleType = (id: number) => {
-    setSelectedTypes((prev) =>
-      prev.includes(id) ? prev.filter((tId) => tId !== id) : [...prev, id],
+    setSelectedTypes(prev =>
+      prev.includes(id) ? prev.filter(tId => tId !== id) : [...prev, id]
     );
   };
 
   const toggleGenre = (id: number) => {
-    setSelectedGenres((prev) =>
-      prev.includes(id) ? prev.filter((gId) => gId !== id) : [...prev, id],
+    setSelectedGenres(prev =>
+      prev.includes(id) ? prev.filter(gId => gId !== id) : [...prev, id]
     );
   };
 
   return (
     <Modal
-      animationType="fade"
+      animationType='fade'
       transparent={true}
       visible={visible}
       onRequestClose={onClose}
@@ -126,7 +126,7 @@ export const FilterModal: React.FC<FilterModalProps> = ({
               Filter Content
             </TextPressStart2P>
             <TouchableOpacity onPress={onClose}>
-              <MaterialIcons name="close" size={24} color="white" />
+              <MaterialIcons name='close' size={24} color='white' />
             </TouchableOpacity>
           </View>
 
@@ -135,7 +135,7 @@ export const FilterModal: React.FC<FilterModalProps> = ({
               Content Types
             </TextPressStart2P>
             <View style={styles.checkboxContainer}>
-              {contentTypes.map((type) => (
+              {contentTypes.map(type => (
                 <Checkbox
                   key={type.id}
                   label={type.plural}
@@ -151,7 +151,7 @@ export const FilterModal: React.FC<FilterModalProps> = ({
               Genres
             </TextPressStart2P>
             <View style={styles.checkboxContainer}>
-              {genres.map((genre) => (
+              {genres.map(genre => (
                 <Checkbox
                   key={genre.id}
                   label={genre.nombre}
@@ -163,12 +163,22 @@ export const FilterModal: React.FC<FilterModalProps> = ({
           </View>
 
           <View style={styles.footer}>
-            <Button onPress={handleReset} text="RESET" icon="refresh" variant={ButtonVariant.GRAY} />
-            <Button onPress={onClose} text="CANCEL" icon="cancel" variant={ButtonVariant.RED} />
+            <Button
+              onPress={handleReset}
+              text='RESET'
+              icon='refresh'
+              variant={ButtonVariant.GRAY}
+            />
+            <Button
+              onPress={onClose}
+              text='CANCEL'
+              icon='cancel'
+              variant={ButtonVariant.RED}
+            />
             <Button
               onPress={handleApply}
-              text="APPLY"
-              icon="check-circle"
+              text='APPLY'
+              icon='check-circle'
               variant={ButtonVariant.GREEN}
             />
           </View>
@@ -185,44 +195,44 @@ export const FilterModal: React.FC<FilterModalProps> = ({
 const styles = StyleSheet.create({
   centeredView: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "rgba(0, 0, 0, 0.8)",
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
   },
   modalView: {
     backgroundColor: Colors.fondo,
     borderRadius: 0,
     padding: 20,
-    width: Platform.OS === "web" ? 450 : "90%",
+    width: Platform.OS === 'web' ? 450 : '90%',
     borderWidth: 2,
     borderColor: Colors.grisOscuro,
   },
   header: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     marginBottom: 20,
   },
   modalTitle: {
-    fontSize: Platform.OS === "web" ? 24 : 18,
-    color: "#FFF",
+    fontSize: Platform.OS === 'web' ? 24 : 18,
+    color: '#FFF',
   },
   section: {
     marginBottom: 20,
   },
   sectionTitle: {
-    fontSize: Platform.OS === "web" ? 18 : 16,
+    fontSize: Platform.OS === 'web' ? 18 : 16,
     color: Colors.verde,
     marginBottom: 15,
   },
   checkboxContainer: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
   },
   footer: {
-    flexDirection: "row",
-    justifyContent: "flex-end",
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
     marginTop: 20,
     gap: 10,
   },

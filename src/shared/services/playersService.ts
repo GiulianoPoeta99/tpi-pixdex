@@ -10,7 +10,7 @@ export class PlayersService {
    * Obtiene todos los jugadores ordenados por puntaje.
    * @returns {Promise<ITopPlayer[]>} Lista de jugadores ordenados por puntaje descendente.
    * @throws {Error} Si hay un error al obtener los datos.
-   * 
+   *
    * @example
    * const players = await PlayersService.getAll();
    */
@@ -37,7 +37,7 @@ export class PlayersService {
    * @param {number} id - ID del jugador.
    * @returns {Promise<ITopPlayer | null>} Jugador encontrado o null.
    * @throws {Error} Si hay un error al obtener el jugador.
-   * 
+   *
    * @example
    * const player = await PlayersService.getById(1);
    */
@@ -68,7 +68,7 @@ export class PlayersService {
    * @param {string} name - Nombre del jugador.
    * @returns {Promise<ITopPlayer | null>} Jugador encontrado o null.
    * @throws {Error} Si hay un error al obtener el jugador.
-   * 
+   *
    * @example
    * const player = await PlayersService.getByName('PixelMaster');
    */
@@ -101,11 +101,15 @@ export class PlayersService {
    * @param {string} userId - ID del usuario autenticado (opcional).
    * @returns {Promise<ITopPlayer>} Jugador creado o actualizado.
    * @throws {Error} Si hay un error al crear o actualizar el jugador.
-   * 
+   *
    * @example
    * const player = await PlayersService.upsertPlayer('PixelMaster', 15, 'user123');
    */
-  static async upsertPlayer(name: string, score: number, userId?: string): Promise<ITopPlayer> {
+  static async upsertPlayer(
+    name: string,
+    score: number,
+    userId?: string
+  ): Promise<ITopPlayer> {
     try {
       // Verificar si el jugador ya existe
       const existingPlayer = await this.getByName(name);
@@ -115,10 +119,10 @@ export class PlayersService {
         if (score > existingPlayer.score) {
           const { data, error } = await supabase
             .from('players')
-            .update({ 
-              score, 
+            .update({
+              score,
               user_id: userId || existingPlayer.user_id,
-              updated_at: new Date().toISOString()
+              updated_at: new Date().toISOString(),
             })
             .eq('id', existingPlayer.id)
             .select()
@@ -140,7 +144,7 @@ export class PlayersService {
             score,
             user_id: userId,
             created_at: new Date().toISOString(),
-            updated_at: new Date().toISOString()
+            updated_at: new Date().toISOString(),
           })
           .select()
           .single();
@@ -162,16 +166,13 @@ export class PlayersService {
    * @param {number} id - ID del jugador a eliminar.
    * @returns {Promise<void>}
    * @throws {Error} Si hay un error al eliminar el jugador.
-   * 
+   *
    * @example
    * await PlayersService.deleteById(1);
    */
   static async deleteById(id: number): Promise<void> {
     try {
-      const { error } = await supabase
-        .from('players')
-        .delete()
-        .eq('id', id);
+      const { error } = await supabase.from('players').delete().eq('id', id);
 
       if (error) {
         throw new Error(error.message);
@@ -186,7 +187,7 @@ export class PlayersService {
    * Suscribe a cambios en tiempo real en la tabla de jugadores.
    * @param {(payload: any) => void} callback - Función callback para manejar cambios.
    * @returns {() => void} Función para cancelar la suscripción.
-   * 
+   *
    * @example
    * const unsubscribe = PlayersService.subscribeToChanges((payload) => {
    *   console.log('Players changed:', payload);
@@ -201,11 +202,11 @@ export class PlayersService {
           {
             event: '*',
             schema: 'public',
-            table: 'players'
+            table: 'players',
           },
           (payload: any) => {
             console.log('Players realtime event:', payload);
-            
+
             // Normalizar el payload para manejar diferentes formatos
             const normalizedPayload = {
               eventType: payload.eventType || payload.event_type,
@@ -213,13 +214,13 @@ export class PlayersService {
               old: payload.old,
               table: payload.table,
               schema: payload.schema,
-              commit_timestamp: payload.commit_timestamp
+              commit_timestamp: payload.commit_timestamp,
             };
-            
+
             callback(normalizedPayload);
           }
         )
-        .subscribe((status) => {
+        .subscribe(status => {
           console.log('Players subscription status:', status);
         });
 
@@ -241,7 +242,7 @@ export class PlayersService {
    * Obtiene los top 5 jugadores con mejor puntaje.
    * @returns {Promise<ITopPlayer[]>} Top 5 jugadores.
    * @throws {Error} Si hay un error al obtener los datos.
-   * 
+   *
    * @example
    * const topPlayers = await PlayersService.getTopPlayers();
    */

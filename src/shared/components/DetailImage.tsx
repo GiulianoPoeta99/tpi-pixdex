@@ -1,7 +1,7 @@
-import { Colors } from "@/src/shared/constants/Colors";
-import { Image } from "expo-image";
-import React, { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Colors } from '@/src/shared/constants/Colors';
+import { Image } from 'expo-image';
+import React, { useState } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 
 /**
  * Propiedades para el componente DetailImage.
@@ -43,8 +43,8 @@ export const DetailImage: React.FC<DetailImageProps> = ({
     <Image
       source={{ uri: uri }}
       style={styles.image}
-      contentFit="cover"
-      cachePolicy="disk"
+      contentFit='cover'
+      cachePolicy='disk'
       transition={300}
       onError={() => setImgError(true)}
     />
@@ -57,19 +57,19 @@ export const DetailImage: React.FC<DetailImageProps> = ({
  */
 const styles = StyleSheet.create({
   image: {
-    width: "100%",
+    width: '100%',
     aspectRatio: 2 / 3,
-    backgroundColor: "#FFF",
+    backgroundColor: '#FFF',
   },
   placeholder: {
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: Colors.grisOscuro,
     padding: 10,
   },
   placeholderText: {
-    color: "#FFF",
+    color: '#FFF',
     fontSize: 14,
-    textAlign: "center",
+    textAlign: 'center',
   },
 });

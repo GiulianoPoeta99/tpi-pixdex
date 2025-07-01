@@ -1,5 +1,11 @@
 import { Session, User } from '@supabase/supabase-js';
-import React, { createContext, ReactNode, useContext, useEffect, useState } from 'react';
+import React, {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 import { AuthService } from '../services/authService';
 
 /**
@@ -114,7 +120,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         setUser(user);
       }
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : 'Error desconocido';
+      const errorMessage =
+        error instanceof Error ? error.message : 'Error desconocido';
       setError(errorMessage);
       throw error;
     } finally {
@@ -145,7 +152,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         setUser(user);
       }
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : 'Error desconocido';
+      const errorMessage =
+        error instanceof Error ? error.message : 'Error desconocido';
       setError(errorMessage);
       throw error;
     } finally {
@@ -159,7 +167,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
    * @returns {Promise<void>}
    * @throws {Error} Si hay un error en el proceso de OAuth.
    */
-  const signInWithOAuth = async (provider: 'google' | 'github' | 'discord'): Promise<void> => {
+  const signInWithOAuth = async (
+    provider: 'google' | 'github' | 'discord'
+  ): Promise<void> => {
     try {
       setLoading(true);
       setError(null);
@@ -171,7 +181,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         throw new Error(error.message);
       }
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : 'Error desconocido';
+      const errorMessage =
+        error instanceof Error ? error.message : 'Error desconocido';
       setError(errorMessage);
       throw error;
     } finally {
@@ -199,7 +210,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       setUser(null);
       setSession(null);
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : 'Error desconocido';
+      const errorMessage =
+        error instanceof Error ? error.message : 'Error desconocido';
       setError(errorMessage);
       throw error;
     } finally {
@@ -225,7 +237,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         throw new Error(error.message);
       }
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : 'Error desconocido';
+      const errorMessage =
+        error instanceof Error ? error.message : 'Error desconocido';
       setError(errorMessage);
       throw error;
     } finally {
@@ -262,4 +275,4 @@ export const useAuth = (): AuthContextType => {
     throw new Error('useAuth debe ser usado dentro de un AuthProvider');
   }
   return context;
-}; 
+};

@@ -1,6 +1,6 @@
-import { Colors } from "@/src/shared/constants/Colors";
-import React, { FC } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Colors } from '@/src/shared/constants/Colors';
+import React, { FC } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 
 /**
  * Propiedades para el componente ErrorState.
@@ -33,6 +33,6 @@ export const ErrorState: FC<ErrorStateProps> = ({ message }) => (
  * @private
  */
 const styles = StyleSheet.create({
-  errorContainer: { flex: 1, justifyContent: "center", alignItems: "center" },
-  errorText: { color: Colors.rojo, fontSize: 16, textAlign: "center" },
+  errorContainer: { flex: 1, justifyContent: 'center', alignItems: 'center' },
+  errorText: { color: Colors.rojo, fontSize: 16, textAlign: 'center' },
 });

@@ -1,19 +1,19 @@
-import { IContenidoAudiovisual } from "@/database/contenidosAudiovisuales";
-import { IGeneroContenidoAudiovisual } from "@/database/generosContenidoAudiovisual";
-import { ITipoContenidoAudiovisual } from "@/database/tiposContenidoAudiovisual";
-import { ITopPlayer } from "@/src/shared/config/supabase";
+import { IContenidoAudiovisual } from '@/database/contenidosAudiovisuales';
+import { IGeneroContenidoAudiovisual } from '@/database/generosContenidoAudiovisual';
+import { ITipoContenidoAudiovisual } from '@/database/tiposContenidoAudiovisual';
+import { ITopPlayer } from '@/src/shared/config/supabase';
 import React, {
   createContext,
   ReactNode,
   useContext,
   useEffect,
   useState,
-} from "react";
-import { ContenidosService } from "../services/contenidosService";
-import { GenerosService } from "../services/generosService";
-import { PlayersService } from "../services/playersService";
-import { TiposService } from "../services/tiposService";
-import { useAuth } from "./AuthContext";
+} from 'react';
+import { ContenidosService } from '../services/contenidosService';
+import { GenerosService } from '../services/generosService';
+import { PlayersService } from '../services/playersService';
+import { TiposService } from '../services/tiposService';
+import { useAuth } from './AuthContext';
 
 /**
  * Tipo de datos y métodos expuestos por el contexto de datos global.
@@ -127,79 +127,79 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
 
   const loadContenidos = async () => {
     try {
-      setLoading((prev) => ({ ...prev, contenidos: true }));
-      setErrors((prev) => ({ ...prev, contenidos: null }));
+      setLoading(prev => ({ ...prev, contenidos: true }));
+      setErrors(prev => ({ ...prev, contenidos: null }));
 
       const data = await ContenidosService.getAll();
 
       setContenidos(data);
     } catch (error) {
       const errorMessage =
-        error instanceof Error ? error.message : "Error desconocido";
+        error instanceof Error ? error.message : 'Error desconocido';
 
-      setErrors((prev) => ({ ...prev, contenidos: errorMessage }));
+      setErrors(prev => ({ ...prev, contenidos: errorMessage }));
 
-      console.error("Error loading contenidos:", error);
+      console.error('Error loading contenidos:', error);
     } finally {
-      setLoading((prev) => ({ ...prev, contenidos: false }));
+      setLoading(prev => ({ ...prev, contenidos: false }));
     }
   };
 
   const loadGeneros = async () => {
     try {
-      setLoading((prev) => ({ ...prev, generos: true }));
-      setErrors((prev) => ({ ...prev, generos: null }));
+      setLoading(prev => ({ ...prev, generos: true }));
+      setErrors(prev => ({ ...prev, generos: null }));
       const data = await GenerosService.getAll();
       setGeneros(data);
     } catch (error) {
       const errorMessage =
-        error instanceof Error ? error.message : "Error desconocido";
+        error instanceof Error ? error.message : 'Error desconocido';
 
-      setErrors((prev) => ({ ...prev, generos: errorMessage }));
+      setErrors(prev => ({ ...prev, generos: errorMessage }));
 
-      console.error("Error loading generos:", error);
+      console.error('Error loading generos:', error);
     } finally {
-      setLoading((prev) => ({ ...prev, generos: false }));
+      setLoading(prev => ({ ...prev, generos: false }));
     }
   };
 
   const loadTipos = async () => {
     try {
-      setLoading((prev) => ({ ...prev, tipos: true }));
-      setErrors((prev) => ({ ...prev, tipos: null }));
+      setLoading(prev => ({ ...prev, tipos: true }));
+      setErrors(prev => ({ ...prev, tipos: null }));
 
       const data = await TiposService.getAll();
 
       setTipos(data);
     } catch (error) {
       const errorMessage =
-        error instanceof Error ? error.message : "Error desconocido";
+        error instanceof Error ? error.message : 'Error desconocido';
 
-      setErrors((prev) => ({ ...prev, tipos: errorMessage }));
+      setErrors(prev => ({ ...prev, tipos: errorMessage }));
 
-      console.error("Error loading tipos:", error);
+      console.error('Error loading tipos:', error);
     } finally {
-      setLoading((prev) => ({ ...prev, tipos: false }));
+      setLoading(prev => ({ ...prev, tipos: false }));
     }
   };
 
   const loadPlayers = async () => {
     try {
-      setLoading((prev) => ({ ...prev, players: true }));
-      setErrors((prev) => ({ ...prev, players: null }));
+      setLoading(prev => ({ ...prev, players: true }));
+      setErrors(prev => ({ ...prev, players: null }));
 
       const data = await PlayersService.getAll();
 
       setPlayers(data);
     } catch (error) {
       const errorMessage =
-        error instanceof Error ? error.message : "Error desconocido";
+        error instanceof Error ? error.message : 'Error desconocido';
 
-      setErrors((prev) => ({ ...prev, players: errorMessage }));
+      setErrors(prev => ({ ...prev, players: errorMessage }));
 
-      console.error("Error loading players:", error);
+      console.error('Error loading players:', error);
     } finally {
-      setLoading((prev) => ({ ...prev, players: false }));
+      setLoading(prev => ({ ...prev, players: false }));
     }
   };
 
@@ -221,14 +221,14 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
   useEffect(() => {
     const unsubscribe = PlayersService.subscribeToChanges((payload: any) => {
       console.log('Players changed:', payload);
-      
+
       // En lugar de recargar toda la lista, actualizar solo el cambio específico
       if (payload.eventType === 'INSERT') {
         // Agregar nuevo jugador
         setPlayers(prev => {
           const newPlayer = payload.new;
           if (!newPlayer) return prev;
-          
+
           // Verificar si ya existe para evitar duplicados
           const exists = prev.some(p => p.id === newPlayer.id);
           if (!exists) {
@@ -241,17 +241,17 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
         setPlayers(prev => {
           const updatedPlayer = payload.new;
           if (!updatedPlayer) return prev;
-          
-          return prev.map(p => 
-            p.id === updatedPlayer.id ? updatedPlayer : p
-          ).sort((a, b) => b.score - a.score);
+
+          return prev
+            .map(p => (p.id === updatedPlayer.id ? updatedPlayer : p))
+            .sort((a, b) => b.score - a.score);
         });
       } else if (payload.eventType === 'DELETE') {
         // Eliminar jugador
         setPlayers(prev => {
           const deletedPlayerId = payload.old?.id;
           if (!deletedPlayerId) return prev;
-          
+
           return prev.filter(p => p.id !== deletedPlayerId);
         });
       }
@@ -263,27 +263,27 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
   }, []);
 
   const getContenidoById = (id: number) => {
-    return contenidos.find((item) => item.id === id);
+    return contenidos.find(item => item.id === id);
   };
 
   const getContenidosByTipoId = (tipoId: number) => {
-    return contenidos.filter((item) => item.tipoId === tipoId);
+    return contenidos.filter(item => item.tipoId === tipoId);
   };
 
   const getGeneroById = (id: number) => {
-    return generos.find((item) => item.id === id);
+    return generos.find(item => item.id === id);
   };
 
   const getGenerosByIds = (ids: number[]) => {
-    return generos.filter((item) => ids.includes(item.id));
+    return generos.filter(item => ids.includes(item.id));
   };
 
   const getTipoById = (id: number) => {
-    return tipos.find((item) => item.id === id);
+    return tipos.find(item => item.id === id);
   };
 
   const getPlayerById = (id: number) => {
-    return players.find((item) => item.id === id);
+    return players.find(item => item.id === id);
   };
 
   const refreshContenidos = async () => {
@@ -309,18 +309,19 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
       // Usar el ID del usuario autenticado si está disponible
       const userId = user?.id;
       await PlayersService.upsertPlayer(name, score, userId);
-      
+
       // Recargar la lista de jugadores para reflejar los cambios
       await loadPlayers();
     } catch (error) {
       console.error('Error adding player score:', error);
-      const errorMessage = error instanceof Error ? error.message : 'Error desconocido';
-      setErrors((prev) => ({ ...prev, players: errorMessage }));
+      const errorMessage =
+        error instanceof Error ? error.message : 'Error desconocido';
+      setErrors(prev => ({ ...prev, players: errorMessage }));
     }
   };
 
   const doesPlayerExist = (name: string) => {
-    return players.some((p) => p.name.toLowerCase() === name.toLowerCase());
+    return players.some(p => p.name.toLowerCase() === name.toLowerCase());
   };
 
   const value: DataContextType = {
@@ -361,7 +362,7 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
 export const useData = () => {
   const context = useContext(DataContext);
   if (context === undefined) {
-    throw new Error("useData must be used within a DataProvider");
+    throw new Error('useData must be used within a DataProvider');
   }
   return context;
 };

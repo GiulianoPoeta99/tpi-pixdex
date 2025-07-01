@@ -1,5 +1,5 @@
-import { TextPressStart2P } from "@/src/shared/components/TextPressStart2P";
-import { Href, useRouter } from "expo-router";
+import { TextPressStart2P } from '@/src/shared/components/TextPressStart2P';
+import { Href, useRouter } from 'expo-router';
 import {
   Platform,
   StyleProp,
@@ -8,8 +8,8 @@ import {
   Text,
   View,
   TouchableOpacity,
-} from "react-native";
-import { Colors } from "@/src/shared/constants/Colors";
+} from 'react-native';
+import { Colors } from '@/src/shared/constants/Colors';
 
 /**
  * Propiedades para el componente GameButton.
@@ -89,26 +89,26 @@ const styles = StyleSheet.create({
     borderColor: Colors.gris,
     padding: 20,
     flex: 1,
-    flexDirection: "column",
-    justifyContent: "space-between",
+    flexDirection: 'column',
+    justifyContent: 'space-between',
   },
   section: {
-    width: "100%",
-    marginVertical: Platform.OS === "web" ? 10 : 2,
+    width: '100%',
+    marginVertical: Platform.OS === 'web' ? 10 : 2,
   },
   playSection: {
-    alignItems: "flex-end",
+    alignItems: 'flex-end',
   },
   title: {
-    color: "#FFF",
-    fontSize: Platform.OS === "web" ? 36 : 12,
+    color: '#FFF',
+    fontSize: Platform.OS === 'web' ? 36 : 12,
   },
   description: {
-    color: "#FFF",
-    fontSize: Platform.OS === "web" ? 20 : 10,
+    color: '#FFF',
+    fontSize: Platform.OS === 'web' ? 20 : 10,
   },
   play: {
-    color: "#FFF",
-    fontSize: Platform.OS === "web" ? 12 : 7,
+    color: '#FFF',
+    fontSize: Platform.OS === 'web' ? 12 : 7,
   },
 });

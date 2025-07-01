@@ -1,5 +1,5 @@
-import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
 
 /**
  * Propiedades para el componente ErrorState.
@@ -29,9 +29,9 @@ interface ErrorStateProps {
  * <ErrorState message="Ocurrió un error" error="Detalle técnico" color="#f00" />
  */
 export const ErrorState: React.FC<ErrorStateProps> = ({
-  message = "Error:",
+  message = 'Error:',
   error,
-  color = "red",
+  color = 'red',
 }) => {
   const displayMessage = error ? `${message} ${error}` : message;
 
@@ -49,12 +49,12 @@ export const ErrorState: React.FC<ErrorStateProps> = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     padding: 20,
   },
   text: {
     fontSize: 16,
-    textAlign: "center",
+    textAlign: 'center',
   },
 });

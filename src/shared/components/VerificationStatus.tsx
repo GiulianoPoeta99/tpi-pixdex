@@ -37,7 +37,7 @@ interface VerificationStatusProps {
 export const VerificationStatus: FC<VerificationStatusProps> = ({
   isEmailVerified,
   isLoading,
-  error
+  error,
 }) => {
   if (isLoading) {
     return null;
@@ -46,7 +46,7 @@ export const VerificationStatus: FC<VerificationStatusProps> = ({
   if (isEmailVerified) {
     return (
       <View style={styles.verifiedContainer}>
-        <MaterialIcons name="check-circle" size={20} color={Colors.verde} />
+        <MaterialIcons name='check-circle' size={20} color={Colors.verde} />
         <Text style={styles.verifiedText}>Email verificado</Text>
       </View>
     );
@@ -54,7 +54,7 @@ export const VerificationStatus: FC<VerificationStatusProps> = ({
 
   return (
     <View style={styles.unverifiedContainer}>
-      <MaterialIcons name="warning" size={20} color={Colors.rojo} />
+      <MaterialIcons name='warning' size={20} color={Colors.rojo} />
       <Text style={styles.unverifiedText}>
         {error || 'Email no verificado'}
       </Text>
@@ -103,4 +103,4 @@ const styles = StyleSheet.create({
     fontFamily: 'System',
     fontWeight: '600',
   },
-}); 
+});

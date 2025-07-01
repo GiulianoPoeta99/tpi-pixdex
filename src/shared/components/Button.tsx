@@ -1,25 +1,25 @@
-import { TextPressStart2P } from "@/src/shared/components/TextPressStart2P";
-import { Colors } from "@/src/shared/constants/Colors";
-import { MaterialIcons } from "@expo/vector-icons";
+import { TextPressStart2P } from '@/src/shared/components/TextPressStart2P';
+import { Colors } from '@/src/shared/constants/Colors';
+import { MaterialIcons } from '@expo/vector-icons';
 import {
-    Platform,
-    StyleProp,
-    StyleSheet,
-    TextStyle,
-    TouchableOpacity,
-    View,
-    ViewStyle,
-} from "react-native";
+  Platform,
+  StyleProp,
+  StyleSheet,
+  TextStyle,
+  TouchableOpacity,
+  View,
+  ViewStyle,
+} from 'react-native';
 
 /**
  * Variantes de color disponibles para el botón.
  * @enum
  */
 export enum ButtonVariant {
-  PURPLE = "purple",
-  GREEN = "green",
-  RED = "red",
-  GRAY = "gray",
+  PURPLE = 'purple',
+  GREEN = 'green',
+  RED = 'red',
+  GRAY = 'gray',
 }
 
 /**
@@ -113,15 +113,10 @@ export const Button: React.FC<ButtonProps> = ({
   variant = ButtonVariant.PURPLE,
 }) => {
   const variantStyles = getVariantStyles(variant);
-  
+
   return (
     <TouchableOpacity
-      style={[
-        styles.button,
-        variantStyles,
-        style,
-        disabled && styles.disabled
-      ]}
+      style={[styles.button, variantStyles, style, disabled && styles.disabled]}
       onPress={onPress}
       activeOpacity={0.7}
       disabled={disabled}
@@ -130,8 +125,8 @@ export const Button: React.FC<ButtonProps> = ({
         {icon && (
           <MaterialIcons
             name={icon}
-            color="#FFF"
-            size={Platform.OS === "web" ? 15 : 10}
+            color='#FFF'
+            size={Platform.OS === 'web' ? 15 : 10}
             style={styles.icon}
           />
         )}
@@ -152,7 +147,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     paddingVertical: 8,
     paddingHorizontal: 10,
-    justifyContent: "center",
+    justifyContent: 'center',
   },
   disabled: {
     backgroundColor: Colors.grisOscuro,
@@ -162,15 +157,15 @@ const styles = StyleSheet.create({
     borderRightColor: Colors.gris,
   },
   content: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   icon: {
     marginRight: 8,
   },
   buttonText: {
-    color: "#FFF",
-    fontSize: Platform.OS === "web" ? 15 : 8,
+    color: '#FFF',
+    fontSize: Platform.OS === 'web' ? 15 : 8,
   },
 });

@@ -1,8 +1,8 @@
 import {
-    IGeneroContenidoAudiovisual,
-    generosContenidoAudiovisual,
-} from "../../../database/generosContenidoAudiovisual";
-import { API_CONFIG } from "../config/api";
+  IGeneroContenidoAudiovisual,
+  generosContenidoAudiovisual,
+} from '../../../database/generosContenidoAudiovisual';
+import { API_CONFIG } from '../config/api';
 
 /**
  * Servicio para gestionar los géneros de contenido audiovisual.
@@ -16,10 +16,10 @@ export class GenerosService {
    * @returns {Promise<IGeneroContenidoAudiovisual[]>} Lista de géneros audiovisuales.
    */
   static async getAll(): Promise<IGeneroContenidoAudiovisual[]> {
-    await new Promise((r) => setTimeout(r, 1000));
+    await new Promise(r => setTimeout(r, 1000));
     try {
       const response = await fetch(
-        `${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.GENEROS}`,
+        `${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.GENEROS}`
       );
 
       if (!response.ok) {
@@ -27,7 +27,7 @@ export class GenerosService {
       }
 
       return await response.json();
-    } catch (error) {
+    } catch {
       return generosContenidoAudiovisual;
     }
   }
@@ -39,10 +39,10 @@ export class GenerosService {
    * @throws {Error} Si no se encuentra el género o hay un error en la petición.
    */
   static async getById(id: number): Promise<IGeneroContenidoAudiovisual> {
-    await new Promise((r) => setTimeout(r, 1000));
+    await new Promise(r => setTimeout(r, 1000));
     try {
       const generos = await this.getAll();
-      const genero = generos.find((item) => item.id === id);
+      const genero = generos.find(item => item.id === id);
 
       if (!genero) {
         throw new Error(`Genero with id ${id} not found`);
@@ -62,10 +62,10 @@ export class GenerosService {
    * @throws {Error} Si hay un error en la petición.
    */
   static async getByIds(ids: number[]): Promise<IGeneroContenidoAudiovisual[]> {
-    await new Promise((r) => setTimeout(r, 1000));
+    await new Promise(r => setTimeout(r, 1000));
     try {
       const generos = await this.getAll();
-      return generos.filter((item) => ids.includes(item.id));
+      return generos.filter(item => ids.includes(item.id));
     } catch (error) {
       console.error(`Error fetching generos by ids ${ids}:`, error);
       throw error;

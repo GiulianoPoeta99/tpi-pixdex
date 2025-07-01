@@ -1,8 +1,8 @@
-import { Button } from "@/src/shared/components/Button";
-import { Colors } from "@/src/shared/constants/Colors";
-import { MaterialIcons } from "@expo/vector-icons";
-import React, { FC } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Button } from '@/src/shared/components/Button';
+import { Colors } from '@/src/shared/constants/Colors';
+import { MaterialIcons } from '@expo/vector-icons';
+import React, { FC } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 
 /**
  * Propiedades para el componente GameHeader.
@@ -41,12 +41,12 @@ export const GameHeader: FC<GameHeaderProps> = ({
   onExit,
 }) => (
   <View style={styles.header}>
-    <Button onPress={onExit} icon="exit-to-app" text="EXIT" />
+    <Button onPress={onExit} icon='exit-to-app' text='EXIT' />
     <View style={styles.livesContainer}>
       {[...Array(5)].map((_, i) => (
         <MaterialIcons
           key={i}
-          name={i < lives ? "favorite" : "favorite-border"}
+          name={i < lives ? 'favorite' : 'favorite-border'}
           size={25}
           color={Colors.purpura}
         />
@@ -65,11 +65,11 @@ export const GameHeader: FC<GameHeaderProps> = ({
  */
 const styles = StyleSheet.create({
   header: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     padding: 20,
   },
-  livesContainer: { flexDirection: "row", gap: 5 },
-  playerText: { color: "#FFF", fontSize: 14, fontFamily: "System" },
+  livesContainer: { flexDirection: 'row', gap: 5 },
+  playerText: { color: '#FFF', fontSize: 14, fontFamily: 'System' },
 });

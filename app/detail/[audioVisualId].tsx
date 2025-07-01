@@ -1,5 +1,5 @@
-import { DetailScreen } from "@/src/detail/screens/DetailScreen";
-import { useLocalSearchParams } from "expo-router";
+import { DetailScreen } from '@/src/detail/screens/DetailScreen';
+import { useLocalSearchParams } from 'expo-router';
 
 type DetailRouteParams = { audioVisualId: string };
 

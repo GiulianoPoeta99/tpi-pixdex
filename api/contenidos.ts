@@ -1,4 +1,4 @@
-import { contenidosAudiovisuales } from "../database/contenidosAudiovisuales";
+import { contenidosAudiovisuales } from '../database/contenidosAudiovisuales';
 
 /**
  * Handler para la petición GET de contenidos audiovisuales.

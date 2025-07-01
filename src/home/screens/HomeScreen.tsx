@@ -1,12 +1,12 @@
-import { Colors } from "@/src/shared/constants/Colors";
-import { useData } from "@/src/shared/context/DataContext";
-import { LoadingState } from "@/src/shared/components/LoadingState";
-import { ErrorState } from "@/src/shared/components/ErrorState";
-import React, { useState } from "react";
-import { StyleSheet } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { FilterModal } from "../components/FilterModal";
-import { HomeContent } from "../components/HomeContent";
+import { Colors } from '@/src/shared/constants/Colors';
+import { useData } from '@/src/shared/context/DataContext';
+import { LoadingState } from '@/src/shared/components/LoadingState';
+import { ErrorState } from '@/src/shared/components/ErrorState';
+import React, { useState } from 'react';
+import { StyleSheet } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { FilterModal } from '../components/FilterModal';
+import { HomeContent } from '../components/HomeContent';
 
 /**
  * Estructura de los filtros aplicados en la pantalla de inicio.
@@ -39,9 +39,9 @@ export const HomeScreen = () => {
 
   React.useEffect(() => {
     if (tipos.length > 0 && filters.types.length === 0) {
-      setFilters((prev) => ({
+      setFilters(prev => ({
         ...prev,
-        types: tipos.map((t) => t.id),
+        types: tipos.map(t => t.id),
       }));
     }
   }, [tipos, filters.types.length]);
@@ -50,14 +50,14 @@ export const HomeScreen = () => {
     setFilters(newFilters);
   };
 
-  const filteredContentTypes = tipos.filter((tipo) =>
-    filters.types.includes(tipo.id),
+  const filteredContentTypes = tipos.filter(tipo =>
+    filters.types.includes(tipo.id)
   );
 
   if (!isInitialized || loading.tipos || loading.generos) {
     return (
       <SafeAreaView style={styles.container}>
-        <LoadingState message="Cargando..." />
+        <LoadingState message='Cargando...' />
       </SafeAreaView>
     );
   }
@@ -65,7 +65,7 @@ export const HomeScreen = () => {
   if (errors.tipos || errors.generos) {
     return (
       <SafeAreaView style={styles.container}>
-        <ErrorState message="Error:" error={errors.tipos || errors.generos} />
+        <ErrorState message='Error:' error={errors.tipos || errors.generos} />
       </SafeAreaView>
     );
   }

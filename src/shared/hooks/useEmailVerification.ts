@@ -7,7 +7,7 @@ import { useAuth } from '../context/AuthContext';
  * @property {boolean} isEmailVerified - Indica si el email está verificado.
  * @property {boolean} isLoading - Indica si se está verificando el estado.
  * @property {string | null} error - Mensaje de error si ocurre alguno.
- * 
+ *
  * @example
  * const { isEmailVerified, isLoading, error } = useEmailVerification();
  */
@@ -29,7 +29,10 @@ export const useEmailVerification = () => {
     const checkEmailVerification = () => {
       try {
         // Para usuarios de OAuth (Google, GitHub, etc.), considerar como verificados
-        if (user.app_metadata?.provider && user.app_metadata.provider !== 'email') {
+        if (
+          user.app_metadata?.provider &&
+          user.app_metadata.provider !== 'email'
+        ) {
           setIsEmailVerified(true);
           setError(null);
           return;
@@ -43,12 +46,16 @@ export const useEmailVerification = () => {
             setError(null);
           } else {
             setIsEmailVerified(false);
-            setError('Tu email no ha sido verificado. Por favor, verifica tu email antes de jugar.');
+            setError(
+              'Tu email no ha sido verificado. Por favor, verifica tu email antes de jugar.'
+            );
           }
         } else {
           // Si no tiene email, considerar como no verificado
           setIsEmailVerified(false);
-          setError('No se pudo verificar tu email. Por favor, contacta soporte.');
+          setError(
+            'No se pudo verificar tu email. Por favor, contacta soporte.'
+          );
         }
       } catch (err) {
         setError('Error al verificar el estado del email');
@@ -64,6 +71,6 @@ export const useEmailVerification = () => {
   return {
     isEmailVerified,
     isLoading,
-    error
+    error,
   };
-}; 
+};

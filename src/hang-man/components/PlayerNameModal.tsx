@@ -1,8 +1,8 @@
-import { Button } from "@/src/shared/components/Button";
-import { TextPressStart2P } from "@/src/shared/components/TextPressStart2P";
-import { Colors } from "@/src/shared/constants/Colors";
-import { MaterialIcons } from "@expo/vector-icons";
-import React, { FC, useState } from "react";
+import { Button } from '@/src/shared/components/Button';
+import { TextPressStart2P } from '@/src/shared/components/TextPressStart2P';
+import { Colors } from '@/src/shared/constants/Colors';
+import { MaterialIcons } from '@expo/vector-icons';
+import React, { FC, useState } from 'react';
 import {
   Modal,
   Platform,
@@ -11,7 +11,7 @@ import {
   TextInput,
   TouchableOpacity,
   View,
-} from "react-native";
+} from 'react-native';
 
 /**
  * Propiedades para el componente PlayerNameModal.
@@ -54,30 +54,30 @@ export const PlayerNameModal: FC<PlayerNameModalProps> = ({
   onSubmit,
   doesPlayerExist,
 }) => {
-  const [playerName, setPlayerName] = useState("");
-  const [nameError, setNameError] = useState("");
+  const [playerName, setPlayerName] = useState('');
+  const [nameError, setNameError] = useState('');
 
   const handleStartGame = () => {
     const trimmedName = playerName.trim();
 
     if (!trimmedName) {
-      setNameError("Player name cannot be empty.");
+      setNameError('Player name cannot be empty.');
       return;
     }
 
     if (doesPlayerExist(trimmedName)) {
-      setNameError("This player name is already taken.");
+      setNameError('This player name is already taken.');
       return;
     }
-    
-    setNameError("");
+
+    setNameError('');
     onSubmit(trimmedName);
-    setPlayerName("");
+    setPlayerName('');
   };
 
   const openModal = () => {
-    setNameError("");
-    setPlayerName("");
+    setNameError('');
+    setPlayerName('');
   };
 
   React.useEffect(() => {
@@ -86,7 +86,7 @@ export const PlayerNameModal: FC<PlayerNameModalProps> = ({
 
   return (
     <Modal
-      animationType="fade"
+      animationType='fade'
       transparent={true}
       visible={visible}
       onRequestClose={onClose}
@@ -98,12 +98,12 @@ export const PlayerNameModal: FC<PlayerNameModalProps> = ({
               Enter Your Name
             </TextPressStart2P>
             <TouchableOpacity onPress={onClose}>
-              <MaterialIcons name="close" size={24} color="white" />
+              <MaterialIcons name='close' size={24} color='white' />
             </TouchableOpacity>
           </View>
           <TextInput
             style={[styles.input, nameError ? styles.inputError : null]}
-            placeholder="Player name"
+            placeholder='Player name'
             placeholderTextColor={Colors.gris}
             value={playerName}
             onChangeText={setPlayerName}
@@ -112,8 +112,8 @@ export const PlayerNameModal: FC<PlayerNameModalProps> = ({
           <View style={styles.modalFooter}>
             <Button
               onPress={handleStartGame}
-              icon="play-arrow"
-              text="START GAME"
+              icon='play-arrow'
+              text='START GAME'
             />
           </View>
         </View>
@@ -129,33 +129,33 @@ export const PlayerNameModal: FC<PlayerNameModalProps> = ({
 const styles = StyleSheet.create({
   centeredView: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "rgba(0,0,0,0.7)",
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0,0,0,0.7)',
   },
   modalView: {
     backgroundColor: Colors.fondo,
     borderRadius: 0,
     padding: 20,
-    width: Platform.OS === "web" ? 400 : "90%",
+    width: Platform.OS === 'web' ? 400 : '90%',
     borderWidth: 2,
   },
   modalHeader: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     marginBottom: 20,
   },
-  modalTitle: { fontSize: 18, color: "#FFF" },
+  modalTitle: { fontSize: 18, color: '#FFF' },
   input: {
     borderWidth: 2,
     borderColor: Colors.purpura,
     padding: 15,
-    color: "#FFF",
+    color: '#FFF',
     fontSize: 16,
     marginBottom: 10,
   },
   inputError: { borderColor: Colors.rojo },
   errorText: { color: Colors.rojo, marginBottom: 10, fontSize: 12 },
-  modalFooter: { flexDirection: "row", justifyContent: "flex-end" },
+  modalFooter: { flexDirection: 'row', justifyContent: 'flex-end' },
 });

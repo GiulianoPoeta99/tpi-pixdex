@@ -1,15 +1,15 @@
-import { Button, ButtonVariant } from "@/src/shared/components/Button";
-import { TextPressStart2P } from "@/src/shared/components/TextPressStart2P";
-import { Colors } from "@/src/shared/constants/Colors";
-import { MaterialIcons } from "@expo/vector-icons";
-import React from "react";
+import { Button, ButtonVariant } from '@/src/shared/components/Button';
+import { TextPressStart2P } from '@/src/shared/components/TextPressStart2P';
+import { Colors } from '@/src/shared/constants/Colors';
+import { MaterialIcons } from '@expo/vector-icons';
+import React from 'react';
 import {
-    Modal,
-    Platform,
-    StyleSheet,
-    TouchableOpacity,
-    View,
-} from "react-native";
+  Modal,
+  Platform,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 
 /**
  * Propiedades para el componente LogoutConfirmModal.
@@ -49,7 +49,7 @@ export const LogoutConfirmModal: React.FC<LogoutConfirmModalProps> = ({
 }) => {
   return (
     <Modal
-      animationType="fade"
+      animationType='fade'
       transparent={true}
       visible={visible}
       onRequestClose={onClose}
@@ -61,15 +61,15 @@ export const LogoutConfirmModal: React.FC<LogoutConfirmModalProps> = ({
               Confirmar Cierre de Sesión
             </TextPressStart2P>
             <TouchableOpacity onPress={onClose}>
-              <MaterialIcons name="close" size={24} color="white" />
+              <MaterialIcons name='close' size={24} color='white' />
             </TouchableOpacity>
           </View>
 
           <View style={styles.content}>
-            <MaterialIcons 
-              name="logout" 
-              size={48} 
-              color={Colors.rojo} 
+            <MaterialIcons
+              name='logout'
+              size={48}
+              color={Colors.rojo}
               style={styles.icon}
             />
             <TextPressStart2P style={styles.message}>
@@ -81,17 +81,17 @@ export const LogoutConfirmModal: React.FC<LogoutConfirmModalProps> = ({
           </View>
 
           <View style={styles.footer}>
-            <Button 
-              onPress={onClose} 
-              text="CANCELAR" 
-              icon="cancel" 
+            <Button
+              onPress={onClose}
+              text='CANCELAR'
+              icon='cancel'
               variant={ButtonVariant.RED}
-              style={styles.cancelButton} 
+              style={styles.cancelButton}
             />
             <Button
               onPress={onConfirm}
-              text="CONFIRMAR"
-              icon="logout"
+              text='CONFIRMAR'
+              icon='logout'
               variant={ButtonVariant.GREEN}
               style={styles.confirmButton}
             />
@@ -109,51 +109,51 @@ export const LogoutConfirmModal: React.FC<LogoutConfirmModalProps> = ({
 const styles = StyleSheet.create({
   centeredView: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "rgba(0, 0, 0, 0.8)",
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
   },
   modalView: {
     backgroundColor: Colors.fondo,
     borderRadius: 0,
     padding: 20,
-    width: Platform.OS === "web" ? 400 : "90%",
+    width: Platform.OS === 'web' ? 400 : '90%',
     borderWidth: 2,
     borderColor: Colors.grisOscuro,
   },
   header: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     marginBottom: 20,
   },
   modalTitle: {
-    fontSize: Platform.OS === "web" ? 20 : 16,
-    color: "#FFF",
+    fontSize: Platform.OS === 'web' ? 20 : 16,
+    color: '#FFF',
   },
   content: {
-    alignItems: "center",
+    alignItems: 'center',
     marginBottom: 30,
   },
   icon: {
     marginBottom: 15,
   },
   message: {
-    fontSize: Platform.OS === "web" ? 16 : 14,
-    color: "#FFF",
-    textAlign: "center",
+    fontSize: Platform.OS === 'web' ? 16 : 14,
+    color: '#FFF',
+    textAlign: 'center',
     marginBottom: 10,
     lineHeight: 20,
   },
   subMessage: {
-    fontSize: Platform.OS === "web" ? 12 : 10,
+    fontSize: Platform.OS === 'web' ? 12 : 10,
     color: Colors.gris,
-    textAlign: "center",
+    textAlign: 'center',
     lineHeight: 16,
   },
   footer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     gap: 15,
   },
   cancelButton: {
@@ -162,4 +162,4 @@ const styles = StyleSheet.create({
   confirmButton: {
     flex: 1,
   },
-}); 
+});

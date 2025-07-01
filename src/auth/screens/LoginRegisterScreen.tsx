@@ -98,7 +98,7 @@ export const LoginRegisterScreen = () => {
       } else {
         await signUp(formData.email, formData.password);
       }
-      
+
       // Navegar a la pantalla principal después de autenticación exitosa
       router.replace('/');
     } catch (error) {
@@ -146,11 +146,11 @@ export const LoginRegisterScreen = () => {
               <TextInput
                 style={styles.input}
                 value={formData.email}
-                onChangeText={(value) => handleInputChange('email', value)}
-                placeholder="tu@email.com"
+                onChangeText={value => handleInputChange('email', value)}
+                placeholder='tu@email.com'
                 placeholderTextColor={Colors.gris}
-                keyboardType="email-address"
-                autoCapitalize="none"
+                keyboardType='email-address'
+                autoCapitalize='none'
                 autoCorrect={false}
               />
             </View>
@@ -160,11 +160,11 @@ export const LoginRegisterScreen = () => {
               <TextInput
                 style={styles.input}
                 value={formData.password}
-                onChangeText={(value) => handleInputChange('password', value)}
-                placeholder="••••••••"
+                onChangeText={value => handleInputChange('password', value)}
+                placeholder='••••••••'
                 placeholderTextColor={Colors.gris}
                 secureTextEntry
-                autoCapitalize="none"
+                autoCapitalize='none'
               />
             </View>
 
@@ -174,11 +174,13 @@ export const LoginRegisterScreen = () => {
                 <TextInput
                   style={styles.input}
                   value={formData.confirmPassword}
-                  onChangeText={(value) => handleInputChange('confirmPassword', value)}
-                  placeholder="••••••••"
+                  onChangeText={value =>
+                    handleInputChange('confirmPassword', value)
+                  }
+                  placeholder='••••••••'
                   placeholderTextColor={Colors.gris}
                   secureTextEntry
-                  autoCapitalize="none"
+                  autoCapitalize='none'
                 />
               </View>
             )}
@@ -198,7 +200,10 @@ export const LoginRegisterScreen = () => {
 
             {isLogin && (
               <View style={styles.forgotPasswordContainer}>
-                <Text style={styles.forgotPasswordLink} onPress={() => router.push('/auth/reset-password' as any)}>
+                <Text
+                  style={styles.forgotPasswordLink}
+                  onPress={() => router.push('/auth/reset-password' as any)}
+                >
                   ¿Olvidaste tu contraseña?
                 </Text>
               </View>
@@ -213,15 +218,15 @@ export const LoginRegisterScreen = () => {
             <View style={styles.oauthContainer}>
               <Button
                 onPress={() => handleOAuthLogin('google')}
-                icon="public"
-                text="GOOGLE"
+                icon='public'
+                text='GOOGLE'
                 disabled={loading}
                 textStyle={{ fontSize: Platform.OS === 'web' ? 14 : 10 }}
               />
               <Button
                 onPress={() => handleOAuthLogin('github')}
-                icon="code"
-                text="GITHUB"
+                icon='code'
+                text='GITHUB'
                 disabled={loading}
                 textStyle={{ fontSize: Platform.OS === 'web' ? 14 : 10 }}
               />
@@ -355,4 +360,4 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     textDecorationLine: 'underline',
   },
-}); 
+});

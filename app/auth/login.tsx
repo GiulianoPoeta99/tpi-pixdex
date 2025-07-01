@@ -1,4 +1,4 @@
-import { LoginRegisterScreen } from "@/src/auth/screens/LoginRegisterScreen";
+import { LoginRegisterScreen } from '@/src/auth/screens/LoginRegisterScreen';
 
 /**
  * Pantalla de autenticación (login/registro) para la aplicación.
@@ -12,4 +12,4 @@ import { LoginRegisterScreen } from "@/src/auth/screens/LoginRegisterScreen";
  */
 export default function LoginScreen() {
   return <LoginRegisterScreen />;
-} 
+}

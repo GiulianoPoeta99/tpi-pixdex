@@ -1,7 +1,7 @@
-import { Button } from "@/src/shared/components/Button";
-import { Colors } from "@/src/shared/constants/Colors";
-import { useRouter } from "expo-router";
-import { Platform, StyleSheet, View } from "react-native";
+import { Button } from '@/src/shared/components/Button';
+import { Colors } from '@/src/shared/constants/Colors';
+import { useRouter } from 'expo-router';
+import { Platform, StyleSheet, View } from 'react-native';
 
 /**
  * Altura del encabezado de la pantalla de detalle, ajustada según la plataforma.
@@ -28,7 +28,7 @@ export const DetailHeader = () => {
 
   return (
     <View style={[styles.container, { height: HEADER_HEIGHT }]}>
-      <Button onPress={handlePress} icon="arrow-back" text="BACK" />
+      <Button onPress={handlePress} icon='arrow-back' text='BACK' />
     </View>
   );
 };
@@ -39,11 +39,11 @@ export const DetailHeader = () => {
  */
 const styles = StyleSheet.create({
   container: {
-    paddingTop: Platform.OS === "ios" ? 50 : 20,
+    paddingTop: Platform.OS === 'ios' ? 50 : 20,
     backgroundColor: Colors.fondo,
     paddingHorizontal: 20,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "flex-start",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
   },
 });

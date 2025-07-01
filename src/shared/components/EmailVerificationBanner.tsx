@@ -38,7 +38,7 @@ interface EmailVerificationBannerProps {
 export const EmailVerificationBanner: FC<EmailVerificationBannerProps> = ({
   isEmailVerified,
   isLoading,
-  error
+  error,
 }) => {
   // No mostrar nada si el email está verificado o está cargando
   if (isEmailVerified || isLoading) {
@@ -47,13 +47,14 @@ export const EmailVerificationBanner: FC<EmailVerificationBannerProps> = ({
 
   return (
     <View style={styles.banner}>
-      <MaterialIcons name="warning" size={24} color={Colors.rojo} />
+      <MaterialIcons name='warning' size={24} color={Colors.rojo} />
       <View style={styles.textContainer}>
         <TextPressStart2P style={styles.title}>
           Email No Verificado
         </TextPressStart2P>
         <Text style={styles.message}>
-          {error || 'Por favor, verifica tu email antes de jugar para guardar tus puntajes.'}
+          {error ||
+            'Por favor, verifica tu email antes de jugar para guardar tus puntajes.'}
         </Text>
       </View>
     </View>
@@ -89,4 +90,4 @@ const styles = StyleSheet.create({
     fontFamily: 'System',
     lineHeight: 20,
   },
-}); 
+});

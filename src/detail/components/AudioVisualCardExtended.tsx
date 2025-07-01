@@ -1,18 +1,18 @@
-import { DetailImage } from "@/src/shared/components/DetailImage";
-import { GenerosList } from "@/src/shared/components/GenerosList";
-import { Tag } from "@/src/shared/components/Tag";
-import { TextPressStart2P } from "@/src/shared/components/TextPressStart2P";
-import { Colors } from "@/src/shared/constants/Colors";
-import { IContenidoAudiovisual } from "@/database/contenidosAudiovisuales";
-import { ITipoContenidoAudiovisual } from "@/database/tiposContenidoAudiovisual";
-import React from "react";
+import { DetailImage } from '@/src/shared/components/DetailImage';
+import { GenerosList } from '@/src/shared/components/GenerosList';
+import { Tag } from '@/src/shared/components/Tag';
+import { TextPressStart2P } from '@/src/shared/components/TextPressStart2P';
+import { Colors } from '@/src/shared/constants/Colors';
+import { IContenidoAudiovisual } from '@/database/contenidosAudiovisuales';
+import { ITipoContenidoAudiovisual } from '@/database/tiposContenidoAudiovisual';
+import React from 'react';
 import {
   Platform,
   StyleSheet,
   Text,
   useWindowDimensions,
   View,
-} from "react-native";
+} from 'react-native';
 
 /**
  * Propiedades para el componente AudioVisualCardExtended.
@@ -42,7 +42,7 @@ export const AudioVisualCardExtended: React.FC<
   AudioVisualCardExtendedProps
 > = ({ item, tipo }) => {
   const { width: screenWidth } = useWindowDimensions();
-  const widthFactor = Platform.OS === "web" ? 0.3 : 0.8;
+  const widthFactor = Platform.OS === 'web' ? 0.3 : 0.8;
   const CARD_WIDTH = screenWidth * widthFactor;
 
   return (
@@ -91,20 +91,20 @@ const styles = StyleSheet.create({
   },
   card: {},
   image: {
-    width: "100%",
+    width: '100%',
     aspectRatio: 2 / 3,
-    backgroundColor: "#FFF",
+    backgroundColor: '#FFF',
   },
   placeholder: {
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: Colors.grisOscuro,
     padding: 10,
   },
   placeholderText: {
-    color: "#FFF",
+    color: '#FFF',
     fontSize: 14,
-    textAlign: "center",
+    textAlign: 'center',
   },
   title: {
     padding: 15,
@@ -114,9 +114,9 @@ const styles = StyleSheet.create({
     color: Colors.purpura,
   },
   generosContainer: {
-    alignSelf: "flex-start",
-    flexDirection: "row",
-    flexWrap: "wrap",
+    alignSelf: 'flex-start',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
     paddingHorizontal: 15,
     paddingBottom: 15,
   },
@@ -127,12 +127,12 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   generoText: {
-    color: "#FFF",
+    color: '#FFF',
   },
   descripcion: {
     paddingHorizontal: 15,
     paddingBottom: 15,
-    color: "#FFF",
+    color: '#FFF',
   },
   generoTitle: {
     padding: 15,

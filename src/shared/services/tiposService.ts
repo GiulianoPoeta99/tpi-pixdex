@@ -1,8 +1,8 @@
 import {
-    ITipoContenidoAudiovisual,
-    tiposContenidoAudiovisual,
-} from "../../../database/tiposContenidoAudiovisual";
-import { API_CONFIG } from "../config/api";
+  ITipoContenidoAudiovisual,
+  tiposContenidoAudiovisual,
+} from '../../../database/tiposContenidoAudiovisual';
+import { API_CONFIG } from '../config/api';
 
 /**
  * Servicio para gestionar los tipos de contenido audiovisual.
@@ -16,10 +16,10 @@ export class TiposService {
    * @returns {Promise<ITipoContenidoAudiovisual[]>} Lista de tipos de contenido audiovisual.
    */
   static async getAll(): Promise<ITipoContenidoAudiovisual[]> {
-    await new Promise((r) => setTimeout(r, 1000));
+    await new Promise(r => setTimeout(r, 1000));
     try {
       const response = await fetch(
-        `${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.TIPOS}`,
+        `${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.TIPOS}`
       );
 
       if (!response.ok) {
@@ -27,7 +27,7 @@ export class TiposService {
       }
 
       return await response.json();
-    } catch (error) {
+    } catch {
       return tiposContenidoAudiovisual;
     }
   }
@@ -39,10 +39,10 @@ export class TiposService {
    * @throws {Error} Si no se encuentra el tipo o hay un error en la petición.
    */
   static async getById(id: number): Promise<ITipoContenidoAudiovisual> {
-    await new Promise((r) => setTimeout(r, 1000));
+    await new Promise(r => setTimeout(r, 1000));
     try {
       const tipos = await this.getAll();
-      const tipo = tipos.find((item) => item.id === id);
+      const tipo = tipos.find(item => item.id === id);
 
       if (!tipo) {
         throw new Error(`Tipo with id ${id} not found`);

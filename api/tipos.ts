@@ -1,4 +1,4 @@
-import { tiposContenidoAudiovisual } from "../database/tiposContenidoAudiovisual";
+import { tiposContenidoAudiovisual } from '../database/tiposContenidoAudiovisual';
 
 /**
  * Handler para la petición GET de tipos de contenido audiovisual.

@@ -5,8 +5,10 @@ import 'react-native-url-polyfill/auto';
  * Configuración de Supabase para la aplicación.
  * @constant
  */
-const supabaseUrl = process.env.EXPO_PUBLIC_SUPABASE_URL || 'https://your-project.supabase.co';
-const supabaseAnonKey = process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY || 'your-anon-key';
+const supabaseUrl =
+  process.env.EXPO_PUBLIC_SUPABASE_URL || 'https://your-project.supabase.co';
+const supabaseAnonKey =
+  process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY || 'your-anon-key';
 
 /**
  * Configuración de almacenamiento segura para diferentes entornos
@@ -20,22 +22,11 @@ const getStorageConfig = () => {
     };
   }
 
-  try {
-    const AsyncStorage = require('@react-native-async-storage/async-storage').default;
-    return {
-      storage: AsyncStorage,
-      autoRefreshToken: true,
-      persistSession: true,
-      detectSessionInUrl: false,
-    };
-  } catch (error) {
-    console.warn('AsyncStorage no disponible, usando almacenamiento por defecto:', error);
-    return {
-      autoRefreshToken: true,
-      persistSession: true,
-      detectSessionInUrl: false,
-    };
-  }
+  return {
+    autoRefreshToken: true,
+    persistSession: true,
+    detectSessionInUrl: false,
+  };
 };
 
 /**
@@ -79,4 +70,4 @@ export interface IUser {
   };
   created_at: string;
   updated_at: string;
-} 
+}

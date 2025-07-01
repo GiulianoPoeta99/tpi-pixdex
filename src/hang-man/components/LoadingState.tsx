@@ -1,6 +1,6 @@
-import { Colors } from "@/src/shared/constants/Colors";
-import React, { FC } from "react";
-import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
+import { Colors } from '@/src/shared/constants/Colors';
+import React, { FC } from 'react';
+import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 
 /**
  * Propiedades para el componente LoadingState.
@@ -23,10 +23,10 @@ interface LoadingStateProps {
  * <LoadingState message="Cargando datos..." />
  */
 export const LoadingState: FC<LoadingStateProps> = ({
-  message = "Cargando...",
+  message = 'Cargando...',
 }) => (
   <View style={styles.loadingContainer}>
-    <ActivityIndicator size="large" color={Colors.purpura} />
+    <ActivityIndicator size='large' color={Colors.purpura} />
     <Text style={styles.loadingText}>{message}</Text>
   </View>
 );
@@ -36,6 +36,6 @@ export const LoadingState: FC<LoadingStateProps> = ({
  * @private
  */
 const styles = StyleSheet.create({
-  loadingContainer: { flex: 1, justifyContent: "center", alignItems: "center" },
+  loadingContainer: { flex: 1, justifyContent: 'center', alignItems: 'center' },
   loadingText: { color: Colors.purpura, fontSize: 18, marginTop: 10 },
 });

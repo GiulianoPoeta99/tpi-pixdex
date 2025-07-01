@@ -1,4 +1,4 @@
-import { Text } from "react-native";
+import { Text } from 'react-native';
 
 /**
  * Pantalla principal del juego Pixel Reveal.

@@ -1,11 +1,11 @@
-import { Colors } from "@/src/shared/constants/Colors";
-import { useData } from "@/src/shared/context/DataContext";
-import { IContenidoAudiovisual } from "@/database/contenidosAudiovisuales";
-import { normalizeString } from "@/src/shared/utils/text";
-import { useLocalSearchParams, useRouter } from "expo-router";
-import React, { useCallback, useEffect, useState } from "react";
-import { StyleSheet } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { Colors } from '@/src/shared/constants/Colors';
+import { useData } from '@/src/shared/context/DataContext';
+import { IContenidoAudiovisual } from '@/database/contenidosAudiovisuales';
+import { normalizeString } from '@/src/shared/utils/text';
+import { useLocalSearchParams, useRouter } from 'expo-router';
+import React, { useCallback, useEffect, useState } from 'react';
+import { StyleSheet } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import {
   KeyboardModal,
   GuessTitleModal,
@@ -13,13 +13,13 @@ import {
   GameArea,
   LoadingState,
   ErrorState,
-} from "../components";
+} from '../components';
 
 /**
  * Alfabeto utilizado para el juego del ahorcado.
  * @constant
  */
-const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 
 /**
  * Pantalla principal del juego del ahorcado.
@@ -37,7 +37,7 @@ export const HangmanGameScreen = () => {
   const { contenidos, loading, errors, isInitialized } = useData();
 
   const [currentWord, setCurrentWord] = useState<IContenidoAudiovisual | null>(
-    null,
+    null
   );
   const [guessedLetters, setGuessedLetters] = useState<string[]>([]);
   const [guessedWords, setGuessedWords] = useState<number[]>([]);
@@ -51,13 +51,13 @@ export const HangmanGameScreen = () => {
   const WIN_CONDITION_COUNT = Math.ceil(contenidos.length / 2);
 
   const endGame = useCallback(
-    (status: "win" | "lose") => {
+    (status: 'win' | 'lose') => {
       router.push({
-        pathname: "/hang-man/game-over",
+        pathname: '/hang-man/game-over',
         params: { status, score: score.toString(), player },
       });
     },
-    [router, score, player],
+    [router, score, player]
   );
 
   const loadNextWord = useCallback(() => {
@@ -66,11 +66,11 @@ export const HangmanGameScreen = () => {
     setIsLoadingNextWord(true);
 
     const availableWords = contenidos.filter(
-      (content: IContenidoAudiovisual) => !guessedWords.includes(content.id),
+      (content: IContenidoAudiovisual) => !guessedWords.includes(content.id)
     );
 
     if (availableWords.length === 0) {
-      endGame("win");
+      endGame('win');
       return;
     }
 
@@ -103,21 +103,21 @@ export const HangmanGameScreen = () => {
 
   useEffect(() => {
     if (lives <= 0) {
-      endGame("lose");
+      endGame('lose');
     }
   }, [lives, endGame]);
 
   const normalizedWordToGuess = currentWord
     ? normalizeString(currentWord.nombre).toUpperCase()
-    : "";
-  const originalWordToGuess = currentWord?.nombre ?? "";
+    : '';
+  const originalWordToGuess = currentWord?.nombre ?? '';
 
   const isWordGuessed =
     normalizedWordToGuess &&
     normalizedWordToGuess
-      .replace(/[^A-Z]/g, "")
-      .split("")
-      .every((letter) => guessedLetters.includes(letter));
+      .replace(/[^A-Z]/g, '')
+      .split('')
+      .every(letter => guessedLetters.includes(letter));
 
   const handleCorrectGuess = useCallback(() => {
     if (!currentWord || isLoadingNextWord) return;
@@ -131,7 +131,7 @@ export const HangmanGameScreen = () => {
     setGuessedWords(newGuessedWords);
 
     if (newGuessedWords.length >= WIN_CONDITION_COUNT) {
-      endGame("win");
+      endGame('win');
     } else {
       setTimeout(() => {
         loadNextWord();
@@ -157,10 +157,10 @@ export const HangmanGameScreen = () => {
     setKeyboardVisible(false);
 
     if (!guessedLetters.includes(letter)) {
-      setGuessedLetters((prev) => [...prev, letter]);
+      setGuessedLetters(prev => [...prev, letter]);
 
       if (!normalizedWordToGuess.includes(letter)) {
-        setLives((prev) => prev - 1);
+        setLives(prev => prev - 1);
       }
     }
   };
@@ -181,7 +181,7 @@ export const HangmanGameScreen = () => {
         setGuessedWords(newGuessedWords);
 
         if (newGuessedWords.length >= WIN_CONDITION_COUNT) {
-          endGame("win");
+          endGame('win');
         } else {
           setTimeout(() => {
             loadNextWord();
@@ -189,29 +189,29 @@ export const HangmanGameScreen = () => {
         }
       }
     } else {
-      setLives((prev) => prev - 1);
+      setLives(prev => prev - 1);
     }
   };
 
   const displayedWord = originalWordToGuess
-    .split("")
+    .split('')
     .map((char: string) => {
-      if (char === " ") return " ";
+      if (char === ' ') return ' ';
 
       const normalizedChar = normalizeString(char).toUpperCase();
 
       if (!ALPHABET.includes(normalizedChar)) return char;
 
       if (guessedLetters.includes(normalizedChar)) return char;
-      
-      return "_";
+
+      return '_';
     })
-    .join(" ");
+    .join(' ');
 
   if (!isInitialized || loading.contenidos) {
     return (
       <SafeAreaView style={styles.container}>
-        <LoadingState message="Cargando juego..." />
+        <LoadingState message='Cargando juego...' />
       </SafeAreaView>
     );
   }
@@ -230,7 +230,7 @@ export const HangmanGameScreen = () => {
         player={player}
         score={score}
         lives={lives}
-        onExit={() => router.push({ pathname: "/", params: {} })}
+        onExit={() => router.push({ pathname: '/', params: {} })}
       />
 
       <GameArea

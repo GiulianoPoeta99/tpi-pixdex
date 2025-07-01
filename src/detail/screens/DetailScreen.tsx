@@ -1,16 +1,16 @@
-import { Colors } from "@/src/shared/constants/Colors";
-import { useData } from "@/src/shared/context/DataContext";
-import React from "react";
+import { Colors } from '@/src/shared/constants/Colors';
+import { useData } from '@/src/shared/context/DataContext';
+import React from 'react';
 import {
   ScrollView,
   StyleSheet,
   View,
   ActivityIndicator,
   Text,
-} from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { AudioVisualCardExtended } from "../components/AudioVisualCardExtended";
-import { DetailHeader } from "../components/DetailHeader";
+} from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { AudioVisualCardExtended } from '../components/AudioVisualCardExtended';
+import { DetailHeader } from '../components/DetailHeader';
 
 /**
  * Propiedades para el componente DetailScreen.
@@ -48,7 +48,7 @@ export const DetailScreen: React.FC<DetailScreenProps> = ({
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.loadingContainer}>
-          <ActivityIndicator size="large" color={Colors.purpura} />
+          <ActivityIndicator size='large' color={Colors.purpura} />
           <Text style={styles.loadingText}>Cargando...</Text>
         </View>
       </SafeAreaView>
@@ -106,8 +106,8 @@ const styles = StyleSheet.create({
   },
   loadingContainer: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     padding: 20,
   },
   loadingText: {
@@ -117,13 +117,13 @@ const styles = StyleSheet.create({
   },
   errorContainer: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     padding: 20,
   },
   errorText: {
     fontSize: 16,
-    color: "red",
-    textAlign: "center",
+    color: 'red',
+    textAlign: 'center',
   },
 });

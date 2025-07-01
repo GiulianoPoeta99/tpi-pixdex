@@ -1,11 +1,11 @@
-import { ErrorState } from "@/src/shared/components/ErrorState";
-import { LoadingState } from "@/src/shared/components/LoadingState";
-import { TextPressStart2P } from "@/src/shared/components/TextPressStart2P";
-import { Colors } from "@/src/shared/constants/Colors";
-import { useData } from "@/src/shared/context/DataContext";
-import React, { useMemo, useState } from "react";
-import { FlatList, Platform, StyleSheet, View } from "react-native";
-import { AudioVisualCard } from "./AudioVisualCard";
+import { ErrorState } from '@/src/shared/components/ErrorState';
+import { LoadingState } from '@/src/shared/components/LoadingState';
+import { TextPressStart2P } from '@/src/shared/components/TextPressStart2P';
+import { Colors } from '@/src/shared/constants/Colors';
+import { useData } from '@/src/shared/context/DataContext';
+import React, { useMemo, useState } from 'react';
+import { FlatList, Platform, StyleSheet, View } from 'react-native';
+import { AudioVisualCard } from './AudioVisualCard';
 
 /**
  * Propiedades para el componente AudioVisualList.
@@ -45,8 +45,8 @@ export const AudioVisualList: React.FC<AudioVisualListProps> = ({
     if (genreFilters.length === 0) {
       return contenidosAudiovisuales;
     }
-    return contenidosAudiovisuales.filter((item) =>
-      genreFilters.every((genreId) => item.generos.includes(genreId)),
+    return contenidosAudiovisuales.filter(item =>
+      genreFilters.every(genreId => item.generos.includes(genreId))
     );
   }, [contenidosAudiovisuales, genreFilters]);
 
@@ -57,7 +57,7 @@ export const AudioVisualList: React.FC<AudioVisualListProps> = ({
   if (loading.contenidos || loading.tipos) {
     return (
       <View style={styles.container}>
-        <LoadingState message="Cargando..." size="small" />
+        <LoadingState message='Cargando...' size='small' />
       </View>
     );
   }
@@ -66,7 +66,7 @@ export const AudioVisualList: React.FC<AudioVisualListProps> = ({
     return (
       <View style={styles.container}>
         <ErrorState
-          message="Error:"
+          message='Error:'
           error={errors.contenidos || errors.tipos}
         />
       </View>
@@ -86,7 +86,12 @@ export const AudioVisualList: React.FC<AudioVisualListProps> = ({
       </View>
       {filteredContenidos.length === 0 ? (
         <View style={{ padding: 20 }}>
-          <TextPressStart2P style={{ color: Colors.grisOscuro, fontSize: Platform.OS === "web" ? 16 : 10 }}>
+          <TextPressStart2P
+            style={{
+              color: Colors.grisOscuro,
+              fontSize: Platform.OS === 'web' ? 16 : 10,
+            }}
+          >
             Sin resultados para los filtros elegidos
           </TextPressStart2P>
         </View>
@@ -94,7 +99,7 @@ export const AudioVisualList: React.FC<AudioVisualListProps> = ({
         <FlatList
           data={filteredContenidos}
           horizontal
-          keyExtractor={(item) => item.id.toString()}
+          keyExtractor={item => item.id.toString()}
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.listContent}
           renderItem={({ item }) => (
@@ -123,8 +128,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   headerContainer: {
-    position: "absolute",
-    top: Platform.OS === "web" ? -19 : -15,
+    position: 'absolute',
+    top: Platform.OS === 'web' ? -19 : -15,
     left: 20,
     backgroundColor: Colors.purpura,
     borderWidth: 2,
@@ -134,8 +139,8 @@ const styles = StyleSheet.create({
     paddingVertical: 4,
   },
   header: {
-    fontSize: Platform.OS === "web" ? 20 : 10,
-    color: "#FFF",
+    fontSize: Platform.OS === 'web' ? 20 : 10,
+    color: '#FFF',
   },
   listContent: {
     gap: 20,

@@ -1,4 +1,4 @@
-import { ResetPasswordScreen } from "@/src/auth/screens/ResetPasswordScreen";
+import { ResetPasswordScreen } from '@/src/auth/screens/ResetPasswordScreen';
 
 /**
  * Pantalla de reset de contraseña para la aplicación.
@@ -12,4 +12,4 @@ import { ResetPasswordScreen } from "@/src/auth/screens/ResetPasswordScreen";
  */
 export default function ResetPasswordPage() {
   return <ResetPasswordScreen />;
-} 
+}

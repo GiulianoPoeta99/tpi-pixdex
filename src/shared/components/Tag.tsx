@@ -1,7 +1,7 @@
-import React from "react";
-import { Platform, StyleSheet, Text, View } from "react-native";
-import { Colors } from "../constants/Colors";
-import { capitalize } from "../utils/text";
+import React from 'react';
+import { Platform, StyleSheet, Text, View } from 'react-native';
+import { Colors } from '../constants/Colors';
+import { capitalize } from '../utils/text';
 
 /**
  * Propiedades para el componente Tag.
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   generoText: {
-    color: "#FFF",
-    fontSize: Platform.OS === "web" ? 16 : 10,
+    color: '#FFF',
+    fontSize: Platform.OS === 'web' ? 16 : 10,
   },
 });

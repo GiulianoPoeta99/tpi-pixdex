@@ -9,11 +9,11 @@
  * @property {string} ENDPOINTS.PLAYERS - Endpoint para jugadores y puntajes.
  */
 export const API_CONFIG = {
-  BASE_URL: "",
+  BASE_URL: '',
   ENDPOINTS: {
-    CONTENIDOS: "/api/contenidos",
-    GENEROS: "/api/generos",
-    TIPOS: "/api/tipos",
-    PLAYERS: "/api/players",
+    CONTENIDOS: '/api/contenidos',
+    GENEROS: '/api/generos',
+    TIPOS: '/api/tipos',
+    PLAYERS: '/api/players',
   },
 };

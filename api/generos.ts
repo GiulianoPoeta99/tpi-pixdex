@@ -1,4 +1,4 @@
-import { generosContenidoAudiovisual } from "../database/generosContenidoAudiovisual";
+import { generosContenidoAudiovisual } from '../database/generosContenidoAudiovisual';
 
 /**
  * Handler para la petición GET de géneros de contenido audiovisual.

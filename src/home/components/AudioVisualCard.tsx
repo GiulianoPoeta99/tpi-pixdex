@@ -1,11 +1,11 @@
-import { DetailImage } from "@/src/shared/components/DetailImage";
-import { GenerosList } from "@/src/shared/components/GenerosList";
-import { TextPressStart2P } from "@/src/shared/components/TextPressStart2P";
-import { Colors } from "@/src/shared/constants/Colors";
-import { IContenidoAudiovisual } from "@/database/contenidosAudiovisuales";
-import { ROUTES } from "@/src/shared/navigation/routes";
-import { useRouter } from "expo-router";
-import React from "react";
+import { DetailImage } from '@/src/shared/components/DetailImage';
+import { GenerosList } from '@/src/shared/components/GenerosList';
+import { TextPressStart2P } from '@/src/shared/components/TextPressStart2P';
+import { Colors } from '@/src/shared/constants/Colors';
+import { IContenidoAudiovisual } from '@/database/contenidosAudiovisuales';
+import { ROUTES } from '@/src/shared/navigation/routes';
+import { useRouter } from 'expo-router';
+import React from 'react';
 import {
   LayoutChangeEvent,
   Platform,
@@ -13,7 +13,7 @@ import {
   TouchableOpacity,
   useWindowDimensions,
   View,
-} from "react-native";
+} from 'react-native';
 
 /**
  * Propiedades para el componente AudioVisualCard.
@@ -49,7 +49,7 @@ export const AudioVisualCard: React.FC<AudioVisualCardProps> = ({
 }) => {
   const router = useRouter();
   const { width: screenWidth } = useWindowDimensions();
-  const widthFactor = Platform.OS === "web" ? 0.2 : 0.5;
+  const widthFactor = Platform.OS === 'web' ? 0.2 : 0.5;
   const CARD_WIDTH = screenWidth * widthFactor;
 
   const handlePress = () => {
@@ -101,13 +101,13 @@ const styles = StyleSheet.create({
     padding: 15,
   },
   titleText: {
-    fontSize: Platform.OS === "web" ? 20 : 12,
-    color: "#FFF",
+    fontSize: Platform.OS === 'web' ? 20 : 12,
+    color: '#FFF',
   },
   generosContainer: {
-    alignSelf: "flex-start",
-    flexDirection: "row",
-    flexWrap: "wrap",
+    alignSelf: 'flex-start',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
     paddingHorizontal: 15,
     paddingBottom: 15,
   },

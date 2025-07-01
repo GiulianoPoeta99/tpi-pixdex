@@ -1,8 +1,8 @@
 import {
-    IContenidoAudiovisual,
-    contenidosAudiovisuales,
-} from "../../../database/contenidosAudiovisuales";
-import { API_CONFIG } from "../config/api";
+  IContenidoAudiovisual,
+  contenidosAudiovisuales,
+} from '../../../database/contenidosAudiovisuales';
+import { API_CONFIG } from '../config/api';
 
 /**
  * Servicio para gestionar los contenidos audiovisuales.
@@ -16,10 +16,10 @@ export class ContenidosService {
    * @returns {Promise<IContenidoAudiovisual[]>} Lista de contenidos audiovisuales.
    */
   static async getAll(): Promise<IContenidoAudiovisual[]> {
-    await new Promise((r) => setTimeout(r, 1000));
+    await new Promise(r => setTimeout(r, 1000));
     try {
       const response = await fetch(
-        `${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.CONTENIDOS}`,
+        `${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.CONTENIDOS}`
       );
 
       if (!response.ok) {
@@ -27,7 +27,7 @@ export class ContenidosService {
       }
 
       return await response.json();
-    } catch (error) {
+    } catch {
       return contenidosAudiovisuales;
     }
   }
@@ -39,10 +39,10 @@ export class ContenidosService {
    * @throws {Error} Si no se encuentra el contenido o hay un error en la petición.
    */
   static async getById(id: number): Promise<IContenidoAudiovisual> {
-    await new Promise((r) => setTimeout(r, 1000));
+    await new Promise(r => setTimeout(r, 1000));
     try {
       const contenidos = await this.getAll();
-      const contenido = contenidos.find((item) => item.id === id);
+      const contenido = contenidos.find(item => item.id === id);
 
       if (!contenido) {
         throw new Error(`ContenidoAudiovisual with id ${id} not found`);
@@ -62,10 +62,10 @@ export class ContenidosService {
    * @throws {Error} Si hay un error en la petición.
    */
   static async getByTipoId(tipoId: number): Promise<IContenidoAudiovisual[]> {
-    await new Promise((r) => setTimeout(r, 1000));
+    await new Promise(r => setTimeout(r, 1000));
     try {
       const contenidos = await this.getAll();
-      return contenidos.filter((item) => item.tipoId === tipoId);
+      return contenidos.filter(item => item.tipoId === tipoId);
     } catch (error) {
       console.error(`Error fetching contenidos by tipoId ${tipoId}:`, error);
       throw error;

@@ -1,4 +1,4 @@
-import { GameOverScreen } from "@/src/hang-man/screens/GameOverScreen";
+import { GameOverScreen } from '@/src/hang-man/screens/GameOverScreen';
 
 /**
  * Página de fin de juego del ahorcado.

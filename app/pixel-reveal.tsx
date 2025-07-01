@@ -1,4 +1,4 @@
-import { PixelRevealScreen } from "@/src/pixel-reveal/screens/PixelRevealScreen";
+import { PixelRevealScreen } from '@/src/pixel-reveal/screens/PixelRevealScreen';
 
 /**
  * Página principal del juego Pixel Reveal.

@@ -1,7 +1,7 @@
-import React from "react";
-import { View, StyleSheet } from "react-native";
-import { ITipoContenidoAudiovisual } from "@/database/tiposContenidoAudiovisual";
-import { AudioVisualList } from "./AudioVisualList";
+import React from 'react';
+import { View, StyleSheet } from 'react-native';
+import { ITipoContenidoAudiovisual } from '@/database/tiposContenidoAudiovisual';
+import { AudioVisualList } from './AudioVisualList';
 
 /**
  * Propiedades para el componente ContentListsContainer.
@@ -36,7 +36,7 @@ export const ContentListsContainer: React.FC<ContentListsContainerProps> = ({
 }) => {
   return (
     <View style={styles.container}>
-      {contentTypes.map((tipo) => (
+      {contentTypes.map(tipo => (
         <AudioVisualList
           key={tipo.id}
           tipoId={tipo.id}
@@ -53,8 +53,8 @@ export const ContentListsContainer: React.FC<ContentListsContainerProps> = ({
  */
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "column",
-    justifyContent: "space-between",
+    flexDirection: 'column',
+    justifyContent: 'space-between',
     padding: 20,
     gap: 30,
   },

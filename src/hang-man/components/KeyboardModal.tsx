@@ -1,21 +1,21 @@
-import { Button } from "@/src/shared/components/Button";
-import { TextPressStart2P } from "@/src/shared/components/TextPressStart2P";
-import { Colors } from "@/src/shared/constants/Colors";
-import { MaterialIcons } from "@expo/vector-icons";
-import React, { FC } from "react";
+import { Button } from '@/src/shared/components/Button';
+import { TextPressStart2P } from '@/src/shared/components/TextPressStart2P';
+import { Colors } from '@/src/shared/constants/Colors';
+import { MaterialIcons } from '@expo/vector-icons';
+import React, { FC } from 'react';
 import {
   Modal,
   Platform,
   StyleSheet,
   TouchableOpacity,
   View,
-} from "react-native";
+} from 'react-native';
 
 /**
  * Alfabeto utilizado para el teclado virtual.
  * @constant
  */
-const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 
 /**
  * Propiedades para el componente KeyboardModal.
@@ -62,7 +62,7 @@ export const KeyboardModal: FC<KeyboardModalProps> = ({
     visible={visible}
     transparent={true}
     onRequestClose={onClose}
-    animationType="fade"
+    animationType='fade'
   >
     <View style={styles.centeredView}>
       <View style={[styles.modalView, { borderColor: Colors.grisOscuro }]}>
@@ -71,11 +71,11 @@ export const KeyboardModal: FC<KeyboardModalProps> = ({
             Guess a Letter
           </TextPressStart2P>
           <TouchableOpacity onPress={onClose}>
-            <MaterialIcons name="close" size={24} color="white" />
+            <MaterialIcons name='close' size={24} color='white' />
           </TouchableOpacity>
         </View>
         <View style={styles.keyboard}>
-          {ALPHABET.map((letter) => {
+          {ALPHABET.map(letter => {
             const isGuessed = guessedLetters.includes(letter);
             return (
               <Button
@@ -101,35 +101,35 @@ export const KeyboardModal: FC<KeyboardModalProps> = ({
 const styles = StyleSheet.create({
   centeredView: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "rgba(0,0,0,0.7)",
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0,0,0,0.7)',
   },
   modalView: {
     backgroundColor: Colors.fondo,
     borderRadius: 0,
     padding: 20,
-    width: Platform.OS === "web" ? "auto" : "90%",
+    width: Platform.OS === 'web' ? 'auto' : '90%',
     borderWidth: 2,
   },
   modalHeader: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     marginBottom: 20,
   },
-  modalTitle: { fontSize: 18, color: "#FFF" },
+  modalTitle: { fontSize: 18, color: '#FFF' },
   keyboard: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "center",
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
     gap: 10,
   },
   key: {
     paddingVertical: 8,
     paddingHorizontal: 0,
     width: 45,
-    alignItems: "center",
+    alignItems: 'center',
   },
-  keyText: { color: "#FFF", fontSize: 18 },
+  keyText: { color: '#FFF', fontSize: 18 },
 });

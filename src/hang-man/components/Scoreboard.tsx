@@ -1,8 +1,8 @@
-import { TextPressStart2P } from "@/src/shared/components/TextPressStart2P";
-import { ITopPlayer } from "@/src/shared/config/supabase";
-import { Colors } from "@/src/shared/constants/Colors";
-import React, { FC, useMemo } from "react";
-import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
+import { TextPressStart2P } from '@/src/shared/components/TextPressStart2P';
+import { ITopPlayer } from '@/src/shared/config/supabase';
+import { Colors } from '@/src/shared/constants/Colors';
+import React, { FC, useMemo } from 'react';
+import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 
 /**
  * Propiedades para el componente Scoreboard.
@@ -43,7 +43,7 @@ export const Scoreboard: FC<ScoreboardProps> = ({
 
   // Mostrar loading solo si no hay datos y está cargando
   const showLoading = loading && players.length === 0;
-  
+
   // Mostrar error solo si no hay datos y hay error
   const showError = error && players.length === 0;
 
@@ -52,10 +52,10 @@ export const Scoreboard: FC<ScoreboardProps> = ({
       <TextPressStart2P style={styles.topPlayersTitle}>
         Top Players
       </TextPressStart2P>
-      
+
       {showLoading ? (
         <View style={styles.loadingContainer}>
-          <ActivityIndicator size="large" color={Colors.purpura} />
+          <ActivityIndicator size='large' color={Colors.purpura} />
           <Text style={styles.loadingText}>Cargando...</Text>
         </View>
       ) : showError ? (
@@ -91,11 +91,11 @@ export const Scoreboard: FC<ScoreboardProps> = ({
  * @private
  */
 const styles = StyleSheet.create({
-  scoreboardContainer: { width: "100%", marginTop: 40 },
+  scoreboardContainer: { width: '100%', marginTop: 40 },
   topPlayersTitle: {
     fontSize: 22,
     color: Colors.verde,
-    textAlign: "center",
+    textAlign: 'center',
     marginBottom: 20,
   },
   scoreboard: {
@@ -105,20 +105,20 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.grisOscuro,
   },
   scoreRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "baseline",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'baseline',
     marginBottom: 10,
   },
-  scoreText: { color: "#FFF", fontSize: 18, fontFamily: "System" },
+  scoreText: { color: '#FFF', fontSize: 18, fontFamily: 'System' },
   scoreValue: { color: Colors.verde, fontSize: 15 },
   loadingContainer: {
     borderWidth: 2,
     borderColor: Colors.gris,
     padding: 20,
     backgroundColor: Colors.grisOscuro,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     minHeight: 100,
   },
   loadingText: {
@@ -131,29 +131,29 @@ const styles = StyleSheet.create({
     borderColor: Colors.rojo,
     padding: 20,
     backgroundColor: Colors.grisOscuro,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     minHeight: 100,
   },
   errorText: {
     color: Colors.rojo,
     fontSize: 16,
-    textAlign: "center",
+    textAlign: 'center',
   },
   emptyContainer: {
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     padding: 20,
   },
   emptyText: {
     color: Colors.gris,
     fontSize: 16,
-    textAlign: "center",
+    textAlign: 'center',
     marginBottom: 5,
   },
   emptySubtext: {
     color: Colors.gris + '80',
     fontSize: 14,
-    textAlign: "center",
+    textAlign: 'center',
   },
 });

@@ -1,4 +1,4 @@
-import { HangmanLobbyScreen } from "@/src/hang-man/screens/HangmanLobbyScreen";
+import { HangmanLobbyScreen } from '@/src/hang-man/screens/HangmanLobbyScreen';
 
 /**
  * Página de lobby del juego del ahorcado.
