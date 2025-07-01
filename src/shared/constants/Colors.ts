@@ -13,6 +13,8 @@
  * @property {string} rojo - Color rojo para errores o advertencias.
  * @property {string} rojoClaro - Variante clara del rojo.
  * @property {string} rojoOscuro - Variante oscura del rojo.
+ * @property {string} grisClaro - Variante clara del gris.
+ * @property {string} grisMedio - Gris medio para botones.
  */
 export const Colors = {
   fondo: "#1A1F2C",
@@ -24,6 +26,8 @@ export const Colors = {
   verdeOscuro: "#388E3C",
   grisOscuro: "#403E43",
   gris: "#4A3D70",
+  grisClaro: "#6B7280",
+  grisMedio: "#4B5563",
   rojo: "#E53935",
   rojoClaro: "#FF6659",
   rojoOscuro: "#B71C1C",

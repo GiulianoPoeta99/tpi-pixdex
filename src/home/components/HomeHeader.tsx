@@ -1,4 +1,4 @@
-import { Button } from "@/src/shared/components/Button";
+import { Button, ButtonVariant } from "@/src/shared/components/Button";
 import { TextPressStart2P } from "@/src/shared/components/TextPressStart2P";
 import { Colors } from "@/src/shared/constants/Colors";
 import { useAuth } from "@/src/shared/context/AuthContext";
@@ -86,7 +86,7 @@ export const HomeHeader: React.FC<HomeHeaderProps> = ({ onFilterPress }) => {
               onPress={openLogoutModal} 
               icon="logout" 
               text="CUENTA" 
-              style={styles.accountButton}
+              variant={ButtonVariant.RED}
             />
           )}
         </View>
@@ -129,12 +129,5 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: "row",
     gap: 10,
-  },
-  accountButton: {
-    backgroundColor: Colors.rojo,
-    borderTopColor: Colors.rojo + '80',
-    borderLeftColor: Colors.rojo + '80',
-    borderBottomColor: Colors.rojo + '40',
-    borderRightColor: Colors.rojo + '40',
   },
 });

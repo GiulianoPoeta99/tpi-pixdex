@@ -1,4 +1,4 @@
-import { Button } from "@/src/shared/components/Button";
+import { Button, ButtonVariant } from "@/src/shared/components/Button";
 import { TextPressStart2P } from "@/src/shared/components/TextPressStart2P";
 import { Colors } from "@/src/shared/constants/Colors";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -85,12 +85,14 @@ export const LogoutConfirmModal: React.FC<LogoutConfirmModalProps> = ({
               onPress={onClose} 
               text="CANCELAR" 
               icon="cancel" 
+              variant={ButtonVariant.RED}
               style={styles.cancelButton} 
             />
             <Button
               onPress={onConfirm}
               text="CONFIRMAR"
               icon="logout"
+              variant={ButtonVariant.GREEN}
               style={styles.confirmButton}
             />
           </View>
@@ -156,20 +158,8 @@ const styles = StyleSheet.create({
   },
   cancelButton: {
     flex: 1,
-    borderWidth: 1,
-    backgroundColor: Colors.purpura,
-    borderTopColor: Colors.rojoClaro,
-    borderLeftColor: Colors.rojoClaro,
-    borderBottomColor: Colors.rojoOscuro,
-    borderRightColor: Colors.rojoOscuro,
   },
   confirmButton: {
     flex: 1,
-    borderWidth: 1,
-    backgroundColor: Colors.purpura,
-    borderTopColor: Colors.verdeClaro,
-    borderLeftColor: Colors.verdeClaro,
-    borderBottomColor: Colors.verdeOscuro,
-    borderRightColor: Colors.verdeOscuro,
   },
 }); 
