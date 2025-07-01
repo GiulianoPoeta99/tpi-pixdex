@@ -1,15 +1,14 @@
 import { ResetPasswordScreen } from '@/src/auth/screens/ResetPasswordScreen';
 
 /**
- * Pantalla de reset de contraseña para la aplicación.
- * Renderiza el componente ResetPasswordScreen que maneja el envío de emails de reset.
+ * Pantalla de restablecimiento de contraseña.
+ * Renderiza el componente ResetPasswordScreen que permite a los usuarios
+ * solicitar el restablecimiento de su contraseña mediante email.
  *
  * @component
- * @returns {JSX.Element} Pantalla de reset de contraseña.
+ * @returns {JSX.Element} Pantalla de restablecimiento de contraseña.
  *
  * @example
  * <ResetPasswordScreen />
  */
-export default function ResetPasswordPage() {
-  return <ResetPasswordScreen />;
-}
+export default ResetPasswordScreen

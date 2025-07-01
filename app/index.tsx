@@ -1,7 +1,9 @@
 import { HomeScreen } from '@/src/home/screens/HomeScreen';
 
 /**
- * Página principal de la aplicación. Renderiza la pantalla de inicio.
+ * Pantalla principal de la aplicación.
+ * Renderiza el componente HomeScreen que muestra el dashboard principal
+ * con las opciones de navegación y funcionalidades disponibles.
  *
  * @component
  * @returns {JSX.Element} Pantalla principal (Home).

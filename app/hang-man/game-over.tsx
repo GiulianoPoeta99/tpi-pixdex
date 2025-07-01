@@ -1,7 +1,9 @@
 import { GameOverScreen } from '@/src/hang-man/screens/GameOverScreen';
 
 /**
- * Página de fin de juego del ahorcado.
+ * Pantalla de fin de juego del ahorcado.
+ * Renderiza el componente GameOverScreen que muestra el resultado final
+ * del juego y permite al jugador reiniciar o volver al menú principal.
  *
  * @component
  * @returns {JSX.Element} Pantalla de fin de juego del ahorcado.

@@ -4,8 +4,9 @@ import { useLocalSearchParams } from 'expo-router';
 type DetailRouteParams = { audioVisualId: string };
 
 /**
- * Página de detalle para un contenido audiovisual.
- * Obtiene el parámetro de la ruta y renderiza la pantalla de detalle.
+ * Pantalla de detalle para un contenido audiovisual.
+ * Obtiene el ID del contenido desde los parámetros de la ruta y renderiza
+ * la pantalla de detalle con la información específica del contenido.
  *
  * @component
  * @returns {JSX.Element} Pantalla de detalle del contenido audiovisual.
