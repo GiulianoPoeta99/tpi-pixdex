@@ -220,8 +220,6 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
   // Suscribirse a cambios en tiempo real del scoreboard
   useEffect(() => {
     const unsubscribe = PlayersService.subscribeToChanges((payload: any) => {
-      console.log('Players changed:', payload);
-
       // En lugar de recargar toda la lista, actualizar solo el cambio específico
       if (payload.eventType === 'INSERT') {
         // Agregar nuevo jugador
@@ -261,6 +259,13 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
       unsubscribe();
     };
   }, []);
+
+  // Recargar jugadores cuando el usuario se autentique
+  useEffect(() => {
+    if (user && isInitialized) {
+      loadPlayers();
+    }
+  }, [user, isInitialized]);
 
   const getContenidoById = (id: number) => {
     return contenidos.find(item => item.id === id);

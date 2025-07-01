@@ -1,82 +1,149 @@
-# Welcome to your Expo app 👋
+# TPI-TNT - Aplicación de Hangman con Scoreboard
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Aplicación React Native con Expo que incluye un juego de Hangman y un scoreboard en tiempo real usando Supabase.
 
-## Get started
+## 🚀 Características
 
-1. Install dependencies
+- ✅ Juego de Hangman completo
+- ✅ Scoreboard en tiempo real
+- ✅ Autenticación con Supabase
+- ✅ OAuth (Google, GitHub, Discord)
+- ✅ Verificación de email
+- ✅ Actualizaciones en tiempo real
 
-   ```bash
-   npm install
-   ```
+## 📋 Requisitos
 
-2. Configure environment variables
+- Node.js 18+
+- Expo CLI
+- Cuenta de Supabase
 
-   ```bash
-   # Copy the example environment file
-   cp .env.sample .env
+## 🛠️ Instalación
 
-   # Edit .env and add your configuration values
-   # - EXPO_PUBLIC_SUPABASE_URL: Your Supabase project URL
-   # - EXPO_PUBLIC_SUPABASE_ANON_KEY: Your Supabase anonymous key
-   # - EXPO_PUBLIC_API_URL: Your API base URL (default: http://localhost:8081)
-   ```
-
-3. Start the app
-
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Environment Configuration
-
-The application uses environment variables for configuration. The following variables are available:
-
-- `EXPO_PUBLIC_SUPABASE_URL`: URL of your Supabase project
-- `EXPO_PUBLIC_SUPABASE_ANON_KEY`: Anonymous key for Supabase authentication
-- `EXPO_PUBLIC_API_URL`: Base URL for API calls (defaults to `http://localhost:8081`)
-
-These variables are automatically loaded from the `.env` file and are accessible throughout the application.
-
-## API Integration
-
-The application includes a modular HTTP service for API calls:
-
-- **HttpService**: Centralized HTTP client with error handling and type safety
-- **API Constants**: Centralized API URLs and endpoints configuration
-- **Service Classes**: Modular services for different data types (ContenidosService, GenerosService, etc.)
-
-All API calls include fallback to local data if the API is unavailable.
-
-## Get a fresh project
-
-When you're ready, run:
+### 1. Clonar el repositorio
 
 ```bash
-npm run reset-project
+git clone <url-del-repositorio>
+cd tpi-tnt
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+### 2. Instalar dependencias
 
-## Learn more
+```bash
+npm install
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+### 3. Configurar variables de entorno
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+```bash
+cp .env.example .env
+```
 
-## Join the community
+Editar `.env` con tus credenciales de Supabase:
 
-Join our community of developers creating universal apps.
+```env
+EXPO_PUBLIC_SUPABASE_URL=https://tu-proyecto.supabase.co
+EXPO_PUBLIC_SUPABASE_ANON_KEY=tu-anon-key-aqui
+```
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+### 4. Configurar Supabase
+
+#### Crear proyecto en Supabase
+
+1. Ve a [https://supabase.com](https://supabase.com)
+2. Crea un nuevo proyecto
+3. Anota la URL y anon key
+
+#### Ejecutar migración
+
+1. Ve al **SQL Editor** de Supabase
+2. Ejecuta el archivo `migrations/001_initial_schema.sql`
+3. Verifica que todas las verificaciones finales sean exitosas
+
+#### Configurar autenticación
+
+1. En **Authentication > Providers**, habilita los que necesites
+2. Agrega URLs de redirección:
+
+   ```txt
+   exp://localhost:8081
+   exp://192.168.1.100:8081
+   ```
+
+#### Habilitar Realtime
+
+1. Ve a **Database > Tables > players**
+2. En la pestaña **Realtime**, activa el toggle
+
+### 5. Ejecutar la aplicación
+
+```bash
+expo start
+```
+
+## 🎮 Uso
+
+1. **Registrarse/Iniciar sesión** con email o OAuth
+2. **Verificar email** (requerido para jugar)
+3. **Ir al Hangman** desde el menú principal
+4. **Ingresar nombre de jugador** y comenzar a jugar
+5. **Ver scoreboard** que se actualiza en tiempo real
+
+## 📊 Estructura de la base de datos
+
+### Tabla `players`
+
+| Columna    | Tipo                | Descripción           |
+|------------|---------------------|----------------------|
+| id         | SERIAL PRIMARY KEY  | ID único              |
+| name       | VARCHAR(255) UNIQUE | Nombre del jugador    |
+| score      | INTEGER DEFAULT 0   | Puntaje               |
+| user_id    | UUID                | ID del usuario        |
+| created_at | TIMESTAMP           | Fecha de creación     |
+| updated_at | TIMESTAMP           | Fecha de actualización|
+
+## 🔧 Solución de problemas
+
+### Scoreboard no muestra todos los jugadores
+
+- Verifica que las políticas RLS estén configuradas correctamente
+- Ejecuta nuevamente la migración si es necesario
+- Limpia la cache de la aplicación: `expo start --clear`
+
+### Error de autenticación
+
+- Verifica las credenciales en `.env`
+- Confirma que las URLs de redirección estén configuradas
+- Revisa que el email esté verificado
+
+### Realtime no funciona
+
+- Verifica que Realtime esté habilitado en la tabla `players`
+- Confirma que las políticas permitan lectura
+
+## 📁 Estructura del proyecto
+
+```tree
+src/
+├── hang-man/          # Juego de Hangman
+├── shared/            # Componentes y servicios compartidos
+│   ├── components/    # Componentes reutilizables
+│   ├── context/       # Contextos de React
+│   ├── services/      # Servicios de API
+│   └── config/        # Configuración
+└── home/              # Pantalla principal
+
+migrations/
+└── 001_initial_schema.sql  # Migración inicial de Supabase
+```
+
+## 🤝 Contribuir
+
+1. Fork el proyecto
+2. Crea una rama para tu feature
+3. Commit tus cambios
+4. Push a la rama
+5. Abre un Pull Request
+
+## 📄 Licencia
+
+Este proyecto está bajo la Licencia MIT.
