@@ -1,14 +1,14 @@
-import { LoginRegisterScreen } from '@/src/auth/screens/LoginRegisterScreen';
+import { LoginScreen } from '@/src/auth/screens/LoginScreen';
 
 /**
- * Pantalla de autenticación (login/registro) para la aplicación.
- * Renderiza el componente LoginRegisterScreen que permite a los usuarios
- * iniciar sesión o crear una nueva cuenta en la aplicación.
+ * Pantalla de autenticación (login) para la aplicación.
+ * Renderiza el componente LoginScreen que permite a los usuarios
+ * iniciar sesión en la aplicación.
  *
  * @component
  * @returns {JSX.Element} Pantalla de autenticación.
  *
  * @example
- * <LoginRegisterScreen />
+ * <LoginScreen />
  */
-export default LoginRegisterScreen;
+export default LoginScreen;
