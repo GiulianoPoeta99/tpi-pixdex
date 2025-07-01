@@ -92,14 +92,14 @@ expo start
 
 ### Tabla `players`
 
-| Columna    | Tipo                | Descripción           |
-|------------|---------------------|----------------------|
-| id         | SERIAL PRIMARY KEY  | ID único              |
-| name       | VARCHAR(255) UNIQUE | Nombre del jugador    |
-| score      | INTEGER DEFAULT 0   | Puntaje               |
-| user_id    | UUID                | ID del usuario        |
-| created_at | TIMESTAMP           | Fecha de creación     |
-| updated_at | TIMESTAMP           | Fecha de actualización|
+| Columna    | Tipo                | Descripción            |
+| ---------- | ------------------- | ---------------------- |
+| id         | SERIAL PRIMARY KEY  | ID único               |
+| name       | VARCHAR(255) UNIQUE | Nombre del jugador     |
+| score      | INTEGER DEFAULT 0   | Puntaje                |
+| user_id    | UUID                | ID del usuario         |
+| created_at | TIMESTAMP           | Fecha de creación      |
+| updated_at | TIMESTAMP           | Fecha de actualización |
 
 ## 🔧 Solución de problemas
 

@@ -11,4 +11,4 @@ import { LoginRegisterScreen } from '@/src/auth/screens/LoginRegisterScreen';
  * @example
  * <LoginRegisterScreen />
  */
-export default LoginRegisterScreen
+export default LoginRegisterScreen;

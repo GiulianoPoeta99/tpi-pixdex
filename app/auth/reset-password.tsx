@@ -11,4 +11,4 @@ import { ResetPasswordScreen } from '@/src/auth/screens/ResetPasswordScreen';
  * @example
  * <ResetPasswordScreen />
  */
-export default ResetPasswordScreen
+export default ResetPasswordScreen;
