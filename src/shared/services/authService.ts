@@ -147,4 +147,26 @@ export class AuthService {
       data.subscription.unsubscribe();
     };
   }
+
+  /**
+   * Envía un email de reset de contraseña al usuario.
+   * @param {string} email - Email del usuario.
+   * @returns {Promise<{ error: AuthError | null }>} Error si ocurre alguno.
+   * @throws {Error} Si hay un error en el proceso de reset.
+   * 
+   * @example
+   * const { error } = await AuthService.resetPassword('usuario@ejemplo.com');
+   */
+  static async resetPassword(email: string): Promise<{ error: AuthError | null }> {
+    try {
+      const { error } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: 'exp://localhost:8081/auth/reset-password',
+      });
+
+      return { error };
+    } catch (error) {
+      console.error('Error en resetPassword:', error);
+      throw new Error('Error al enviar email de reset de contraseña');
+    }
+  }
 } 

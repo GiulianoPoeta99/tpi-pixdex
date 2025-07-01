@@ -1,7 +1,7 @@
 import { TextPressStart2P } from "@/src/shared/components/TextPressStart2P";
 import { ITopPlayer } from "@/src/shared/config/supabase";
 import { Colors } from "@/src/shared/constants/Colors";
-import React, { FC } from "react";
+import React, { FC, useMemo } from "react";
 import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
 
 /**
@@ -37,21 +37,28 @@ export const Scoreboard: FC<ScoreboardProps> = ({
   loading,
   error,
 }) => {
-  const sortedPlayers = React.useMemo(() => {
+  const sortedPlayers = useMemo(() => {
     return [...players].sort((a, b) => b.score - a.score);
   }, [players]);
+
+  // Mostrar loading solo si no hay datos y está cargando
+  const showLoading = loading && players.length === 0;
+  
+  // Mostrar error solo si no hay datos y hay error
+  const showError = error && players.length === 0;
 
   return (
     <View style={styles.scoreboardContainer}>
       <TextPressStart2P style={styles.topPlayersTitle}>
         Top Players
       </TextPressStart2P>
-      {loading ? (
+      
+      {showLoading ? (
         <View style={styles.loadingContainer}>
           <ActivityIndicator size="large" color={Colors.purpura} />
           <Text style={styles.loadingText}>Cargando...</Text>
         </View>
-      ) : error ? (
+      ) : showError ? (
         <View style={styles.errorContainer}>
           <Text style={styles.errorText}>Error: {error}</Text>
         </View>

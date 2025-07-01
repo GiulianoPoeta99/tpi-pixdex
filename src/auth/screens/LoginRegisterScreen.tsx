@@ -5,13 +5,13 @@ import { useAuth } from '@/src/shared/context/AuthContext';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import {
-    Alert,
-    Platform,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TextInput,
-    View,
+  Alert,
+  Platform,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -196,6 +196,14 @@ export const LoginRegisterScreen = () => {
               textStyle={{ fontSize: Platform.OS === 'web' ? 16 : 12 }}
             />
 
+            {isLogin && (
+              <View style={styles.forgotPasswordContainer}>
+                <Text style={styles.forgotPasswordLink} onPress={() => router.push('/auth/reset-password' as any)}>
+                  ¿Olvidaste tu contraseña?
+                </Text>
+              </View>
+            )}
+
             <View style={styles.divider}>
               <View style={styles.dividerLine} />
               <Text style={styles.dividerText}>O</Text>
@@ -266,21 +274,19 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   label: {
-    color: Colors.verde,
+    color: Colors.purpura,
     fontSize: 16,
     marginBottom: 8,
     fontFamily: 'System',
     fontWeight: '600',
   },
   input: {
-    backgroundColor: Colors.grisOscuro,
     borderWidth: 2,
-    borderColor: Colors.gris,
-    borderRadius: 8,
+    borderColor: Colors.purpura,
     padding: 15,
     color: '#FFF',
     fontSize: 16,
-    fontFamily: 'System',
+    marginBottom: 10,
   },
   errorContainer: {
     backgroundColor: Colors.rojo + '20',
@@ -332,6 +338,19 @@ const styles = StyleSheet.create({
   switchLink: {
     color: Colors.verde,
     fontSize: 16,
+    fontFamily: 'System',
+    fontWeight: '600',
+    textDecorationLine: 'underline',
+  },
+  forgotPasswordContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 15,
+  },
+  forgotPasswordLink: {
+    color: Colors.verde,
+    fontSize: 14,
     fontFamily: 'System',
     fontWeight: '600',
     textDecorationLine: 'underline',

@@ -1,9 +1,9 @@
+import { ITipoContenidoAudiovisual } from "@/database/tiposContenidoAudiovisual";
 import React from "react";
 import { ScrollView, StyleSheet } from "react-native";
-import { ITipoContenidoAudiovisual } from "@/database/tiposContenidoAudiovisual";
-import { HomeHeader } from "./HomeHeader";
-import { GameButtonsContainer } from "./GameButtonsContainer";
 import { ContentListsContainer } from "./ContentListsContainer";
+import { GameButtonsContainer } from "./GameButtonsContainer";
+import { HomeHeader } from "./HomeHeader";
 
 /**
  * Propiedades para el componente HomeContent.

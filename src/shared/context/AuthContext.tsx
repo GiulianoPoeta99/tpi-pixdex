@@ -13,6 +13,7 @@ import { AuthService } from '../services/authService';
  * @property {(email: string, password: string) => Promise<void>} signIn - Inicia sesión con email y contraseña.
  * @property {(provider: 'google' | 'github' | 'discord') => Promise<void>} signInWithOAuth - Inicia sesión con OAuth.
  * @property {() => Promise<void>} signOut - Cierra la sesión del usuario.
+ * @property {(email: string) => Promise<void>} resetPassword - Envía email de reset de contraseña.
  */
 interface AuthContextType {
   user: User | null;
@@ -23,6 +24,7 @@ interface AuthContextType {
   signIn: (email: string, password: string) => Promise<void>;
   signInWithOAuth: (provider: 'google' | 'github' | 'discord') => Promise<void>;
   signOut: () => Promise<void>;
+  resetPassword: (email: string) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -205,6 +207,32 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
+  /**
+   * Envía un email de reset de contraseña al usuario.
+   * @param {string} email - Email del usuario.
+   * @returns {Promise<void>}
+   * @throws {Error} Si hay un error en el proceso de reset.
+   */
+  const resetPassword = async (email: string): Promise<void> => {
+    try {
+      setLoading(true);
+      setError(null);
+
+      const { error } = await AuthService.resetPassword(email);
+
+      if (error) {
+        setError(error.message);
+        throw new Error(error.message);
+      }
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : 'Error desconocido';
+      setError(errorMessage);
+      throw error;
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const value: AuthContextType = {
     user,
     session,
@@ -214,6 +242,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     signIn,
     signInWithOAuth,
     signOut,
+    resetPassword,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

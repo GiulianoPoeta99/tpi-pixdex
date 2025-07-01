@@ -2,7 +2,11 @@ import { Button } from "@/src/shared/components/Button";
 import { TextPressStart2P } from "@/src/shared/components/TextPressStart2P";
 import { Colors } from "@/src/shared/constants/Colors";
 import { useAuth } from "@/src/shared/context/AuthContext";
+import { useEmailVerification } from "@/src/shared/hooks/useEmailVerification";
+import { MaterialIcons } from "@expo/vector-icons";
+import React, { useState } from "react";
 import { Platform, StyleSheet, View } from "react-native";
+import { LogoutConfirmModal } from "./LogoutConfirmModal";
 
 /**
  * Altura del encabezado principal de la pantalla de inicio, ajustada según la plataforma.
@@ -33,6 +37,8 @@ interface HomeHeaderProps {
  */
 export const HomeHeader: React.FC<HomeHeaderProps> = ({ onFilterPress }) => {
   const { signOut, user } = useAuth();
+  const { isEmailVerified, isLoading } = useEmailVerification();
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
 
   /**
    * Maneja el logout del usuario.
@@ -45,21 +51,53 @@ export const HomeHeader: React.FC<HomeHeaderProps> = ({ onFilterPress }) => {
     }
   };
 
+  /**
+   * Abre el modal de confirmación de logout.
+   */
+  const openLogoutModal = () => {
+    setShowLogoutModal(true);
+  };
+
+  /**
+   * Cierra el modal de confirmación de logout.
+   */
+  const closeLogoutModal = () => {
+    setShowLogoutModal(false);
+  };
+
   return (
-    <View style={[styles.container, { height: HEADER_HEIGHT }]}>
-      <TextPressStart2P style={styles.logo}>Pixdex</TextPressStart2P>
-      <View style={styles.buttonContainer}>
-        <Button onPress={onFilterPress} icon="settings" text="FILTRAR" />
-        {user && (
-          <Button 
-            onPress={handleLogout} 
-            icon="logout" 
-            text="CUENTA" 
-            style={styles.accountButton}
-          />
-        )}
+    <>
+      <View style={[styles.container, { height: HEADER_HEIGHT }]}>
+        <View style={styles.logoContainer}>
+          <TextPressStart2P style={styles.logo}>Pixdex</TextPressStart2P>
+          {user && !isLoading && (
+            <MaterialIcons
+              name={isEmailVerified ? "check-circle" : "cancel"}
+              size={16}
+              color={isEmailVerified ? Colors.verde : Colors.rojo}
+              style={styles.verificationIcon}
+            />
+          )}
+        </View>
+        <View style={styles.buttonContainer}>
+          <Button onPress={onFilterPress} icon="settings" text="FILTRAR" />
+          {user && (
+            <Button 
+              onPress={openLogoutModal} 
+              icon="logout" 
+              text="CUENTA" 
+              style={styles.accountButton}
+            />
+          )}
+        </View>
       </View>
-    </View>
+      
+      <LogoutConfirmModal
+        visible={showLogoutModal}
+        onClose={closeLogoutModal}
+        onConfirm={handleLogout}
+      />
+    </>
   );
 };
 
@@ -76,9 +114,17 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "flex-start",
   },
+  logoContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+  },
   logo: {
     color: Colors.purpura,
     fontSize: Platform.OS === "web" ? 24 : 14,
+  },
+  verificationIcon: {
+    marginTop: 2,
   },
   buttonContainer: {
     flexDirection: "row",

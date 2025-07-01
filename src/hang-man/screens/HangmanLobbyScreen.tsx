@@ -1,16 +1,19 @@
 import { Button } from "@/src/shared/components/Button";
+import { EmailVerificationBanner } from "@/src/shared/components/EmailVerificationBanner";
 import { TextPressStart2P } from "@/src/shared/components/TextPressStart2P";
 import { Colors } from "@/src/shared/constants/Colors";
 import { useData } from "@/src/shared/context/DataContext";
+import { useEmailVerification } from "@/src/shared/hooks/useEmailVerification";
 import { useRouter } from "expo-router";
 import React, { useState } from "react";
-import { Platform, ScrollView, StyleSheet, Text, View } from "react-native";
+import { Alert, Platform, ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { PlayerNameModal, Scoreboard } from "../components";
 
 export const HangmanLobbyScreen = () => {
   const router = useRouter();
   const { players, loading, errors, doesPlayerExist } = useData();
+  const { isEmailVerified, isLoading: emailLoading, error: emailError } = useEmailVerification();
   const [modalVisible, setModalVisible] = useState(false);
 
   const handleStartGame = (playerName: string) => {
@@ -22,6 +25,17 @@ export const HangmanLobbyScreen = () => {
   };
 
   const openModal = () => {
+    if (!isEmailVerified) {
+      Alert.alert(
+        "Email No Verificado",
+        "Debes verificar tu email antes de poder jugar y guardar tus puntajes. Por favor, revisa tu bandeja de entrada y haz clic en el enlace de verificación.",
+        [
+          { text: "Entendido", style: "default" }
+        ]
+      );
+      return;
+    }
+
     setModalVisible(true);
   };
 
@@ -34,6 +48,13 @@ export const HangmanLobbyScreen = () => {
           text="BACK"
         />
       </View>
+      
+      <EmailVerificationBanner
+        isEmailVerified={isEmailVerified}
+        isLoading={emailLoading}
+        error={emailError}
+      />
+      
       <ScrollView style={styles.scrollContainer}>
         <View style={styles.mainContent}>
           <View style={styles.gameInfoContainer}>
@@ -49,6 +70,7 @@ export const HangmanLobbyScreen = () => {
               icon="play-arrow"
               text="START GAME"
               textStyle={{ fontSize: Platform.OS === "web" ? 17 : 10 }}
+              disabled={!isEmailVerified || emailLoading}
             />
             <Scoreboard
               players={players}

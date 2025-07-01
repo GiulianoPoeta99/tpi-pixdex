@@ -193,22 +193,48 @@ export class PlayersService {
    * });
    */
   static subscribeToChanges(callback: (payload: any) => void): () => void {
-    const subscription = supabase
-      .channel('players_changes')
-      .on(
-        'postgres_changes',
-        {
-          event: '*',
-          schema: 'public',
-          table: 'players'
-        },
-        callback
-      )
-      .subscribe();
+    try {
+      const subscription = supabase
+        .channel('players_changes')
+        .on(
+          'postgres_changes',
+          {
+            event: '*',
+            schema: 'public',
+            table: 'players'
+          },
+          (payload: any) => {
+            console.log('Players realtime event:', payload);
+            
+            // Normalizar el payload para manejar diferentes formatos
+            const normalizedPayload = {
+              eventType: payload.eventType || payload.event_type,
+              new: payload.new,
+              old: payload.old,
+              table: payload.table,
+              schema: payload.schema,
+              commit_timestamp: payload.commit_timestamp
+            };
+            
+            callback(normalizedPayload);
+          }
+        )
+        .subscribe((status) => {
+          console.log('Players subscription status:', status);
+        });
 
-    return () => {
-      subscription.unsubscribe();
-    };
+      return () => {
+        try {
+          subscription.unsubscribe();
+        } catch (error) {
+          console.error('Error unsubscribing from players changes:', error);
+        }
+      };
+    } catch (error) {
+      console.error('Error setting up players subscription:', error);
+      // Retornar función vacía en caso de error
+      return () => {};
+    }
   }
 
   /**

@@ -219,10 +219,42 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
 
   // Suscribirse a cambios en tiempo real del scoreboard
   useEffect(() => {
-    const unsubscribe = PlayersService.subscribeToChanges((payload) => {
+    const unsubscribe = PlayersService.subscribeToChanges((payload: any) => {
       console.log('Players changed:', payload);
-      // Recargar la lista de jugadores cuando hay cambios
-      loadPlayers();
+      
+      // En lugar de recargar toda la lista, actualizar solo el cambio específico
+      if (payload.eventType === 'INSERT') {
+        // Agregar nuevo jugador
+        setPlayers(prev => {
+          const newPlayer = payload.new;
+          if (!newPlayer) return prev;
+          
+          // Verificar si ya existe para evitar duplicados
+          const exists = prev.some(p => p.id === newPlayer.id);
+          if (!exists) {
+            return [...prev, newPlayer].sort((a, b) => b.score - a.score);
+          }
+          return prev;
+        });
+      } else if (payload.eventType === 'UPDATE') {
+        // Actualizar jugador existente
+        setPlayers(prev => {
+          const updatedPlayer = payload.new;
+          if (!updatedPlayer) return prev;
+          
+          return prev.map(p => 
+            p.id === updatedPlayer.id ? updatedPlayer : p
+          ).sort((a, b) => b.score - a.score);
+        });
+      } else if (payload.eventType === 'DELETE') {
+        // Eliminar jugador
+        setPlayers(prev => {
+          const deletedPlayerId = payload.old?.id;
+          if (!deletedPlayerId) return prev;
+          
+          return prev.filter(p => p.id !== deletedPlayerId);
+        });
+      }
     });
 
     return () => {
