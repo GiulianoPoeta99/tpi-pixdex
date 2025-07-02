@@ -48,7 +48,10 @@ export const AudioVisualCardExtended: React.FC<
   return (
     <View style={styles.container}>
       <View style={[styles.card, { width: CARD_WIDTH }]}>
-        <DetailImage uri={item.imageUrl?.toString()} placeholder={item.nombre} />
+        <DetailImage
+          uri={item.imageUrl?.toString()}
+          placeholder={item.nombre}
+        />
 
         <View style={styles.title}>
           <TextPressStart2P style={styles.titleText} numberOfLines={4}>

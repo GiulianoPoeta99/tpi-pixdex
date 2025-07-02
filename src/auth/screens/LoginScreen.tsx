@@ -5,13 +5,13 @@ import { useAuth } from '@/src/shared/context/AuthContext';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import {
-    Alert,
-    Platform,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TextInput,
-    View,
+  Alert,
+  Platform,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -190,9 +190,7 @@ export const LoginScreen = () => {
             </View>
 
             <View style={styles.switchContainer}>
-              <Text style={styles.switchText}>
-                ¿No tienes cuenta?
-              </Text>
+              <Text style={styles.switchText}>¿No tienes cuenta?</Text>
               <Text style={styles.switchLink} onPress={goToRegister}>
                 Regístrate
               </Text>
@@ -317,4 +315,4 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     textDecorationLine: 'underline',
   },
-}); 
+});

@@ -220,10 +220,10 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
   // Suscribirse a cambios en tiempo real del scoreboard
   useEffect(() => {
     console.log('🔔 Configurando suscripción en tiempo real para players...');
-    
+
     const unsubscribe = PlayersService.subscribeToChanges((payload: any) => {
       console.log('📡 Evento en tiempo real recibido:', payload);
-      
+
       // En lugar de recargar toda la lista, actualizar solo el cambio específico
       if (payload.eventType === 'INSERT') {
         // Agregar nuevo jugador
@@ -253,7 +253,12 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
             return prev;
           }
 
-          console.log('🔄 Actualizando jugador:', updatedPlayer.name, 'Score:', updatedPlayer.score);
+          console.log(
+            '🔄 Actualizando jugador:',
+            updatedPlayer.name,
+            'Score:',
+            updatedPlayer.score
+          );
           return prev
             .map(p => (p.id === updatedPlayer.id ? updatedPlayer : p))
             .sort((a, b) => b.score - a.score);

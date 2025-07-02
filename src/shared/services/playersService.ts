@@ -131,7 +131,9 @@ export class PlayersService {
           if (error) {
             // Detectar errores específicos de RLS
             if (error.message.includes('row-level security policy')) {
-              throw new Error('No tienes permisos para actualizar este jugador. Verifica que estés autenticado.');
+              throw new Error(
+                'No tienes permisos para actualizar este jugador. Verifica que estés autenticado.'
+              );
             }
             throw new Error(error.message);
           }
@@ -156,7 +158,9 @@ export class PlayersService {
         if (error) {
           // Detectar errores específicos de RLS
           if (error.message.includes('row-level security policy')) {
-            throw new Error('No tienes permisos para crear jugadores. Verifica que estés autenticado.');
+            throw new Error(
+              'No tienes permisos para crear jugadores. Verifica que estés autenticado.'
+            );
           }
           throw new Error(error.message);
         }
@@ -203,8 +207,10 @@ export class PlayersService {
    */
   static subscribeToChanges(callback: (payload: any) => void): () => void {
     try {
-      console.log('🔔 Iniciando suscripción en tiempo real para tabla players...');
-      
+      console.log(
+        '🔔 Iniciando suscripción en tiempo real para tabla players...'
+      );
+
       const subscription = supabase
         .channel('players_changes')
         .on(
@@ -231,9 +237,9 @@ export class PlayersService {
             callback(normalizedPayload);
           }
         )
-        .subscribe((status) => {
+        .subscribe(status => {
           console.log('📡 Estado de suscripción players:', status);
-          
+
           if (status === 'SUBSCRIBED') {
             console.log('✅ Suscripción a players activa');
           } else if (status === 'CHANNEL_ERROR') {
