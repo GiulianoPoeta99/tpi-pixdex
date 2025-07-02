@@ -1,5 +1,3 @@
-import { API_URLS } from '../constants/Api';
-
 /**
  * Configuración por defecto para las peticiones HTTP.
  * @constant
