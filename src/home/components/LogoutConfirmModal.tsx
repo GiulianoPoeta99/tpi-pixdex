@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   modalTitle: {
-    fontSize: Platform.OS === 'web' ? 20 : 16,
+    fontSize: Platform.OS === 'web' ? 20 : 10,
     color: '#FFF',
   },
   content: {
