@@ -219,27 +219,41 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
 
   // Suscribirse a cambios en tiempo real del scoreboard
   useEffect(() => {
+    console.log('🔔 Configurando suscripción en tiempo real para players...');
+    
     const unsubscribe = PlayersService.subscribeToChanges((payload: any) => {
+      console.log('📡 Evento en tiempo real recibido:', payload);
+      
       // En lugar de recargar toda la lista, actualizar solo el cambio específico
       if (payload.eventType === 'INSERT') {
         // Agregar nuevo jugador
         setPlayers(prev => {
           const newPlayer = payload.new;
-          if (!newPlayer) return prev;
+          if (!newPlayer) {
+            console.log('⚠️ Payload INSERT sin datos new');
+            return prev;
+          }
 
           // Verificar si ya existe para evitar duplicados
           const exists = prev.some(p => p.id === newPlayer.id);
           if (!exists) {
+            console.log('➕ Agregando nuevo jugador:', newPlayer.name);
             return [...prev, newPlayer].sort((a, b) => b.score - a.score);
+          } else {
+            console.log('⚠️ Jugador ya existe, no agregando duplicado');
+            return prev;
           }
-          return prev;
         });
       } else if (payload.eventType === 'UPDATE') {
         // Actualizar jugador existente
         setPlayers(prev => {
           const updatedPlayer = payload.new;
-          if (!updatedPlayer) return prev;
+          if (!updatedPlayer) {
+            console.log('⚠️ Payload UPDATE sin datos new');
+            return prev;
+          }
 
+          console.log('🔄 Actualizando jugador:', updatedPlayer.name, 'Score:', updatedPlayer.score);
           return prev
             .map(p => (p.id === updatedPlayer.id ? updatedPlayer : p))
             .sort((a, b) => b.score - a.score);
@@ -248,14 +262,21 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
         // Eliminar jugador
         setPlayers(prev => {
           const deletedPlayerId = payload.old?.id;
-          if (!deletedPlayerId) return prev;
+          if (!deletedPlayerId) {
+            console.log('⚠️ Payload DELETE sin datos old');
+            return prev;
+          }
 
+          console.log('🗑️ Eliminando jugador con ID:', deletedPlayerId);
           return prev.filter(p => p.id !== deletedPlayerId);
         });
+      } else {
+        console.log('❓ Evento desconocido:', payload.eventType);
       }
     });
 
     return () => {
+      console.log('🔕 Desuscribiendo de cambios en tiempo real...');
       unsubscribe();
     };
   }, []);
@@ -315,8 +336,8 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
       const userId = user?.id;
       await PlayersService.upsertPlayer(name, score, userId);
 
-      // Recargar la lista de jugadores para reflejar los cambios
-      await loadPlayers();
+      // No recargar la lista manualmente - la suscripción en tiempo real se encargará de esto
+      // await loadPlayers();
     } catch (error) {
       console.error('Error adding player score:', error);
       const errorMessage =

@@ -195,6 +195,8 @@ export class PlayersService {
    */
   static subscribeToChanges(callback: (payload: any) => void): () => void {
     try {
+      console.log('🔔 Iniciando suscripción en tiempo real para tabla players...');
+      
       const subscription = supabase
         .channel('players_changes')
         .on(
@@ -205,7 +207,7 @@ export class PlayersService {
             table: 'players',
           },
           (payload: any) => {
-            console.log('Players realtime event:', payload);
+            console.log('📡 Evento Realtime recibido:', payload);
 
             // Normalizar el payload para manejar diferentes formatos
             const normalizedPayload = {
@@ -217,15 +219,25 @@ export class PlayersService {
               commit_timestamp: payload.commit_timestamp,
             };
 
+            console.log('📦 Payload normalizado:', normalizedPayload);
             callback(normalizedPayload);
           }
         )
-        .subscribe(status => {
-          console.log('Players subscription status:', status);
+        .subscribe((status) => {
+          console.log('📡 Estado de suscripción players:', status);
+          
+          if (status === 'SUBSCRIBED') {
+            console.log('✅ Suscripción a players activa');
+          } else if (status === 'CHANNEL_ERROR') {
+            console.error('❌ Error en canal de suscripción players');
+          } else if (status === 'TIMED_OUT') {
+            console.warn('⏰ Timeout en suscripción players');
+          }
         });
 
       return () => {
         try {
+          console.log('🔕 Desuscribiendo de players...');
           subscription.unsubscribe();
         } catch (error) {
           console.error('Error unsubscribing from players changes:', error);
