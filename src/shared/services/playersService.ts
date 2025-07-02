@@ -129,6 +129,10 @@ export class PlayersService {
             .single();
 
           if (error) {
+            // Detectar errores específicos de RLS
+            if (error.message.includes('row-level security policy')) {
+              throw new Error('No tienes permisos para actualizar este jugador. Verifica que estés autenticado.');
+            }
             throw new Error(error.message);
           }
 
@@ -150,6 +154,10 @@ export class PlayersService {
           .single();
 
         if (error) {
+          // Detectar errores específicos de RLS
+          if (error.message.includes('row-level security policy')) {
+            throw new Error('No tienes permisos para crear jugadores. Verifica que estés autenticado.');
+          }
           throw new Error(error.message);
         }
 

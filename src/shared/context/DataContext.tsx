@@ -288,6 +288,14 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
     }
   }, [user, isInitialized]);
 
+  // Limpiar errores cuando el usuario se desloguea
+  useEffect(() => {
+    if (!user) {
+      // Limpiar errores de players cuando el usuario se desloguea
+      setErrors(prev => ({ ...prev, players: null }));
+    }
+  }, [user]);
+
   const getContenidoById = (id: number) => {
     return contenidos.find(item => item.id === id);
   };
@@ -330,6 +338,12 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
 
   const addPlayerScore = async (name: string, score: number) => {
     if (score === 0) return;
+
+    // Verificar si el usuario está autenticado
+    if (!user) {
+      console.log('⚠️ Usuario no autenticado, no se puede agregar puntaje');
+      return;
+    }
 
     try {
       // Usar el ID del usuario autenticado si está disponible

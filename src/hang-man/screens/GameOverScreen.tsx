@@ -1,6 +1,7 @@
 import { Button } from '@/src/shared/components/Button';
 import { TextPressStart2P } from '@/src/shared/components/TextPressStart2P';
 import { Colors } from '@/src/shared/constants/Colors';
+import { useAuth } from '@/src/shared/context/AuthContext';
 import { useData } from '@/src/shared/context/DataContext';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useEffect } from 'react';
@@ -10,6 +11,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 export const GameOverScreen = () => {
   const router = useRouter();
   const { addPlayerScore } = useData();
+  const { user } = useAuth();
   const { status, score, player } = useLocalSearchParams<{
     status: 'win' | 'lose';
     score: string;
@@ -20,10 +22,12 @@ export const GameOverScreen = () => {
   const finalScore = parseInt(score, 10);
 
   useEffect(() => {
-    if (player && finalScore > 0) {
+    if (user && player && finalScore > 0) {
       addPlayerScore(player, finalScore);
+    } else if (!user) {
+      console.log('⚠️ Usuario no autenticado, no se puede guardar puntaje');
     }
-  }, [player, finalScore, addPlayerScore]);
+  }, [player, finalScore, addPlayerScore, user]);
 
   const handlePlayAgain = () => {
     router.push({
