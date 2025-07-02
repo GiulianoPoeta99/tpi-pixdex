@@ -1,10 +1,10 @@
+import { IContenidoAudiovisual } from '@/database/contenidosAudiovisuales';
+import { ITipoContenidoAudiovisual } from '@/database/tiposContenidoAudiovisual';
 import { DetailImage } from '@/src/shared/components/DetailImage';
 import { GenerosList } from '@/src/shared/components/GenerosList';
 import { Tag } from '@/src/shared/components/Tag';
 import { TextPressStart2P } from '@/src/shared/components/TextPressStart2P';
 import { Colors } from '@/src/shared/constants/Colors';
-import { IContenidoAudiovisual } from '@/database/contenidosAudiovisuales';
-import { ITipoContenidoAudiovisual } from '@/database/tiposContenidoAudiovisual';
 import React from 'react';
 import {
   Platform,
@@ -48,7 +48,7 @@ export const AudioVisualCardExtended: React.FC<
   return (
     <View style={styles.container}>
       <View style={[styles.card, { width: CARD_WIDTH }]}>
-        <DetailImage uri={item.imageUrl} placeholder={item.nombre} />
+        <DetailImage uri={item.imageUrl?.toString()} placeholder={item.nombre} />
 
         <View style={styles.title}>
           <TextPressStart2P style={styles.titleText} numberOfLines={4}>
