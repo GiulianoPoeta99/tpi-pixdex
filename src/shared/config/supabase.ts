@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createClient } from '@supabase/supabase-js';
 import 'react-native-url-polyfill/auto';
 
@@ -11,21 +12,15 @@ const supabaseAnonKey =
   process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY || 'your-anon-key';
 
 /**
- * Configuración de almacenamiento segura para diferentes entornos
+ * Configuración de almacenamiento para Expo
+ * Usa AsyncStorage para persistir la sesión
  */
 const getStorageConfig = () => {
-  if (typeof window === 'undefined') {
-    return {
-      autoRefreshToken: true,
-      persistSession: false,
-      detectSessionInUrl: false,
-    };
-  }
-
   return {
     autoRefreshToken: true,
     persistSession: true,
     detectSessionInUrl: false,
+    storage: AsyncStorage,
   };
 };
 

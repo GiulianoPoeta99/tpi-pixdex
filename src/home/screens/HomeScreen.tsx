@@ -1,7 +1,7 @@
+import { ErrorState } from '@/src/shared/components/ErrorState';
+import { LoadingState } from '@/src/shared/components/LoadingState';
 import { Colors } from '@/src/shared/constants/Colors';
 import { useData } from '@/src/shared/context/DataContext';
-import { LoadingState } from '@/src/shared/components/LoadingState';
-import { ErrorState } from '@/src/shared/components/ErrorState';
 import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -37,22 +37,23 @@ export const HomeScreen = () => {
     genres: [],
   });
 
-  React.useEffect(() => {
-    if (tipos.length > 0 && filters.types.length === 0) {
-      setFilters(prev => ({
-        ...prev,
-        types: tipos.map(t => t.id),
-      }));
-    }
-  }, [tipos, filters.types.length]);
+  // Eliminar este useEffect para que el estado predeterminado sea sin filtros tildados
+  // React.useEffect(() => {
+  //   if (tipos.length > 0 && filters.types.length === 0) {
+  //     setFilters(prev => ({
+  //       ...prev,
+  //       types: tipos.map(t => t.id),
+  //     }));
+  //   }
+  // }, [tipos, filters.types.length]);
 
   const handleApplyFilters = (newFilters: Filters) => {
     setFilters(newFilters);
   };
 
-  const filteredContentTypes = tipos.filter(tipo =>
-    filters.types.includes(tipo.id)
-  );
+  const filteredContentTypes = filters.types.length === 0
+    ? tipos
+    : tipos.filter(tipo => filters.types.includes(tipo.id));
 
   if (!isInitialized || loading.tipos || loading.generos) {
     return (

@@ -18,6 +18,12 @@ export const GameOverScreen = () => {
     player: string;
   }>();
 
+  useEffect(() => {
+    if (!user) {
+      router.replace('/auth/login');
+    }
+  }, [user, router]);
+
   const isWin = status === 'win';
   const finalScore = parseInt(score, 10);
 

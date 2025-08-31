@@ -46,7 +46,7 @@ export const AudioVisualList: React.FC<AudioVisualListProps> = ({
       return contenidosAudiovisuales;
     }
     return contenidosAudiovisuales.filter(item =>
-      genreFilters.every(genreId => item.generos.includes(genreId))
+      genreFilters.some(genreId => item.generos.includes(genreId))
     );
   }, [contenidosAudiovisuales, genreFilters]);
 

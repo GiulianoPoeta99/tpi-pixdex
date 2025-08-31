@@ -80,10 +80,7 @@ export const LoginScreen = () => {
 
     try {
       await signIn(formData.email, formData.password);
-      // Navegar a la pantalla principal después de autenticación exitosa
-      router.replace('/');
     } catch (error) {
-      // El error ya se maneja en el contexto de autenticación
       console.error('Error en autenticación:', error);
     }
   };
@@ -95,7 +92,6 @@ export const LoginScreen = () => {
   const handleOAuthLogin = async (provider: 'google' | 'github') => {
     try {
       await signInWithOAuth(provider);
-      // La navegación se manejará automáticamente cuando se complete la autenticación
     } catch (error) {
       console.error(`Error en login con ${provider}:`, error);
     }

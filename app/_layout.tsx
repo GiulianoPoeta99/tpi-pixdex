@@ -7,7 +7,7 @@ import { View } from 'react-native';
 /**
  * Componente que maneja la navegación basada en el estado de autenticación.
  * Redirige automáticamente a los usuarios no autenticados a la pantalla de login
- * y configura las opciones de navegación para toda la aplicación.
+ * y a los usuarios autenticados a la pantalla principal, limpiando el stack de navegación.
  *
  * @component
  * @returns {JSX.Element} Navegación con protección de rutas.
@@ -20,10 +20,23 @@ const ProtectedNavigation = () => {
   const router = useRouter();
 
   useEffect(() => {
-    if (loading) return;
+    console.log('🧭 [NAV] Estado de navegación:', {
+      loading,
+      hasUser: !!user,
+      userEmail: user?.email
+    });
+
+    if (loading) {
+      console.log('⏳ [NAV] Aún cargando, esperando...');
+      return;
+    }
 
     if (!user) {
-      router.replace('/auth/login' as any);
+      console.log('🔒 [NAV] No hay usuario, redirigiendo a login');
+      router.replace('/auth/login');
+    } else {
+      console.log('🏠 [NAV] Usuario autenticado, redirigiendo a home');
+      router.replace('/');
     }
   }, [user, loading, router]);
 

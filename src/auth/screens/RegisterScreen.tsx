@@ -93,10 +93,7 @@ export const RegisterScreen = () => {
 
     try {
       await signUp(formData.email, formData.password);
-      // Navegar a la pantalla principal después de registro exitoso
-      router.replace('/');
     } catch (error) {
-      // El error ya se maneja en el contexto de autenticación
       console.error('Error en registro:', error);
     }
   };
@@ -108,7 +105,6 @@ export const RegisterScreen = () => {
   const handleOAuthRegister = async (provider: 'google' | 'github') => {
     try {
       await signInWithOAuth(provider);
-      // La navegación se manejará automáticamente cuando se complete la autenticación
     } catch (error) {
       console.error(`Error en registro con ${provider}:`, error);
     }

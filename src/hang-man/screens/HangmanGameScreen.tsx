@@ -1,18 +1,19 @@
-import { Colors } from '@/src/shared/constants/Colors';
-import { useData } from '@/src/shared/context/DataContext';
 import { IContenidoAudiovisual } from '@/database/contenidosAudiovisuales';
+import { Colors } from '@/src/shared/constants/Colors';
+import { useAuth } from '@/src/shared/context/AuthContext';
+import { useData } from '@/src/shared/context/DataContext';
 import { normalizeString } from '@/src/shared/utils/text';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useCallback, useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import {
-  KeyboardModal,
-  GuessTitleModal,
-  GameHeader,
-  GameArea,
-  LoadingState,
   ErrorState,
+  GameArea,
+  GameHeader,
+  GuessTitleModal,
+  KeyboardModal,
+  LoadingState,
 } from '../components';
 
 /**
@@ -33,8 +34,15 @@ const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
  */
 export const HangmanGameScreen = () => {
   const router = useRouter();
+  const { user } = useAuth();
   const { player } = useLocalSearchParams<{ player: string }>();
   const { contenidos, loading, errors, isInitialized } = useData();
+
+  useEffect(() => {
+    if (!user) {
+      router.replace('/auth/login');
+    }
+  }, [user, router]);
 
   const [currentWord, setCurrentWord] = useState<IContenidoAudiovisual | null>(
     null

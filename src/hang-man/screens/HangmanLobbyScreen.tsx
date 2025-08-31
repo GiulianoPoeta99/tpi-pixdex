@@ -2,10 +2,11 @@ import { Button } from '@/src/shared/components/Button';
 import { EmailVerificationBanner } from '@/src/shared/components/EmailVerificationBanner';
 import { TextPressStart2P } from '@/src/shared/components/TextPressStart2P';
 import { Colors } from '@/src/shared/constants/Colors';
+import { useAuth } from '@/src/shared/context/AuthContext';
 import { useData } from '@/src/shared/context/DataContext';
 import { useEmailVerification } from '@/src/shared/hooks/useEmailVerification';
 import { useRouter } from 'expo-router';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Alert,
   Platform,
@@ -19,6 +20,7 @@ import { PlayerNameModal, Scoreboard } from '../components';
 
 export const HangmanLobbyScreen = () => {
   const router = useRouter();
+  const { user } = useAuth();
   const { players, loading, errors, doesPlayerExist } = useData();
   const {
     isEmailVerified,
@@ -26,6 +28,12 @@ export const HangmanLobbyScreen = () => {
     error: emailError,
   } = useEmailVerification();
   const [modalVisible, setModalVisible] = useState(false);
+
+  useEffect(() => {
+    if (!user) {
+      router.replace('/auth/login');
+    }
+  }, [user, router]);
 
   const handleStartGame = (playerName: string) => {
     setModalVisible(false);
