@@ -117,17 +117,10 @@ export class AuthService {
     error: AuthError | null;
   }> {
     try {
-      console.log('🔍 [AUTH-SERVICE] Obteniendo sesión...');
       const { data, error } = await supabase.auth.getSession();
-      console.log('📋 [AUTH-SERVICE] Respuesta de getSession:', {
-        hasSession: !!data.session,
-        hasError: !!error,
-        userEmail: data.session?.user?.email || 'NONE',
-        sessionExpiresAt: data.session?.expires_at || 'NONE'
-      });
       return { session: data.session, error };
     } catch (error) {
-      console.log('💥 [AUTH-SERVICE] Error en getSession:', error);
+      console.error('Error en getSession:', error);
       return { session: null, error: error as AuthError };
     }
   }

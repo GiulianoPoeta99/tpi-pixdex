@@ -68,21 +68,17 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     // Obtener sesión inicial
     const getInitialSession = async () => {
       try {
-        console.log('🔄 [AUTH] Iniciando carga de sesión inicial...');
         const { session, error } = await AuthService.getSession();
         
         if (error) {
-          console.log('❌ [AUTH] Error cargando sesión:', error);
+          console.error('Error cargando sesión:', error);
         } else {
-          console.log('✅ [AUTH] Sesión cargada:', session ? 'SÍ' : 'NO');
-          console.log('👤 [AUTH] Usuario:', session?.user?.email || 'NONE');
           setSession(session);
           setUser(session?.user || null);
         }
       } catch (error) {
-        console.log('💥 [AUTH] Error inesperado:', error);
+        console.error('Error inesperado en getInitialSession:', error);
       } finally {
-        console.log('🏁 [AUTH] Finalizando carga inicial');
         setLoading(false);
       }
     };
@@ -91,8 +87,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
     // Suscribirse a cambios en el estado de autenticación
     const unsubscribe = AuthService.onAuthStateChange((event, session) => {
-      console.log('🔄 [AUTH] Auth state changed:', event);
-      console.log('👤 [AUTH] Usuario en evento:', session?.user?.email || 'NONE');
       setSession(session);
       setUser(session?.user || null);
       setLoading(false);

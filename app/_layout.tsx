@@ -20,22 +20,11 @@ const ProtectedNavigation = () => {
   const router = useRouter();
 
   useEffect(() => {
-    console.log('🧭 [NAV] Estado de navegación:', {
-      loading,
-      hasUser: !!user,
-      userEmail: user?.email
-    });
-
-    if (loading) {
-      console.log('⏳ [NAV] Aún cargando, esperando...');
-      return;
-    }
+    if (loading) return;
 
     if (!user) {
-      console.log('🔒 [NAV] No hay usuario, redirigiendo a login');
       router.replace('/auth/login');
     } else {
-      console.log('🏠 [NAV] Usuario autenticado, redirigiendo a home');
       router.replace('/');
     }
   }, [user, loading, router]);
